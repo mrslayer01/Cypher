@@ -1,0 +1,31 @@
+{
+  "id": "cypher",
+  "title": "Cypher System",
+  "description": "A system for Cypher.",
+  "version": "0.0.1",
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14",
+    "maximum": "14"
+  },
+  "authors": [{ "name": "Mrslayer01" }],
+  "template": "template.json",
+  "itemTypes": ["Equipment"],
+  "esmodules": ["scripts/main.js"],
+  "styles": ["styles/cypher.css"],
+  "socket": true,
+  "packs": [],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "download": "https://github.com/mrslayer01/Anima/archive/refs/tags/0.3.0.zip",
+  "manifest": "https://github.com/mrslayer01/Anima/releases/download/0.3.0/system.json",
+  "grid": {
+    "distance": 5,
+    "units": "ft"
+  }
+}

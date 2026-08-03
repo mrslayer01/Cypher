@@ -1,0 +1,10 @@
+{
+  "Actor": {
+    "types": ["Character"],
+    "Character": {}
+  },
+  "Item": {
+    "types": ["Equipment"],
+    "Equipment": {}
+  }
+}
