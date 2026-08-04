@@ -1,10 +1,27 @@
 {
   "Actor": {
-    "types": ["Character"],
-    "Character": {}
+    "types": ["Character", "NPC"],
+    "Character": {},
+    "NPC": {}
   },
   "Item": {
-    "types": ["Equipment"],
-    "Equipment": {}
+    "types": [
+      "Equipment",
+      "Skill",
+      "Special Ability",
+      "Attack",
+      "Cypher",
+      "Atrifact",
+      "Weapon",
+      "Armor"
+    ],
+    "Equipment": {},
+    "Skill": {},
+    "Special Ability": {},
+    "Attack": {},
+    "Cypher": {},
+    "Atrifact": {},
+    "Weapon": {},
+    "Armor": {}
   }
 }

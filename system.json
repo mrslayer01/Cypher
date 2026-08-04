@@ -25,7 +25,7 @@
   "download": "https://github.com/mrslayer01/Anima/archive/refs/tags/0.3.0.zip",
   "manifest": "https://github.com/mrslayer01/Anima/releases/download/0.3.0/system.json",
   "grid": {
-    "distance": 5,
-    "units": "ft"
+    "distance": 1.5,
+    "units": "m"
   }
 }
