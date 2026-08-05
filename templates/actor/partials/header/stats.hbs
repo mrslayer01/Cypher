@@ -1,0 +1,169 @@
+<div class="cypher-header-stats">
+    {{! MIGHT }}
+    <div class="stat-block">
+        <div class="stat-title">MIGHT</div>
+
+        <!-- Max -->
+        <div class="stat-max-display">
+            <div class="floating max">
+                <input type="number" name="system.core.pools.might.max" value="{{system.core.pools.might.max}}" />
+                <label>Max</label>
+            </div>
+        </div>
+
+        <!-- Current + Edge -->
+        <div class="stat-row">
+            <div class="floating pool">
+                <input type="number" name="system.core.pools.might.current" value="{{system.core.pools.might.current}}" />
+                <label>Pool</label>
+            </div>
+            <span class="stat-separator">|</span>
+            <div class="floating pool">
+                <input type="number" name="system.core.pools.might.edge.current" value="{{system.core.pools.might.edge.current}}" />
+                <label>Edge</label>
+            </div>
+        </div>
+        <!-- Defense -->
+        <div class="defense-row">
+            <div class="def-label">DEFENSE</div>
+
+            <div class="def-grid">
+                <div class="def-col">
+                <span class="def-letter">I</span>
+                <input type="radio" name="mightDefense" value="inability"
+                    {{#if system.core.pools.might.defense.inability}}checked{{/if}} />
+                </div>
+
+                <div class="def-col">
+                <span class="def-letter">P</span>
+                <input type="radio" name="mightDefense" value="practiced"
+                    {{#if system.core.pools.might.defense.practiced}}checked{{/if}} />
+                </div>
+
+                <div class="def-col">
+                <span class="def-letter">T</span>
+                <input type="radio" name="mightDefense" value="trained"
+                    {{#if system.core.pools.might.defense.trained}}checked{{/if}} />
+                </div>
+
+                <div class="def-col">
+                <span class="def-letter">S</span>
+                <input type="radio" name="mightDefense" value="specialized"
+                    {{#if system.core.pools.might.defense.specialized}}checked{{/if}} />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{! SPEED }}
+    <div class="stat-block">
+        <div class="stat-title">SPEED</div>
+
+        <!-- Max -->
+        <div class="stat-max-display">
+            <div class="floating max">
+                <input type="number" name="system.core.pools.speed.max" value="{{system.core.pools.speed.max}}" />
+                <label>Max</label>
+            </div>
+        </div>
+
+        <!-- Current + Edge -->
+        <div class="stat-row">
+            <div class="floating pool">
+                <input type="number" name="system.core.pools.speed.current" value="{{system.core.pools.speed.current}}" />
+                <label>Pool</label>
+            </div>
+            <span class="stat-separator">|</span>
+            <div class="floating pool">
+                <input type="number" name="system.core.pools.speed.edge.current" value="{{system.core.pools.speed.edge.current}}" />
+                <label>Edge</label>
+            </div>
+        </div>
+        <!-- Defense -->
+        <div class="defense-row">
+            <div class="def-label">DEFENSE</div>
+
+            <div class="def-grid">
+                <div class="def-col">
+                <span class="def-letter">I</span>
+                <input type="radio" name="speedDefense" value="inability"
+                    {{#if system.core.pools.speed.defense.inability}}checked{{/if}} />
+                </div>
+
+                <div class="def-col">
+                <span class="def-letter">P</span>
+                <input type="radio" name="speedDefense" value="practiced"
+                    {{#if system.core.pools.speed.defense.practiced}}checked{{/if}} />
+                </div>
+
+                <div class="def-col">
+                <span class="def-letter">T</span>
+                <input type="radio" name="speedDefense" value="trained"
+                    {{#if system.core.pools.speed.defense.trained}}checked{{/if}} />
+                </div>
+
+                <div class="def-col">
+                <span class="def-letter">S</span>
+                <input type="radio" name="speedDefense" value="specialized"
+                    {{#if system.core.pools.speed.defense.specialized}}checked{{/if}} />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{! INTELLECT }}
+    <div class="stat-block">
+        <div class="stat-title">INTELLECT</div>
+
+        <!-- Max -->
+        <div class="stat-max-display">
+            <div class="floating max">
+                <input type="number" name="system.core.pools.intellect.max" value="{{system.core.pools.intellect.max}}" />
+                <label>Max</label>
+            </div>
+        </div>
+
+        <!-- Current + Edge -->
+        <div class="stat-row">
+            <div class="floating pool">
+                <input type="number" name="system.core.pools.intellect.current" value="{{system.core.pools.intellect.current}}" />
+                <label>Pool</label>
+            </div>
+            <span class="stat-separator">|</span>
+            <div class="floating pool">
+                <input type="number" name="system.core.pools.intellect.edge.current" value="{{system.core.pools.intellect.edge.current}}" />
+                <label>Edge</label>
+            </div>
+        </div>
+        <!-- Defense -->
+        <div class="defense-row">
+            <div class="def-label">DEFENSE</div>
+
+            <div class="def-grid">
+                <div class="def-col">
+                <span class="def-letter">I</span>
+                <input type="radio" name="intellectDefense" value="inability"
+                    {{#if system.core.pools.intellect.defense.inability}}checked{{/if}} />
+                </div>
+
+                <div class="def-col">
+                <span class="def-letter">P</span>
+                <input type="radio" name="intellectDefense" value="practiced"
+                    {{#if system.core.pools.intellect.defense.practiced}}checked{{/if}} />
+                </div>
+
+                <div class="def-col">
+                <span class="def-letter">T</span>
+                <input type="radio" name="intellectDefense" value="trained"
+                    {{#if system.core.pools.intellect.defense.trained}}checked{{/if}} />
+                </div>
+
+                <div class="def-col">
+                <span class="def-letter">S</span>
+                <input type="radio" name="intellectDefense" value="specialized"
+                    {{#if system.core.pools.intellect.defense.specialized}}checked{{/if}} />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,9 +12,27 @@ export const DEFAULT_ACTOR_DATA = {
       uses: { oneAction: false, tenMinutes: false, oneHour: false, tenHours: false }
     },
     pools: {
-      might: { current: 10, max: 10, temp: 0, edge: { current: 0, temp: 0 } },
-      speed: { current: 10, max: 10, temp: 0, edge: { current: 0, temp: 0 } },
-      intellect: { current: 10, max: 10, temp: 0, edge: { current: 0, temp: 0 } }
+      might: {
+        current: 10,
+        max: 10,
+        temp: 0,
+        edge: { current: 0, temp: 0 },
+        defense: { inability: false, practiced: true, trained: false, specialized: false }
+      },
+      speed: {
+        current: 10,
+        max: 10,
+        temp: 0,
+        edge: { current: 0, temp: 0 },
+        defense: { inability: false, practiced: true, trained: false, specialized: false }
+      },
+      intellect: {
+        current: 10,
+        max: 10,
+        temp: 0,
+        edge: { current: 0, temp: 0 },
+        defense: { inability: false, practiced: true, trained: false, specialized: false }
+      }
     },
     skills: [],
     specialAbilities: [],

@@ -6,7 +6,7 @@ import { CypherActorSheet } from "./ui/cypher-actor-sheet.js";
 import { CypherItemSheet } from "./ui/cypher-item-sheet.js";
 import { loadAllActorHandlerbarsHelpers } from "./ui/handlebars-helpers.js";
 
-Hooks.once("init", function () {
+Hooks.once("init", async function () {
   console.log("Cypher System | Initializing cypher system");
   CONFIG.debug.compatibility = false;
 
@@ -14,7 +14,7 @@ Hooks.once("init", function () {
   CONFIG.Item.documentClass = CypherItem;
 
   loadAllActorHandlerbarsHelpers();
-  InitalizeAllActorPartials();
+  await InitalizeAllActorPartials();
   InitalizeAllItemPartials();
 
   foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);

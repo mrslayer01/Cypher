@@ -2,12 +2,16 @@ export const DEFAULT_ITEM_DATA = {
   description: "",
   notes: "",
   gmNotes: "",
-  price: { category: "None", cost: 0 }
+  price: { category: "None", cost: 0 },
+  quantity: 1
 };
 
 export const DEFAULT_SKILL_DATA = {
   skill: {
-    level: "Trained"
+    inability: false,
+    practiced: false,
+    trained: false,
+    specialized: false
   }
 };
 
