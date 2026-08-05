@@ -1,13 +1,8 @@
 export const DEFAULT_ITEM_DATA = {
   description: "",
   notes: "",
-  gmNotes: ""
-};
-
-export const DEFAULT_EQUIPMENT_DATA = {
-  equipment: {
-    price: { category: "None", cost: 0 }
-  }
+  gmNotes: "",
+  price: { category: "None", cost: 0 }
 };
 
 export const DEFAULT_SKILL_DATA = {
@@ -19,9 +14,41 @@ export const DEFAULT_SKILL_DATA = {
 export const DEFAULT_ABILITY_DATA = {
   ability: {
     category: "Attack",
-    tier: "Low",
     cost: { pool: "None", amount: 0 },
-    type: "Enabler"
+    type: "Enabler",
+    canUseEffort: false
+  }
+};
+
+export const DEFAULT_ATTACK_DATA = {
+  attack: { cost: { pool: "None", amount: 0 }, damage: { base: 0, bonus: 0 } }
+};
+
+export const DEFAULT_CYPHER_DATA = {
+  cypher: {
+    type: "Cypher",
+    level: { current: 0, roll: "1d6" },
+    effect: "",
+    table: "",
+    Form: "",
+    depletion: { amount: 1, formula: "1d20" }
+  }
+};
+
+export const DEFAULT_WEAPON_DATA = {
+  weapon: {
+    type: "Light",
+    attackMod: { eased: { amount: 0 } },
+    damage: { base: 0, bonus: 0 }
+  }
+};
+
+export const DEFAULT_ARMOR_DATA = {
+  armor: {
+    type: "Light",
+    shield: false,
+    mod: { pool: "Speed", extraEffort: 0 },
+    armor: { base: 0, bonus: 0 }
   }
 };
 
