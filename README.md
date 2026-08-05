@@ -1,2 +1,2 @@
-# My-Cypher-System
+# Cypher System
 My revision
