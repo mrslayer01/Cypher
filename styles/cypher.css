@@ -290,9 +290,7 @@ textarea {
 .cypher-header-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-top: 0.5rem;
-  padding: 0.75rem;
+  padding: 0.55rem;
   background: #1f222d;
   border: 1px solid var(--cypher-border);
   border-radius: 6px;

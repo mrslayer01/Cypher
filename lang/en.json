@@ -1,1 +1,10 @@
-{}
+{
+  "CYPHER.Immediate": "Immediate",
+  "CYPHER.Short": "Short",
+  "CYPHER.Long": "Long",
+  "CYPHER.VeryLong": "Very long",
+  "CYPHER.DistanceLabelCategory": "{category} ({distance} {unit})",
+  "CYPHER.DistanceLabel": "{distance} {unit}",
+  "CYPHER.UnitDistanceMeter": "meter",
+  "CYPHER.UnitDistanceFeet": "feet"
+}

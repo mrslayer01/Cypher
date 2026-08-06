@@ -1,3 +1,7 @@
-export function registerSheetListeners(sheet, html) {}
+import { HeaderListeners } from "./listeners/actor/header/header.js";
 
-export function registerItemSheetListeners(sheet, html) {}
+export function RegisterSheetListeners(sheet, html) {
+  HeaderListeners(sheet, html);
+}
+
+export function RegisterItemSheetListeners(sheet, html) {}
