@@ -1,6 +1,10 @@
+import { FullRest, ResetAllRecoveryUses, ResetPool } from "../../../../utils/helpers.js";
+import { OpenRecoveryDialog } from "../../../windows/recovery-dialog.js";
+
 export function HeaderListeners(sheet, html) {
   const actor = sheet.actor;
 
+  //#region Stat Listeners
   html
     .find("input[name='mightDefense']")
     .off("click")
@@ -57,4 +61,44 @@ export function HeaderListeners(sheet, html) {
 
       sheet.render(false);
     });
+
+  html
+    .find(".pool-reset")
+    .off("click")
+    .on("click", async (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      const pool = ev.currentTarget.dataset.pool;
+
+      await ResetPool(actor, pool);
+      //await FullRest(actor); // for testing
+      sheet.render(false);
+    });
+  //#endregion
+
+  //#region Recovery Listeners
+
+  html
+    .find(".recovery-reset")
+    .off("click")
+    .on("click", async (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      await ResetAllRecoveryUses(actor);
+      sheet.render(false);
+    });
+
+  html
+    .find(".recovery-roll")
+    .off("click")
+    .on("click", async (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      OpenRecoveryDialog(actor);
+    });
+
+  //#endregion
 }

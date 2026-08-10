@@ -1,13 +1,10 @@
 <div class="cypher-header">
-      <div class="cypher-header-portrait">
-        {{> character-portrait}}
-      </div>
-
-      {{!-- <div class="cypher-header-info">
-        {{> bio}}
-      </div> --}}
-
-      <div class="cypher-header-info">
+    {{> character-portrait}}
+    {{> bio}}
+    <div class="cypher-header-internal">
+        {{> extra}}
         {{> stats}}
-      </div>
+        {{> recovery}}
+        {{> damage-track}}
+    </div>
 </div>

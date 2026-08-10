@@ -1,13 +1,11 @@
 export const DEFAULT_ACTOR_DATA = {
-  bio: { description: "", notes: "", gmNotes: "", descriptor: "", type: "", focus: "" },
+  bio: { charatcerDescription: "", notes: "", gmNotes: "", descriptor: "", type: "", focus: "" },
   core: {
     tier: 1,
     effort: { current: 1, temp: 0 },
-    experience: { current: 0, temp: 0, total: 0 },
-    advancements: [],
-    damageTrack: { impared: false, debilitated: false },
-    removery: {
-      dice: "1d6",
+    experience: { current: 0, temp: 0, total: 0, advancements: [] },
+    damageTrack: { hale: false, impared: false, debilitated: false },
+    recovery: {
       modifier: 0,
       uses: { oneAction: false, tenMinutes: false, oneHour: false, tenHours: false }
     },

@@ -3,14 +3,57 @@
     {{> header}}
   </header>
 
-  <section class="sheet-body">
-    <div class="stat-block">
-      <label>
+    <nav class="sheet-tabs" data-group="primary">
+      <a class="item" data-tab="main">
+        Main
+      </a>
+      <a class="item" data-tab="advancements">
+        Advancements
+      </a>
+      <a class="item" data-tab="description">
         Description
-      </label>
-      <textarea name="system.bio.description">
-        {{system.bio.description}}
-      </textarea>
+      </a>
+    </nav>
+
+  <section class="sheet-body">
+    <div class="tab main" data-group="primary" data-tab="main">
+      <div class="cypher-body">
+
+      </div>
+    </div>
+
+    <div class="tab advancements" data-group="primary" data-tab="advancements">
+      <div class="cypher-advancements">
+
+      </div>
+    </div>
+
+    <div class="tab description" data-group="primary" data-tab="description">
+      <section>
+        <h3>
+          Description
+        </h3>
+
+        <div class="description-editor">
+          {{#if system.bio.charatcerDescription}}
+            {{editor
+              system.bio.charatcerDescription
+              target="system.bio.charatcerDescription"
+              button=true
+              editable=true
+              engine="prosemirror"
+            }}
+          {{else}}
+            {{editor
+              "<p class='placeholder'>Write your background here…</p>"
+              target="system.bio.charatcerDescription"
+              button=true
+              editable=true
+              engine="prosemirror"
+            }}
+          {{/if}}
+        </div>
+      </section>
     </div>
   </section>
 </form>

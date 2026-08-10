@@ -1,12 +1,16 @@
 <div class="cypher-header-stats">
     {{! MIGHT }}
     <div class="stat-block">
-        <div class="stat-title">MIGHT</div>
+        <div class="stat-title">MIGHT
+            <a class="pool-reset" data-pool="might" data-tooltip="Reset pool to max">
+                <i class="fa-item fas fa-sync"></i>
+            </a>
+        </div>
 
         <!-- Max -->
         <div class="stat-max-display">
             <div class="floating max">
-                <input type="number" name="system.core.pools.might.max" value="{{system.core.pools.might.max}}" />
+                <input type="number" name="system.core.pools.might.max" class="no-negative" value="{{system.core.pools.might.max}}" />
                 <label>Max</label>
             </div>
         </div>
@@ -14,12 +18,12 @@
         <!-- Current + Edge -->
         <div class="stat-row">
             <div class="floating pool">
-                <input type="number" name="system.core.pools.might.current" value="{{system.core.pools.might.current}}" />
+                <input type="number" name="system.core.pools.might.current" class="no-negative" value="{{system.core.pools.might.current}}" />
                 <label>Pool</label>
             </div>
             <span class="stat-separator">|</span>
             <div class="floating pool">
-                <input type="number" name="system.core.pools.might.edge.current" value="{{system.core.pools.might.edge.current}}" />
+                <input type="number" name="system.core.pools.might.edge.current" class="no-negative" value="{{system.core.pools.might.edge.current}}" />
                 <label>Edge</label>
             </div>
         </div>
@@ -34,6 +38,7 @@
                     type="radio"
                     name="mightDefense"
                     data-choice="inability"
+                    data-tooltip="Inability - Increases difficulty by 1 step."
                     {{#if system.core.pools.might.defense.inability}}checked{{/if}} />
                 </div>
 
@@ -43,6 +48,7 @@
                     type="radio"
                     name="mightDefense"
                     data-choice="practiced"
+                    data-tooltip="Practiced - No adjustments to difficulty."
                     {{#if system.core.pools.might.defense.practiced}}checked{{/if}} />
                 </div>
 
@@ -52,6 +58,7 @@
                     type="radio"
                     name="mightDefense"
                     data-choice="trained"
+                    data-tooltip="Trained - Decreases difficulty by 1 step."
                     {{#if system.core.pools.might.defense.trained}}checked{{/if}} />
                 </div>
 
@@ -61,6 +68,7 @@
                     type="radio"
                     name="mightDefense"
                     data-choice="specialized"
+                    data-tooltip="Specialized - Decreases difficulty by 2 steps."
                     {{#if system.core.pools.might.defense.specialized}}checked{{/if}} />
                 </div>
             </div>
@@ -69,12 +77,16 @@
 
     {{! SPEED }}
     <div class="stat-block">
-        <div class="stat-title">SPEED</div>
+        <div class="stat-title">SPEED 
+            <a class="pool-reset" data-pool="speed" data-tooltip="Reset pool to max">
+                <i class="fa-item fas fa-sync"></i>
+            </a>
+        </div>
 
         <!-- Max -->
         <div class="stat-max-display">
             <div class="floating max">
-                <input type="number" name="system.core.pools.speed.max" value="{{system.core.pools.speed.max}}" />
+                <input type="number" name="system.core.pools.speed.max" class="no-negative" value="{{system.core.pools.speed.max}}" />
                 <label>Max</label>
             </div>
         </div>
@@ -82,12 +94,12 @@
         <!-- Current + Edge -->
         <div class="stat-row">
             <div class="floating pool">
-                <input type="number" name="system.core.pools.speed.current" value="{{system.core.pools.speed.current}}" />
+                <input type="number" name="system.core.pools.speed.current" class="no-negative" value="{{system.core.pools.speed.current}}" />
                 <label>Pool</label>
             </div>
             <span class="stat-separator">|</span>
             <div class="floating pool">
-                <input type="number" name="system.core.pools.speed.edge.current" value="{{system.core.pools.speed.edge.current}}" />
+                <input type="number" name="system.core.pools.speed.edge.current" class="no-negative" value="{{system.core.pools.speed.edge.current}}" />
                 <label>Edge</label>
             </div>
         </div>
@@ -102,6 +114,7 @@
                     type="radio"
                     name="speedDefense"
                     data-choice="inability"
+                    data-tooltip="Inability - Increases difficulty by 1 step."
                     {{#if system.core.pools.speed.defense.inability}}checked{{/if}} />
                 </div>
 
@@ -111,6 +124,7 @@
                     type="radio"
                     name="speedDefense"
                     data-choice="practiced"
+                    data-tooltip="Practiced - No adjustments to difficulty."
                     {{#if system.core.pools.speed.defense.practiced}}checked{{/if}} />
                 </div>
 
@@ -120,6 +134,7 @@
                     type="radio"
                     name="speedDefense"
                     data-choice="trained"
+                    data-tooltip="Trained - Decreases difficulty by 1 step."
                     {{#if system.core.pools.speed.defense.trained}}checked{{/if}} />
                 </div>
 
@@ -129,6 +144,7 @@
                     type="radio"
                     name="speedDefense"
                     data-choice="specialized"
+                    data-tooltip="Specialized - Decreases difficulty by 2 steps."
                     {{#if system.core.pools.speed.defense.specialized}}checked{{/if}} />
                 </div>
             </div>
@@ -137,12 +153,16 @@
 
     {{! INTELLECT }}
     <div class="stat-block">
-        <div class="stat-title">INTELLECT</div>
+        <div class="stat-title">INTELLECT
+            <a class="pool-reset" data-pool="intellect" data-tooltip="Reset pool to max">
+                <i class="fa-item fas fa-sync"></i>
+            </a>
+        </div>
 
         <!-- Max -->
         <div class="stat-max-display">
             <div class="floating max">
-                <input type="number" name="system.core.pools.intellect.max" value="{{system.core.pools.intellect.max}}" />
+                <input type="number" name="system.core.pools.intellect.max" class="no-negative" value="{{system.core.pools.intellect.max}}" />
                 <label>Max</label>
             </div>
         </div>
@@ -150,12 +170,12 @@
         <!-- Current + Edge -->
         <div class="stat-row">
             <div class="floating pool">
-                <input type="number" name="system.core.pools.intellect.current" value="{{system.core.pools.intellect.current}}" />
+                <input type="number" name="system.core.pools.intellect.current" class="no-negative" value="{{system.core.pools.intellect.current}}" />
                 <label>Pool</label>
             </div>
             <span class="stat-separator">|</span>
             <div class="floating pool">
-                <input type="number" name="system.core.pools.intellect.edge.current" value="{{system.core.pools.intellect.edge.current}}" />
+                <input type="number" name="system.core.pools.intellect.edge.current" class="no-negative" value="{{system.core.pools.intellect.edge.current}}" />
                 <label>Edge</label>
             </div>
         </div>
@@ -170,6 +190,7 @@
                     type="radio"
                     name="intellectDefense"
                     data-choice="inability"
+                    data-tooltip="Inability - Increases difficulty by 1 step."
                     {{#if system.core.pools.intellect.defense.inability}}checked{{/if}} />
                 </div>
 
@@ -179,6 +200,7 @@
                     type="radio"
                     name="intellectDefense"
                     data-choice="practiced"
+                    data-tooltip="Practiced - No adjustments to difficulty."
                     {{#if system.core.pools.intellect.defense.practiced}}checked{{/if}} />
                 </div>
 
@@ -188,6 +210,7 @@
                     type="radio"
                     name="intellectDefense"
                     data-choice="trained"
+                    data-tooltip="Trained - Decreases difficulty by 1 step."
                     {{#if system.core.pools.intellect.defense.trained}}checked{{/if}} />
                 </div>
 
@@ -197,6 +220,7 @@
                     type="radio"
                     name="intellectDefense"
                     data-choice="specialized"
+                    data-tooltip="Specialized - Decreases difficulty by 2 steps."
                     {{#if system.core.pools.intellect.defense.specialized}}checked{{/if}} />
                 </div>
             </div>

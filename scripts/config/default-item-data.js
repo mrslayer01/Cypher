@@ -1,5 +1,5 @@
 export const DEFAULT_ITEM_DATA = {
-  description: "",
+  itemDescription: "",
   notes: "",
   gmNotes: "",
   price: { category: "None", cost: 0 },

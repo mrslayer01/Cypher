@@ -1,5 +1,13 @@
 export async function ActorHeaderPartials() {
-  const partials = ["bio", "character-portrait", "header", "stats"];
+  const partials = [
+    "bio",
+    "character-portrait",
+    "header",
+    "stats",
+    "extra",
+    "recovery",
+    "damage-track"
+  ];
 
   for (const p of partials) {
     const path = `systems/cypher/templates/actor/partials/header/${p}.hbs`;
