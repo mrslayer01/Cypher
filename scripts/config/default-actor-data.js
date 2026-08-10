@@ -4,7 +4,7 @@ export const DEFAULT_ACTOR_DATA = {
     tier: 1,
     effort: { current: 1, temp: 0 },
     experience: { current: 0, temp: 0, total: 0, advancements: [] },
-    damageTrack: { hale: false, impared: false, debilitated: false },
+    damageTrack: "hale",
     recovery: {
       modifier: 0,
       uses: { oneAction: false, tenMinutes: false, oneHour: false, tenHours: false }

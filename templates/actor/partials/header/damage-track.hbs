@@ -1,42 +1,37 @@
-<section class="recovery-rolls">
-  <label>
-    Recovery Rolls
-    <a class="recovery-reset" data-tooltip="Reset recovery uses">
-      <i class="fa-item fas fa-sync"></i>
-    </a>
-  </label>
-
-  <div class="recovery-top-row">
-    <a>
-      <i class="fa-thin fa-dice recovery-roll"></i>
-    </a>
-    <input type="number" name="system.core.recovery.modifier" value="{{system.core.recovery.modifier}}" />
+<section class="cypher-header-damage">
+  <div class="damage-top-row">
+    <span>
+      Damage Track
+      <a class="damage-reset" data-tooltip="Reset damage track">
+        <i class="fa-item fas fa-sync"></i>
+      </a>
+    </span>
   </div>
 
-  <div class="recovery-horizontal">
+  <div class="damage-horizontal">
+    <label>
+      <input type="radio" name="damageTrack" value="hale" {{checked (eq system.core.damageTrack "hale")}} />
+      Hale
+    </label>
+
+    <label>
+      <input type="radio" name="damageTrack" value="impaired" {{checked (eq system.core.damageTrack "impaired")}} />
+      Impaired
+    </label>
+
     <label>
       <input
-        type="checkbox"
-        name="system.core.recovery.uses.oneAction"
-        {{checked system.core.recovery.uses.oneAction}}
+        type="radio"
+        name="damageTrack"
+        value="debilitated"
+        {{checked (eq system.core.damageTrack "debilitated")}}
       />
-      One Action
+      Debilitated
     </label>
+
     <label>
-      <input
-        type="checkbox"
-        name="system.core.recovery.uses.tenMinutes"
-        {{checked system.core.recovery.uses.tenMinutes}}
-      />
-      Ten Minutes
-    </label>
-    <label>
-      <input type="checkbox" name="system.core.recovery.uses.oneHour" {{checked system.core.recovery.uses.oneHour}} />
-      One Hour
-    </label>
-    <label>
-      <input type="checkbox" name="system.core.recovery.uses.tenHours" {{checked system.core.recovery.uses.tenHours}} />
-      Ten Hours
+      <input type="radio" name="damageTrack" value="dead" {{checked (eq system.core.damageTrack "dead")}} />
+      Dead
     </label>
   </div>
 </section>

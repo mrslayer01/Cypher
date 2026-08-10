@@ -277,7 +277,7 @@ textarea {
   grid-column: 2;
 }
 
-.recovery-rolls {
+.cypher-header-recovery {
   display: flex;
   flex-direction: column;
   padding: 0.2rem;
@@ -288,12 +288,15 @@ textarea {
   gap: 1rem;
 }
 
-.cypher-header-damage-track {
+.cypher-header-damage {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem; /* spacing between each extra-cell */
-  width: 100%;
-  justify-content: center;
+  padding: 0.2rem;
+  justify-content: start;
+  border: 1px solid var(--cypher-border);
+  border-radius: 6px;
+  background: #1f222d;
+  gap: 1rem;
 }
 
 /* ============================================================
@@ -302,7 +305,7 @@ textarea {
 
 .cypher-header-internal {
   display: grid;
-  grid-template-columns: 70px auto 130px auto; /* xp | stats | damage | Recovery */
+  grid-template-columns: 70px auto 140px 150px; /* xp | stats | recovery | damage */
   grid-template-rows: 210px;
   gap: 0.75rem;
   padding: 0.75rem;
@@ -523,9 +526,8 @@ textarea {
    ============================================================ */
 
 /* Header */
-.recovery-rolls h3 {
+.cypher-header-recovery span {
   margin: 0;
-  font-size: 1.1rem;
   font-weight: 600;
   letter-spacing: 0.03em;
 }
@@ -572,11 +574,40 @@ textarea {
    Header Damage Track
    ============================================================ */
 
-.cypher-header-damage-track input {
-  padding: 4px 6px !important;
-  height: 40px !important;
-  font-size: 1.2rem;
-  text-align: center;
+/* Header */
+.cypher-header-damage span {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.cypher-header-damage input[type="radio"] {
+  display: inline-block;
+  transform: scale(1.4); /* increase size */
+  transform-origin: center; /* keep it centered */
+  margin-right: 0.5rem;
+}
+
+/* Top row: "1d6 + [modifier]" */
+.damage-top-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Horizontal checkbox row */
+.damage-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.damage-horizontal label {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  cursor: pointer;
 }
 
 /* ============================================================

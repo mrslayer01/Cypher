@@ -101,4 +101,21 @@ export function HeaderListeners(sheet, html) {
     });
 
   //#endregion
+
+  //#region Damage Track Listeners
+
+  html.find("input[name='damageTrack']").on("click", async (ev) => {
+    ev.preventDefault();
+    ev.stopPropagation();
+    ev.stopImmediatePropagation();
+
+    const value = ev.currentTarget.value;
+
+    await actor.update({
+      "system.core.damageTrack": value
+    });
+
+    sheet.render(false);
+  });
+  //#endregion
 }

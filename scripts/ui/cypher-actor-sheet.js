@@ -5,7 +5,7 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cypher-character-sheet", "cypher", "sheet", "actor"],
       template: "systems/cypher/templates/actor/character-sheet.hbs",
-      width: 910,
+      width: 880,
       height: 930,
       tabs: [
         {
