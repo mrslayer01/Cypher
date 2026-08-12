@@ -25,7 +25,7 @@ export const DEFAULT_ABILITY_DATA = {
 };
 
 export const DEFAULT_ATTACK_DATA = {
-  attack: { cost: { pool: "None", amount: 0 }, damage: { base: 0, bonus: 0 } }
+  attack: { cost: { pool: "might", amount: 0 }, damage: { base: 0, bonus: 0 } }
 };
 
 export const DEFAULT_CYPHER_DATA = {
@@ -42,7 +42,7 @@ export const DEFAULT_CYPHER_DATA = {
 export const DEFAULT_WEAPON_DATA = {
   weapon: {
     type: "Light",
-    attackMod: { eased: { amount: 0 } },
+    attack: { eased: { amount: 0 }, pool: "might" },
     damage: { base: 0, bonus: 0 }
   }
 };

@@ -5,14 +5,42 @@
     </h1>
   </header>
 
+  <nav class="sheet-tabs" data-group="primary">
+    <a class="item" data-tab="main">
+      Main
+    </a>
+    <a class="item" data-tab="description">
+      Description
+    </a>
+  </nav>
+
   <section class="sheet-body">
-    <div class="stat-block">
-      <label>
-        Description
-      </label>
-      <textarea name="system.bio.description">
-        {{system.description}}
-      </textarea>
+    <div class="tab description" data-group="primary" data-tab="description">
+      <section>
+        <h3>
+          Description
+        </h3>
+
+        <div class="description-editor">
+          {{#if system.itemDescription}}
+            {{editor
+              system.itemDescription
+              target="system.itemDescription"
+              button=true
+              editable=true
+              engine="prosemirror"
+            }}
+          {{else}}
+            {{editor
+              "<p class='placeholder'>Item Description</p>"
+              target="system.itemDescription"
+              button=true
+              editable=true
+              engine="prosemirror"
+            }}
+          {{/if}}
+        </div>
+      </section>
     </div>
   </section>
 </form>

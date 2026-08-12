@@ -1,11 +1,14 @@
 <div class="cypher-header-stats">
     {{! MIGHT }}
     <div class="stat-block">
-        <div class="stat-title">MIGHT
+        <span class="stat-title">
+            <a class="stat-roll" data-pool="might" data-tooltip="Might stat roll">
+                MIGHT
+            </a>
             <a class="pool-reset" data-pool="might" data-tooltip="Reset pool to max">
                 <i class="fa-item fas fa-sync"></i>
             </a>
-        </div>
+        </span>
 
         <!-- Max -->
         <div class="stat-max-display">
@@ -29,7 +32,7 @@
         </div>
         <!-- Defense -->
         <div class="defense-row">
-            <div class="def-label">DEFENSE</div>
+            <div class="def-label"><a class="defence-roll" data-pool="might" data-tooltip="Defense roll for Might">DEFENSE</a></div>
 
             <div class="def-grid">
                 <div class="def-col">
@@ -39,7 +42,7 @@
                     name="mightDefense"
                     data-choice="inability"
                     data-tooltip="Inability - Increases difficulty by 1 step."
-                    {{#if system.core.pools.might.defense.inability}}checked{{/if}} />
+                    {{#if system.core.pools.might.defense.inability.choice}}checked{{/if}} />
                 </div>
 
                 <div class="def-col">
@@ -49,7 +52,7 @@
                     name="mightDefense"
                     data-choice="practiced"
                     data-tooltip="Practiced - No adjustments to difficulty."
-                    {{#if system.core.pools.might.defense.practiced}}checked{{/if}} />
+                    {{#if system.core.pools.might.defense.practiced.choice}}checked{{/if}} />
                 </div>
 
                 <div class="def-col">
@@ -59,7 +62,7 @@
                     name="mightDefense"
                     data-choice="trained"
                     data-tooltip="Trained - Decreases difficulty by 1 step."
-                    {{#if system.core.pools.might.defense.trained}}checked{{/if}} />
+                    {{#if system.core.pools.might.defense.trained.choice}}checked{{/if}} />
                 </div>
 
                 <div class="def-col">
@@ -69,7 +72,7 @@
                     name="mightDefense"
                     data-choice="specialized"
                     data-tooltip="Specialized - Decreases difficulty by 2 steps."
-                    {{#if system.core.pools.might.defense.specialized}}checked{{/if}} />
+                    {{#if system.core.pools.might.defense.specialized.choice}}checked{{/if}} />
                 </div>
             </div>
         </div>
@@ -77,7 +80,10 @@
 
     {{! SPEED }}
     <div class="stat-block">
-        <div class="stat-title">SPEED 
+        <div class="stat-title">
+            <a class="stat-roll" data-pool="speed" data-tooltip="Speed stat roll">
+                SPEED
+            </a> 
             <a class="pool-reset" data-pool="speed" data-tooltip="Reset pool to max">
                 <i class="fa-item fas fa-sync"></i>
             </a>
@@ -105,7 +111,7 @@
         </div>
         <!-- Defense -->
         <div class="defense-row">
-            <div class="def-label">DEFENSE</div>
+            <div class="def-label"><a class="defence-roll" data-pool="speed" data-tooltip="Defense roll for Speed">DEFENSE</a></div>
 
             <div class="def-grid">
                 <div class="def-col">
@@ -115,7 +121,7 @@
                     name="speedDefense"
                     data-choice="inability"
                     data-tooltip="Inability - Increases difficulty by 1 step."
-                    {{#if system.core.pools.speed.defense.inability}}checked{{/if}} />
+                    {{#if system.core.pools.speed.defense.inability.choice}}checked{{/if}} />
                 </div>
 
                 <div class="def-col">
@@ -125,7 +131,7 @@
                     name="speedDefense"
                     data-choice="practiced"
                     data-tooltip="Practiced - No adjustments to difficulty."
-                    {{#if system.core.pools.speed.defense.practiced}}checked{{/if}} />
+                    {{#if system.core.pools.speed.defense.practiced.choice}}checked{{/if}} />
                 </div>
 
                 <div class="def-col">
@@ -135,7 +141,7 @@
                     name="speedDefense"
                     data-choice="trained"
                     data-tooltip="Trained - Decreases difficulty by 1 step."
-                    {{#if system.core.pools.speed.defense.trained}}checked{{/if}} />
+                    {{#if system.core.pools.speed.defense.trained.choice}}checked{{/if}} />
                 </div>
 
                 <div class="def-col">
@@ -145,7 +151,7 @@
                     name="speedDefense"
                     data-choice="specialized"
                     data-tooltip="Specialized - Decreases difficulty by 2 steps."
-                    {{#if system.core.pools.speed.defense.specialized}}checked{{/if}} />
+                    {{#if system.core.pools.speed.defense.specialized.choice}}checked{{/if}} />
                 </div>
             </div>
         </div>
@@ -153,7 +159,10 @@
 
     {{! INTELLECT }}
     <div class="stat-block">
-        <div class="stat-title">INTELLECT
+        <div class="stat-title">
+            <a class="stat-roll" data-pool="intellect" data-tooltip="Intellect stat roll">
+                INTELLECT
+            </a> 
             <a class="pool-reset" data-pool="intellect" data-tooltip="Reset pool to max">
                 <i class="fa-item fas fa-sync"></i>
             </a>
@@ -181,7 +190,7 @@
         </div>
         <!-- Defense -->
         <div class="defense-row">
-            <div class="def-label">DEFENSE</div>
+            <div class="def-label"><a class="defence-roll" data-pool="intellect" data-tooltip="Defense roll for Intellect">DEFENSE</a></div>
 
             <div class="def-grid">
                 <div class="def-col">
@@ -191,7 +200,7 @@
                     name="intellectDefense"
                     data-choice="inability"
                     data-tooltip="Inability - Increases difficulty by 1 step."
-                    {{#if system.core.pools.intellect.defense.inability}}checked{{/if}} />
+                    {{#if system.core.pools.intellect.defense.inability.choice}}checked{{/if}} />
                 </div>
 
                 <div class="def-col">
@@ -201,7 +210,7 @@
                     name="intellectDefense"
                     data-choice="practiced"
                     data-tooltip="Practiced - No adjustments to difficulty."
-                    {{#if system.core.pools.intellect.defense.practiced}}checked{{/if}} />
+                    {{#if system.core.pools.intellect.defense.practiced.choice}}checked{{/if}} />
                 </div>
 
                 <div class="def-col">
@@ -211,7 +220,7 @@
                     name="intellectDefense"
                     data-choice="trained"
                     data-tooltip="Trained - Decreases difficulty by 1 step."
-                    {{#if system.core.pools.intellect.defense.trained}}checked{{/if}} />
+                    {{#if system.core.pools.intellect.defense.trained.choice}}checked{{/if}} />
                 </div>
 
                 <div class="def-col">
@@ -221,7 +230,7 @@
                     name="intellectDefense"
                     data-choice="specialized"
                     data-tooltip="Specialized - Decreases difficulty by 2 steps."
-                    {{#if system.core.pools.intellect.defense.specialized}}checked{{/if}} />
+                    {{#if system.core.pools.intellect.defense.specialized.choice}}checked{{/if}} />
                 </div>
             </div>
         </div>

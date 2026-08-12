@@ -1,12 +1,10 @@
 <section class="cypher-header-damage">
-  <div class="damage-top-row">
-    <span>
-      Damage Track
-      <a class="damage-reset" data-tooltip="Reset damage track">
-        <i class="fa-item fas fa-sync"></i>
-      </a>
-    </span>
-  </div>
+  <span>
+    DAMAGE
+    <a class="damage-reset" data-tooltip="Reset damage track">
+      <i class="fa-item fas fa-sync"></i>
+    </a>
+  </span>
 
   <div class="damage-horizontal">
     <label>
@@ -14,12 +12,16 @@
       Hale
     </label>
 
-    <label>
+    <label
+      data-tooltip="Impaired is a wounded or injured state. When an impaired character applies Effort, it costs 1 extra point per level applied. For example, applying one level of Effort costs 4 points instead of 3, and applying two levels of Effort costs 7 points instead of 5. An impaired character ignores minor and major effect results on their rolls, and they don’t deal as much extra damage in combat with a special roll. In combat, a roll of 17 or higher deals only 1 additional point of damage."
+    >
       <input type="radio" name="damageTrack" value="impaired" {{checked (eq system.core.damageTrack "impaired")}} />
       Impaired
     </label>
 
-    <label>
+    <label
+      data-tooltip="Debilitated is a critically injured state. A debilitated character may not take any actions other than to move (probably crawl) no more than an immediate distance. If a debilitated character’s Speed Pool is 0, they can’t move at all. When a debilitated PC takes enough damage to reduce a stat Pool to 0, they are dead."
+    >
       <input
         type="radio"
         name="damageTrack"

@@ -15,21 +15,36 @@ export const DEFAULT_ACTOR_DATA = {
         max: 10,
         temp: 0,
         edge: { current: 0, temp: 0 },
-        defense: { inability: false, practiced: true, trained: false, specialized: false }
+        defense: {
+          inability: { choice: false, value: -1 },
+          practiced: { choice: true, value: 0 },
+          trained: { choice: false, value: 1 },
+          specialized: { choice: false, value: 2 }
+        }
       },
       speed: {
         current: 10,
         max: 10,
         temp: 0,
         edge: { current: 0, temp: 0 },
-        defense: { inability: false, practiced: true, trained: false, specialized: false }
+        defense: {
+          inability: { choice: false, value: -1 },
+          practiced: { choice: true, value: 0 },
+          trained: { choice: false, value: 1 },
+          specialized: { choice: false, value: 2 }
+        }
       },
       intellect: {
         current: 10,
         max: 10,
         temp: 0,
         edge: { current: 0, temp: 0 },
-        defense: { inability: false, practiced: true, trained: false, specialized: false }
+        defense: {
+          inability: { choice: false, value: -1 },
+          practiced: { choice: true, value: 0 },
+          trained: { choice: false, value: 1 },
+          specialized: { choice: false, value: 2 }
+        }
       }
     },
     skills: [],

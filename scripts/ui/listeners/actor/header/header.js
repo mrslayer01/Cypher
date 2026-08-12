@@ -1,5 +1,12 @@
-import { FullRest, ResetAllRecoveryUses, ResetPool } from "../../../../utils/helpers.js";
+import {
+  FullRest,
+  normalizeText,
+  ResetAllRecoveryUses,
+  ResetDamageTrack,
+  ResetPool
+} from "../../../../utils/helpers.js";
 import { OpenRecoveryDialog } from "../../../windows/recovery-dialog.js";
+import { CypherRollWindow } from "../../../windows/roll-window.js";
 
 export function HeaderListeners(sheet, html) {
   const actor = sheet.actor;
@@ -15,10 +22,10 @@ export function HeaderListeners(sheet, html) {
       const choice = ev.currentTarget.dataset.choice; // "inability", "practiced", "trained", "specialized"
 
       await actor.update({
-        "system.core.pools.might.defense.inability": choice === "inability",
-        "system.core.pools.might.defense.practiced": choice === "practiced",
-        "system.core.pools.might.defense.trained": choice === "trained",
-        "system.core.pools.might.defense.specialized": choice === "specialized"
+        "system.core.pools.might.defense.inability.choice": choice === "inability",
+        "system.core.pools.might.defense.practiced.choice": choice === "practiced",
+        "system.core.pools.might.defense.trained.choice": choice === "trained",
+        "system.core.pools.might.defense.specialized.choice": choice === "specialized"
       });
 
       sheet.render(false);
@@ -34,10 +41,10 @@ export function HeaderListeners(sheet, html) {
       const choice = ev.currentTarget.dataset.choice; // "inability", "practiced", "trained", "specialized"
 
       await actor.update({
-        "system.core.pools.speed.defense.inability": choice === "inability",
-        "system.core.pools.speed.defense.practiced": choice === "practiced",
-        "system.core.pools.speed.defense.trained": choice === "trained",
-        "system.core.pools.speed.defense.specialized": choice === "specialized"
+        "system.core.pools.speed.defense.inability.choice": choice === "inability",
+        "system.core.pools.speed.defense.practiced.choice": choice === "practiced",
+        "system.core.pools.speed.defense.trained.choice": choice === "trained",
+        "system.core.pools.speed.defense.specialized.choice": choice === "specialized"
       });
 
       sheet.render(false);
@@ -53,10 +60,10 @@ export function HeaderListeners(sheet, html) {
       const choice = ev.currentTarget.dataset.choice; // "inability", "practiced", "trained", "specialized"
 
       await actor.update({
-        "system.core.pools.intellect.defense.inability": choice === "inability",
-        "system.core.pools.intellect.defense.practiced": choice === "practiced",
-        "system.core.pools.intellect.defense.trained": choice === "trained",
-        "system.core.pools.intellect.defense.specialized": choice === "specialized"
+        "system.core.pools.intellect.defense.inability.choice": choice === "inability",
+        "system.core.pools.intellect.defense.practiced.choice": choice === "practiced",
+        "system.core.pools.intellect.defense.trained.choice": choice === "trained",
+        "system.core.pools.intellect.defense.specialized.choice": choice === "specialized"
       });
 
       sheet.render(false);
@@ -71,10 +78,47 @@ export function HeaderListeners(sheet, html) {
 
       const pool = ev.currentTarget.dataset.pool;
 
+      const confirmed = await Dialog.confirm({
+        title: "Confirm Pool Reset",
+        content:
+          "<p>Are you sure you want to reset this pool's current value back to it's maximum?</p>"
+      });
+
+      if (!confirmed) return;
+
       await ResetPool(actor, pool);
       //await FullRest(actor); // for testing
       sheet.render(false);
     });
+
+  html
+    .find(".stat-roll")
+    .off("click")
+    .on("click", async (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      const pool = ev.currentTarget.dataset.pool;
+
+      await CypherRollWindow(actor, `${normalizeText(pool)} Roll`, pool);
+
+      sheet.render(false);
+    });
+
+  html
+    .find(".defence-roll")
+    .off("click")
+    .on("click", async (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      const pool = ev.currentTarget.dataset.pool;
+
+      await CypherRollWindow(actor, `${normalizeText(pool)} Defense Roll`, pool, false, true);
+
+      sheet.render(false);
+    });
+
   //#endregion
 
   //#region Recovery Listeners
@@ -85,6 +129,13 @@ export function HeaderListeners(sheet, html) {
     .on("click", async (ev) => {
       ev.preventDefault();
       ev.stopPropagation();
+
+      const confirmed = await Dialog.confirm({
+        title: "Confirm Recovery Reset",
+        content: "<p>Are you sure you want to reset the recovery track?</p>"
+      });
+
+      if (!confirmed) return;
 
       await ResetAllRecoveryUses(actor);
       sheet.render(false);
@@ -117,5 +168,23 @@ export function HeaderListeners(sheet, html) {
 
     sheet.render(false);
   });
+
+  html
+    .find(".damage-reset")
+    .off("click")
+    .on("click", async (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      const confirmed = await Dialog.confirm({
+        title: "Confirm Damage Reset",
+        content: "<p>Are you sure you want to reset the damage track back to Hale?</p>"
+      });
+
+      if (!confirmed) return;
+
+      await ResetDamageTrack(actor);
+      sheet.render(false);
+    });
   //#endregion
 }

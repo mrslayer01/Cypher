@@ -1,6 +1,7 @@
+import { normalizeText } from "../../utils/helpers.js";
+
 export async function OpenRecoveryDialog(actor) {
   const pools = actor.system.core.pools;
-  const mod = actor.system.core.recovery.modifier;
 
   const poolOptions = Object.keys(pools)
     .map((p) => `<option value="${p}">${p.toUpperCase()}</option>`)
@@ -10,10 +11,14 @@ export async function OpenRecoveryDialog(actor) {
     title: "Recovery Roll",
     content: `
       <div class="recovery-dialog">
+        <p>Recovery is 1d6 + tier + recovery bonus.</p>
+
         <p>Select a pool to recover:</p>
         <select id="recovery-pool">${poolOptions}</select>
 
-        <p>Roll: <strong>1d6 + ${mod}</strong></p>
+        <p>Recovery Bonus (modifier):</p>
+        <input id="recovery-mod" type="number" value="0" />
+
       </div>
     `,
     buttons: {
@@ -21,12 +26,11 @@ export async function OpenRecoveryDialog(actor) {
         label: "Roll",
         callback: async (html) => {
           const poolName = html.find("#recovery-pool").val();
+          const tier = Number(actor.system.core.tier || 0);
+          const mod = Number(html.find("#recovery-mod").val()) || 0;
 
-          // Modifier MUST be numeric for evaluateSync
-          const bonus = Number(actor.system.core.recovery.modifier) || 0;
-
-          // Roll 1d6 + modifier (V14-safe)
-          const roll = new Roll(`1d6 + ${bonus}`);
+          const formula = `1d6 + ${tier} + ${mod}`;
+          const roll = new Roll(formula);
           await roll.evaluate();
 
           const total = roll.total;
@@ -48,7 +52,7 @@ export async function OpenRecoveryDialog(actor) {
           // Chat message
           roll.toMessage({
             speaker: ChatMessage.getSpeaker({ actor }),
-            flavor: `Recovery Roll applied to <strong>${poolName.toUpperCase()}</strong>`
+            flavor: `Recovery Roll applied to <strong>${normalizeText(poolName)}</strong>`
           });
         }
       },
