@@ -2,7 +2,7 @@
     {{! MIGHT }}
     <div class="stat-block">
         <span class="stat-title">
-            <a class="stat-roll" data-pool="might" data-tooltip="Might stat roll">
+            <a class="stat-roll clickable" data-pool="might" data-tooltip="Might stat roll">
                 MIGHT
             </a>
             <a class="pool-reset" data-pool="might" data-tooltip="Reset pool to max">
@@ -10,19 +10,19 @@
             </a>
         </span>
 
-        <!-- Max -->
+        <!-- Current -->
         <div class="stat-max-display">
             <div class="floating max">
-                <input type="number" name="system.core.pools.might.max" class="no-negative" value="{{system.core.pools.might.max}}" />
-                <label>Max</label>
+                <input type="number" name="system.core.pools.might.current" class="no-negative" value="{{system.core.pools.might.current}}" />
+                <label>Pool</label>
             </div>
         </div>
 
-        <!-- Current + Edge -->
+        <!-- max + Edge -->
         <div class="stat-row">
             <div class="floating pool">
-                <input type="number" name="system.core.pools.might.current" class="no-negative" value="{{system.core.pools.might.current}}" />
-                <label>Pool</label>
+                <input type="number" name="system.core.pools.might.max" class="no-negative" value="{{system.core.pools.might.max}}" />
+                <label>Max</label>
             </div>
             <span class="stat-separator">|</span>
             <div class="floating pool">
@@ -32,7 +32,7 @@
         </div>
         <!-- Defense -->
         <div class="defense-row">
-            <div class="def-label"><a class="defence-roll" data-pool="might" data-tooltip="Defense roll for Might">DEFENSE</a></div>
+            <div class="def-label"><a class="defence-roll clickable" data-pool="might" data-tooltip="Defense roll for Might">DEFENSE</a></div>
 
             <div class="def-grid">
                 <div class="def-col">
@@ -81,7 +81,7 @@
     {{! SPEED }}
     <div class="stat-block">
         <div class="stat-title">
-            <a class="stat-roll" data-pool="speed" data-tooltip="Speed stat roll">
+            <a class="stat-roll clickable" data-pool="speed" data-tooltip="Speed stat roll">
                 SPEED
             </a> 
             <a class="pool-reset" data-pool="speed" data-tooltip="Reset pool to max">
@@ -89,19 +89,19 @@
             </a>
         </div>
 
-        <!-- Max -->
+        <!-- Current -->
         <div class="stat-max-display">
             <div class="floating max">
-                <input type="number" name="system.core.pools.speed.max" class="no-negative" value="{{system.core.pools.speed.max}}" />
-                <label>Max</label>
+                <input type="number" name="system.core.pools.speed.current" class="no-negative" value="{{system.core.pools.speed.current}}" />
+                <label>Pool</label>
             </div>
         </div>
 
-        <!-- Current + Edge -->
+        <!-- Max + Edge -->
         <div class="stat-row">
             <div class="floating pool">
-                <input type="number" name="system.core.pools.speed.current" class="no-negative" value="{{system.core.pools.speed.current}}" />
-                <label>Pool</label>
+                <input type="number" name="system.core.pools.speed.max" class="no-negative" value="{{system.core.pools.speed.max}}" />
+                <label>Max</label>
             </div>
             <span class="stat-separator">|</span>
             <div class="floating pool">
@@ -111,7 +111,7 @@
         </div>
         <!-- Defense -->
         <div class="defense-row">
-            <div class="def-label"><a class="defence-roll" data-pool="speed" data-tooltip="Defense roll for Speed">DEFENSE</a></div>
+            <div class="def-label"><a class="defence-roll clickable" data-pool="speed" data-tooltip="Defense roll for Speed">DEFENSE</a></div>
 
             <div class="def-grid">
                 <div class="def-col">
@@ -160,7 +160,7 @@
     {{! INTELLECT }}
     <div class="stat-block">
         <div class="stat-title">
-            <a class="stat-roll" data-pool="intellect" data-tooltip="Intellect stat roll">
+            <a class="stat-roll clickable" data-pool="intellect" data-tooltip="Intellect stat roll">
                 INTELLECT
             </a> 
             <a class="pool-reset" data-pool="intellect" data-tooltip="Reset pool to max">
@@ -168,19 +168,19 @@
             </a>
         </div>
 
-        <!-- Max -->
+        <!-- Current -->
         <div class="stat-max-display">
             <div class="floating max">
-                <input type="number" name="system.core.pools.intellect.max" class="no-negative" value="{{system.core.pools.intellect.max}}" />
-                <label>Max</label>
+                <input type="number" name="system.core.pools.intellect.current" class="no-negative" value="{{system.core.pools.intellect.current}}" />
+                <label>Pool</label>
             </div>
         </div>
 
-        <!-- Current + Edge -->
+        <!-- Max + Edge -->
         <div class="stat-row">
             <div class="floating pool">
-                <input type="number" name="system.core.pools.intellect.current" class="no-negative" value="{{system.core.pools.intellect.current}}" />
-                <label>Pool</label>
+                <input type="number" name="system.core.pools.intellect.max" class="no-negative" value="{{system.core.pools.intellect.max}}" />
+                <label>Max</label>
             </div>
             <span class="stat-separator">|</span>
             <div class="floating pool">
@@ -190,7 +190,7 @@
         </div>
         <!-- Defense -->
         <div class="defense-row">
-            <div class="def-label"><a class="defence-roll" data-pool="intellect" data-tooltip="Defense roll for Intellect">DEFENSE</a></div>
+            <div class="def-label"><a class="defence-roll clickable" data-pool="intellect" data-tooltip="Defense roll for Intellect">DEFENSE</a></div>
 
             <div class="def-grid">
                 <div class="def-col">

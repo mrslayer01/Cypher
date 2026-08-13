@@ -1,0 +1,35 @@
+<div class="skill-grid">
+
+  <label class="skill-col">
+    <span class="skill-letter">Inability</span>
+    <input type="radio"
+           name="skillLevel"
+           data-choice="inability"
+           {{#if system.skill.inability.choice}}checked{{/if}} />
+  </label>
+
+  <label class="skill-col">
+    <span class="skill-letter">Practiced</span>
+    <input type="radio"
+           name="skillLevel"
+           data-choice="practiced"
+           {{#if system.skill.practiced.choice}}checked{{/if}} />
+  </label>
+
+  <label class="skill-col">
+    <span class="skill-letter">Trained</span>
+    <input type="radio"
+           name="skillLevel"
+           data-choice="trained"
+           {{#if system.skill.trained.choice}}checked{{/if}} />
+  </label>
+
+  <label class="skill-col">
+    <span class="skill-letter">Specialized</span>
+    <input type="radio"
+           name="skillLevel"
+           data-choice="specialized"
+           {{#if system.skill.specialized.choice}}checked{{/if}} />
+  </label>
+
+</div>

@@ -1,26 +1,49 @@
 <form class="item-sheet" autocomplete="off">
   <header class="sheet-header">
-    <h1>
-      {{item.name}}
-    </h1>
+    <div class="item-header">
+        <div class="item-header-top flexrow">
+          <img class="item-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+
+          <div class="item-header-fields">
+            <h1 class="item-name">
+              <input type="text" name="name" value="{{item.name}}" placeholder="Item Name"/>
+            </h1>
+          </div>
+        </div>
+        {{#if (in item.type "Equipment" "Weapon" "Armor")}}
+          {{> item-equipment-header}}
+          {{#if (in item.type "Weapon")}}
+            {{> item-weapon-header}}
+          {{/if}}
+          {{#if (in item.type "Armor")}}
+            {{> item-armor-header}}
+          {{/if}}
+        {{/if}}
+        {{#if (in item.type "Attack")}}
+          {{> item-attack-header}}
+        {{/if}}
+        {{#if (in item.type "Cypher")}}
+          {{> item-cypher-header}}
+        {{/if}}
+        {{#if (in item.type "Skill")}}
+          {{> item-skill-header}}
+        {{/if}}
+        {{#if (in item.type "Special Ability")}}
+          {{> item-special-header}}
+        {{/if}}
+    </div>
   </header>
 
   <nav class="sheet-tabs" data-group="primary">
-    <a class="item" data-tab="main">
-      Main
-    </a>
     <a class="item" data-tab="description">
       Description
     </a>
   </nav>
 
   <section class="sheet-body">
+
     <div class="tab description" data-group="primary" data-tab="description">
       <section>
-        <h3>
-          Description
-        </h3>
-
         <div class="description-editor">
           {{#if system.itemDescription}}
             {{editor

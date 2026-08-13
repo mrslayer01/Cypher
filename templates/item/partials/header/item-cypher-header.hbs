@@ -1,0 +1,68 @@
+<div class="cypher-info-grid">
+
+  <!-- Identified -->
+  <div class="field">
+    <label>Identified</label>
+    <input type="checkbox"
+           name="system.cypher.identified"
+           {{#if system.cypher.identified}}checked{{/if}} />
+  </div>
+
+  <!-- Cypher Type -->
+  <div class="field">
+    <label>Type</label>
+    <select name="system.cypher.type">
+      <option value="Cypher"   {{#if (eq system.cypher.type "Cypher")}}selected{{/if}}>Cypher</option>
+      <option value="Artifact" {{#if (eq system.cypher.type "Artifact")}}selected{{/if}}>Artifact</option>
+    </select>
+  </div>
+
+  <!-- Level Current -->
+  <div class="field">
+    <a class="cypher-level-roll clickable" data-tooltip="Click to roll Cypher/Artifact level">
+        <label>Level</label>
+    </a>
+    <input type="number"
+           name="system.cypher.level.current"
+           value="{{system.cypher.level.current}}"
+           class="no-negative" />
+  </div>
+
+</div>
+
+{{#if (eq system.cypher.type "Artifact")}}
+<div class="depletion-info-grid">
+
+  <!-- Depletion Dice + Modifier -->
+  <div class="field depletion-dice-field">
+    <label>Depletion Roll</label>
+
+    <div class="depletion-dice-wrapper">
+      <select name="system.cypher.depletion.dice" class="depletion-dice-select">
+        <option value="1d6"   {{#if (eq system.cypher.depletion.dice "1d6")}}selected{{/if}}>1d6</option>
+        <option value="1d10"  {{#if (eq system.cypher.depletion.dice "1d10")}}selected{{/if}}>1d10</option>
+        <option value="1d20"  {{#if (eq system.cypher.depletion.dice "1d20")}}selected{{/if}}>1d20</option>
+        <option value="1d100" {{#if (eq system.cypher.depletion.dice "1d100")}}selected{{/if}}>1d100</option>
+      </select>
+
+      <span class="plus">+</span>
+
+      <input type="number"
+             name="system.cypher.depletion.diceMod"
+             value="{{system.cypher.depletion.diceMod}}"
+             class="no-negative depletion-mod-input" />
+    </div>
+  </div>
+
+    <!-- Depletion Amount -->
+  <div class="field">
+    <label>Depleted On</label>
+    <input type="number"
+           name="system.cypher.depletion.amount"
+           value="{{system.cypher.depletion.amount}}"
+           class="no-negative" />
+  </div>
+
+</div>
+{{/if}}
+

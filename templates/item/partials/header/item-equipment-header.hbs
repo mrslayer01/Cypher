@@ -1,0 +1,27 @@
+  <!-- Item Info Grid -->
+  <div class="item-info-grid">
+
+    <!-- Price -->
+    <div class="field">
+      <label>Price Category</label>
+      <select name="system.price.category">
+        <option value="None" {{#if (eq system.price.category "None")}}selected{{/if}}>None</option>
+        <option value="Cheap" {{#if (eq system.price.category "Cheap")}}selected{{/if}}>Cheap</option>
+        <option value="Moderate" {{#if (eq system.price.category "Moderate")}}selected{{/if}}>Moderate</option>
+        <option value="Expensive" {{#if (eq system.price.category "Expensive")}}selected{{/if}}>Expensive</option>
+        <option value="Very Expensive" {{#if (eq system.price.category "Very Expensive")}}selected{{/if}}>Very Expensive</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Cost</label>
+      <input type="number" name="system.price.cost" value="{{system.price.cost}}" class="no-negative" min="0"/>
+    </div>
+
+    <!-- Quantity -->
+    <div class="field">
+      <label>Quantity</label>
+      <input type="number" name="system.quantity" value="{{system.quantity}}" class="no-negative"/>
+    </div>
+
+  </div>

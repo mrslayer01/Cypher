@@ -98,7 +98,8 @@
 
 /* Cypher-themed selects inside Foundry dialogs */
 .dialog select,
-.dialog option {
+.dialog option,
+.cypher-item-sheet select {
   background: #2a2e3a !important; /* same as your sheet inputs */
   color: #f5f5f5 !important; /* readable text */
   border: 1px solid #3a3f4f !important; /* same border as sheet inputs */
@@ -107,7 +108,8 @@
 }
 
 /* Hover / focus */
-.dialog select:focus {
+.dialog select:focus,
+.cypher-item-sheet select:focus {
   border-color: var(--cypher-accent) !important;
   box-shadow: 0 0 4px rgba(0, 170, 255, 0.4);
   outline: none;
@@ -145,6 +147,18 @@
   font-size: 0.95rem;
 }
 
+/* Clickable Fields */
+.clickable {
+  cursor: pointer;
+  border-left: 2px solid rgba(255, 255, 255, 0.25);
+  padding-left: 6px;
+  transition: border-color 0.15s ease;
+}
+
+.clickable:hover {
+  border-left-color: var(--cypher-accent-soft);
+}
+
 /* ============================================================
    INPUTS
    ============================================================ */
@@ -175,6 +189,11 @@ select:focus {
 
 textarea {
   resize: vertical;
+}
+
+.cypher-item-sheet option {
+  background: #1f222d !important; /* darker dropdown list */
+  color: #e6e6e6 !important;
 }
 
 /* ============================================================
@@ -755,4 +774,176 @@ textarea {
   color: var(--cypher-text-light);
   background: #1f222d;
   border-bottom: 2px solid var(--cypher-accent);
+}
+
+/* ============================================================
+   Item css
+   ============================================================ */
+
+/* ============================================================
+   Equipment Header
+   ============================================================ */
+
+.item-header {
+  padding: 8px;
+  border-bottom: 1px solid #2f3547;
+  width: 100%;
+}
+
+.item-header-top {
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.item-img {
+  width: 64px;
+  height: 64px;
+  border: 1px solid #2f3547;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.item-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.field label {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.field input,
+.field select {
+  width: 100%;
+}
+
+/* ============================================================
+   Weapon Main
+   ============================================================ */
+
+.weapon-header-top {
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.weapon-info-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+/* ============================================================
+   Armor Main
+   ============================================================ */
+
+.armor-info-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.field label {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.field input,
+.field select {
+  width: 100%;
+}
+
+/* ============================================================
+   Still Header
+   ============================================================ */
+
+.skill-info-grid {
+  margin-top: 8px;
+}
+
+.skill-title label {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.skill-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.skill-letter {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+/* ============================================================
+   Abilities
+   ============================================================ */
+.ability-info-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.field label {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.field input,
+.field select {
+  width: 100%;
+}
+
+/* ============================================================
+   Cypher and Artifacts
+   ============================================================ */
+.cypher-info-grid,
+.depletion-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 0.25fr);
+  gap: 8px;
+  margin-top: 8px;
+  justify-content: center;
+}
+
+.field label {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  justify-items: center;
+}
+
+.depletion-dice-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.depletion-dice-select {
+  width: 65px !important;
+}
+
+.depletion-mod-input {
+  width: 40px;
+}
+
+.plus {
+  font-weight: bold;
+  opacity: 0.8;
 }

@@ -1,0 +1,39 @@
+<div class="ability-info-grid">
+
+  <!-- Type -->
+  <div class="field">
+    <label>Type</label>
+    <select name="system.ability.type">
+      <option value="Action"   {{#if (eq system.ability.type "Action")}}selected{{/if}}>Action</option>
+      <option value="Enabler"  {{#if (eq system.ability.type "Enabler")}}selected{{/if}}>Enabler</option>
+    </select>
+  </div>
+
+  <!-- Cost Pool -->
+  <div class="field">
+    <label>Cost Pool</label>
+    <select name="system.ability.cost.pool">
+      <option value="None"      {{#if (eq system.ability.cost.pool "None")}}selected{{/if}}>None</option>
+      <option value="Might"     {{#if (eq system.ability.cost.pool "Might")}}selected{{/if}}>Might</option>
+      <option value="Speed"     {{#if (eq system.ability.cost.pool "Speed")}}selected{{/if}}>Speed</option>
+      <option value="Intellect" {{#if (eq system.ability.cost.pool "Intellect")}}selected{{/if}}>Intellect</option>
+    </select>
+  </div>
+
+  <!-- Cost Amount -->
+  <div class="field">
+    <label>Cost Amount</label>
+    <input type="number"
+           name="system.ability.cost.amount"
+           value="{{system.ability.cost.amount}}"
+           class="no-negative" />
+  </div>
+
+  <!-- Effort Allowed -->
+  <div class="field">
+    <label>Can Use Effort</label>
+    <input type="checkbox"
+           name="system.ability.canUseEffort"
+           {{#if system.ability.canUseEffort}}checked{{/if}} />
+  </div>
+</div>

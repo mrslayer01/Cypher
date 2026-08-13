@@ -1,6 +1,6 @@
 <form class="actor-sheet" autocomplete="off">
   <header class="sheet-header">
-    {{> header}}
+    {{> character-header}}
   </header>
 
     <nav class="sheet-tabs" data-group="primary">
@@ -29,11 +29,6 @@
     </div>
 
     <div class="tab description" data-group="primary" data-tab="description">
-      <section>
-        <h3>
-          Description
-        </h3>
-
         <div class="description-editor">
           {{#if system.bio.charatcerDescription}}
             {{editor

@@ -1,0 +1,49 @@
+<!-- Weapon Info Grid -->
+<div class="weapon-info-grid">
+    <!-- Weapon Type -->
+    <div class="field">
+        <label>Weapon Type</label>
+        <select name="system.weapon.type">
+        <option value="Light"   {{#if (eq system.weapon.type "Light")}}selected{{/if}}>Light</option>
+        <option value="Medium"  {{#if (eq system.weapon.type "Medium")}}selected{{/if}}>Medium</option>
+        <option value="Heavy"   {{#if (eq system.weapon.type "Heavy")}}selected{{/if}}>Heavy</option>
+        </select>
+    </div>
+
+    <!-- Attack Pool -->
+    <div class="field">
+        <label>Attack Pool</label>
+        <select name="system.weapon.attack.pool">
+        <option value="might"     {{#if (eq system.weapon.attack.pool "might")}}selected{{/if}}>Might</option>
+        <option value="speed"     {{#if (eq system.weapon.attack.pool "speed")}}selected{{/if}}>Speed</option>
+        <option value="intellect" {{#if (eq system.weapon.attack.pool "intellect")}}selected{{/if}}>Intellect</option>
+        </select>
+    </div>
+
+    <!-- Attack Ease -->
+    <div class="field">
+        <label>Attack Ease</label>
+        <input type="number"
+                name="system.weapon.attack.eased.amount"
+                value="{{system.weapon.attack.eased.amount}}"
+                class="no-negative"/>
+    </div>
+
+    <!-- Damage Base -->
+    <div class="field">
+        <label>Base Damage</label>
+        <input type="number"
+                name="system.weapon.damage.base"
+                value="{{system.weapon.damage.base}}"
+                class="no-negative"/>
+    </div>
+
+    <!-- Damage Bonus -->
+    <div class="field">
+        <label>Bonus Damage</label>
+        <input type="number"
+                name="system.weapon.damage.bonus"
+                value="{{system.weapon.damage.bonus}}"
+                class="no-negative"/>
+    </div>
+</div>

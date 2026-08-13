@@ -5,11 +5,10 @@
     "NPC": {}
   },
   "Item": {
-    "types": ["Equipment", "Skill", "Special Ability", "Attack", "Cypher", "Weapon", "Armor"],
+    "types": ["Equipment", "Skill", "Special Ability", "Cypher", "Weapon", "Armor"],
     "Equipment": {},
     "Skill": {},
     "Special Ability": {},
-    "Attack": {},
     "Cypher": {},
     "Weapon": {},
     "Armor": {}

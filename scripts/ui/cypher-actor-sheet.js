@@ -46,7 +46,6 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
     });
 
     RegisterSheetListeners(this, html);
-    RegisterItemSheetListeners(this, html);
   }
 
   getData(options) {

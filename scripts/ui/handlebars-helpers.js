@@ -18,4 +18,9 @@ export function loadAllActorHandlerbarsHelpers() {
 
     return cleaned;
   });
+
+  Handlebars.registerHelper("in", function (value, ...options) {
+    const types = options.slice(0, -1); // last arg is Handlebars options object
+    return types.includes(value);
+  });
 }

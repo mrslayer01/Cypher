@@ -1,16 +1,16 @@
-export async function ActorHeaderPartials() {
+export async function ItemHeaderPartials() {
   const partials = [
-    "character-bio",
-    "character-portrait",
-    "character-header",
-    "character-stats",
-    "character-extra",
-    "character-recovery",
-    "character-damage-track"
+    "item-equipment-header",
+    "item-cypher-header",
+    "item-skill-header",
+    "item-special-header",
+    "item-attack-header",
+    "item-armor-header",
+    "item-weapon-header"
   ];
 
   for (const p of partials) {
-    const path = `systems/cypher/templates/actor/partials/header/${p}.hbs`;
+    const path = `systems/cypher/templates/item/partials/header/${p}.hbs`;
 
     // Load template text
     const templateText = await fetch(path).then((r) => r.text());

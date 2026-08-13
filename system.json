@@ -10,7 +10,7 @@
   },
   "authors": [{ "name": "Mrslayer01" }],
   "template": "template.json",
-  "itemTypes": ["Equipment", "Skill", "Special Ability", "Attack", "Cypher", "Weapon", "Armor"],
+  "itemTypes": ["Equipment", "Skill", "Special Ability", "Cypher", "Weapon", "Armor"],
   "esmodules": ["scripts/main.js"],
   "styles": ["styles/cypher.css"],
   "socket": true,
