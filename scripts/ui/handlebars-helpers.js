@@ -23,4 +23,32 @@ export function loadAllActorHandlerbarsHelpers() {
     const types = options.slice(0, -1); // last arg is Handlebars options object
     return types.includes(value);
   });
+
+  Handlebars.registerHelper("range", function (start, end) {
+    const arr = [];
+    for (let i = start; i <= end; i++) arr.push(i);
+    return arr;
+  });
+
+  Handlebars.registerHelper("ifEquals", function (a, b, options) {
+    return a == b ? options.fn(this) : options.inverse(this);
+  });
+
+  Handlebars.registerHelper("skillLevel", function (skill) {
+    if (skill.specialized.choice) return "Specialized";
+    if (skill.trained.choice) return "Trained";
+    if (skill.practiced.choice) return "Practiced";
+    if (skill.inability.choice) return "Inability";
+    return "Unknown";
+  });
+
+  Handlebars.registerHelper("sum", function (a, b) {
+    a = Number(a) || 0;
+    b = Number(b) || 0;
+    return a + b;
+  });
+
+  Handlebars.registerHelper("json", function (context) {
+    return JSON.stringify(context, null, 2);
+  });
 }

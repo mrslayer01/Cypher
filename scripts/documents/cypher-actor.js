@@ -1,4 +1,5 @@
 import { DEFAULT_ACTOR_DATA, DEFAULT_NPC_DATA } from "../config/default-actor-data.js";
+import { AdvancementDerivedData } from "./derived/actor/advancements.js";
 
 export class CypherActor extends Actor {
   prepareBaseData() {
@@ -19,5 +20,12 @@ export class CypherActor extends Actor {
         overwrite: false
       });
     }
+  }
+
+  prepareDerivedData() {
+    super.prepareDerivedData();
+    const system = this.system;
+
+    AdvancementDerivedData(system);
   }
 }

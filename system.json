@@ -22,8 +22,8 @@
       "path": "lang/en.json"
     }
   ],
-  "download": "https://github.com/mrslayer01/Anima/archive/refs/tags/0.3.0.zip",
-  "manifest": "https://github.com/mrslayer01/Anima/releases/download/0.3.0/system.json",
+  "download": "https://github.com/mrslayer01/Cypher/archive/refs/tags/0.0.1.zip",
+  "manifest": "https://github.com/mrslayer01/Cypher/releases/download/0.0.1/system.json",
   "grid": {
     "distance": 1.5,
     "units": "m"

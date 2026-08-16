@@ -13,6 +13,7 @@ export const DEFAULT_ACTOR_DATA = {
       might: {
         current: 10,
         max: 10,
+        advancement: 0,
         temp: 0,
         edge: { current: 0, temp: 0 },
         defense: {
@@ -25,6 +26,7 @@ export const DEFAULT_ACTOR_DATA = {
       speed: {
         current: 10,
         max: 10,
+        advancement: 0,
         temp: 0,
         edge: { current: 0, temp: 0 },
         defense: {
@@ -37,6 +39,7 @@ export const DEFAULT_ACTOR_DATA = {
       intellect: {
         current: 10,
         max: 10,
+        advancement: 0,
         temp: 0,
         edge: { current: 0, temp: 0 },
         defense: {
@@ -46,6 +49,10 @@ export const DEFAULT_ACTOR_DATA = {
           specialized: { choice: false, value: 2 }
         }
       }
+    },
+    combat: {
+      armor: { current: 0, temp: 0 },
+      damage: { current: 0, temp: 0 }
     },
     skills: [],
     specialAbilities: [],
@@ -64,7 +71,7 @@ export const DEFAULT_ACTOR_DATA = {
 };
 
 export const DEFAULT_NPC_DATA = {
-  bio: { name: "", description: "", notes: "", gmNotes: "" },
+  bio: { npcDescription: "", notes: "", gmNotes: "" },
   core: {
     level: 1
   }

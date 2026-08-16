@@ -1,0 +1,97 @@
+<div class="cypher-full-grid">
+  <section class="cypher-section abilities-section">
+    <h3>
+      Abilities
+      <a class="add-blank-ability" data-tooltip="Add blank ability">
+        <i class="fas fa-plus-circle"></i>
+      </a>
+
+      <a class="browse-abilities" data-tooltip="Browse abilities">
+        <i class="fas fa-book"></i>
+      </a>
+    </h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Tier
+          </th>
+          <th>
+            Pool
+          </th>
+          <th>
+            Cost
+          </th>
+          <th>
+            Type
+          </th>
+          <th>
+            Effort
+          </th>
+          <th>
+            Active
+          </th>
+          <th>
+            Favorite
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each specialAbilities}}
+          <tr>
+            <td>
+              <a class="view-item" data-item-id="{{this.id}}">
+                {{this.name}}
+              </a>
+            </td>
+            <td>
+              {{this.system.ability.tier}}
+            </td>
+            <td>
+              {{this.system.ability.cost.pool}}
+            </td>
+            <td>
+              {{this.system.ability.cost.amount}}
+            </td>
+            <td>
+              {{this.system.ability.type}}
+            </td>
+            <td>
+              {{#if this.system.ability.canUseEffort}}
+                <i class="fas fa-check"></i>
+              {{else}}
+                <i class="fas fa-times"></i>
+              {{/if}}
+            </td>
+            <td>
+              <input
+                type="checkbox"
+                data-item-id="{{this.id}}"
+                data-field="active"
+                {{checked this.system.ability.active}}
+              />
+            </td>
+            <td>
+              <input
+                type="checkbox"
+                data-item-id="{{this.id}}"
+                data-field="favorite"
+                {{checked this.system.ability.favorite}}
+              />
+            </td>
+            <td>
+              <a class="delete-ability" data-item-id="{{this.id}}">
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+</div>

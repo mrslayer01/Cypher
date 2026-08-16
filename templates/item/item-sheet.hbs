@@ -10,27 +10,27 @@
             </h1>
           </div>
         </div>
-        {{#if (in item.type "Equipment" "Weapon" "Armor")}}
-          {{> item-equipment-header}}
+          {{#if (in item.type "Equipment" "Weapon" "Armor")}}
+            {{> item-equipment-header}}
+          {{/if}}
           {{#if (in item.type "Weapon")}}
             {{> item-weapon-header}}
           {{/if}}
           {{#if (in item.type "Armor")}}
             {{> item-armor-header}}
           {{/if}}
-        {{/if}}
-        {{#if (in item.type "Attack")}}
-          {{> item-attack-header}}
-        {{/if}}
-        {{#if (in item.type "Cypher")}}
-          {{> item-cypher-header}}
-        {{/if}}
-        {{#if (in item.type "Skill")}}
-          {{> item-skill-header}}
-        {{/if}}
-        {{#if (in item.type "Special Ability")}}
-          {{> item-special-header}}
-        {{/if}}
+          {{#if (in item.type "Attack")}}
+            {{> item-attack-header}}
+          {{/if}}
+          {{#if (in item.type "Cypher")}}
+            {{> item-cypher-header}}
+          {{/if}}
+          {{#if (in item.type "Skill")}}
+            {{> item-skill-header}}
+          {{/if}}
+          {{#if (in item.type "Special Ability")}}
+            {{> item-special-header}}
+          {{/if}}
     </div>
   </header>
 
@@ -43,8 +43,16 @@
   <section class="sheet-body">
 
     <div class="tab description" data-group="primary" data-tab="description">
-      <section>
-        <div class="description-editor">
+      <div class="description-editor">
+
+        {{#if (and (eq item.type "Cypher") (not system.cypher.identified))}}
+          <div class="cypher-description-obscured">
+            <div class="cypher-description-overlay">
+              <span>Unidentified Cypher</span>
+              <p>The description is obscured until this cypher is identified.</p>
+            </div>
+          </div>
+        {{else}}
           {{#if system.itemDescription}}
             {{editor
               system.itemDescription
@@ -62,8 +70,9 @@
               engine="prosemirror"
             }}
           {{/if}}
-        </div>
-      </section>
+        {{/if}}
+
+      </div>
     </div>
   </section>
 </form>

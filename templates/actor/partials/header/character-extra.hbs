@@ -1,12 +1,12 @@
 <div class="cypher-header-extra">
   <div class="extra-cell extra-tier floating">
-    <input type="number" name="system.core.tier" class="no-negative" value="{{system.core.tier}}" />
+    <input type="number" name="system.core.tier" disabled="true" value="{{system.core.tier}}" />
     <label>
       TIER
     </label>
   </div>
   <div class="extra-cell extra-effort floating">
-    <input type="number" name="system.core.effort.current" class="no-negative" value="{{system.core.effort.current}}" />
+    <input type="number" name="system.core.effort.current" disabled="true" value="{{system.core.effort.current}}" />
     <label>
       EFFORT
     </label>
@@ -15,11 +15,15 @@
     <input
       type="number"
       name="system.core.experience.current"
-      class="no-negative"
-      value="{{system.core.experience.current}}"
+      disabled="true"
+      data-tooltip="Total XP Earned: {{actor.system.core.experience.total}}"
+      value="{{actor.system.core.experience.current}}"
     />
     <label>
-      XP
+      CURRENT XP
+      <a class="spend-xp" data-tooltip="Spend XP">
+        <i class="fas fa-coins"></i>
+      </a>
     </label>
   </div>
 </div>

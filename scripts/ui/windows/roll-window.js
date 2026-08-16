@@ -226,7 +226,7 @@ async function cypherRoll({
   ${pcEffortDamage && effortCost > 0 ? `<span style="color:red"><b>Damage penalty: 1</b></span><br>` : ``}
   <b>Skill:</b> ${skill} step(s)<br>
   <b>Assets:</b> ${assets} step(s)<br>
-  <b>Edge:</b> ${pcEdge} step(s)<br>
+  <b>Edge:</b> ${pcEdge} Effort cost reduction<br>
   <b>Effort:</b> ${effort} (Cost: ${effortCost} ${rollPool})<br>
 `;
 

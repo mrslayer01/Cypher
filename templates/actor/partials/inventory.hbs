@@ -1,0 +1,261 @@
+<div class="cypher-main-grid">
+  <section class="cypher-section cyphers-section item-drop-area" data-table="equipment">
+    <h3>
+      Equipment
+      <a class="add-equipment" data-tooltip="Add new piece of Equipment">
+        <i class="fas fa-plus-circle"></i>
+      </a>
+    </h3>
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Quantity
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each equipment}}
+          <tr>
+            <td>
+              <a class="view-item" data-item-id="{{this.id}}">
+                {{this.name}}
+              </a>
+            </td>
+            <td>
+              {{this.system.quantity}}
+            </td>
+            <td>
+              <a class="delete-equipment" data-item-id="{{this.id}}">
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+
+  {{! ========================= }}
+  {{!  ROW 1 — COLUMN 1: ARMOR }}
+  {{! ========================= }}
+  <section class="cypher-section armor-section item-drop-area" data-table="armor">
+    <h3>
+      Armor
+      <a class="add-armor" data-tooltip="Add new armor">
+        <i class="fas fa-plus-circle"></i>
+      </a>
+    </h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Type
+          </th>
+          <th>
+            Armor
+          </th>
+          <th>
+            Pool
+          </th>
+          <th>
+            Extra Effort
+          </th>
+          <th>
+            Equipped
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each armor}}
+          <tr>
+            <td>
+              <a class="view-item" data-item-id="{{this.id}}">
+                {{this.name}}
+              </a>
+            </td>
+            <td>
+              {{this.system.armor.type}}
+            </td>
+            <td>
+              {{sum this.system.armor.armor.base this.system.armor.armor.bonus}}
+            </td>
+            <td>
+              {{this.system.armor.mod.pool}}
+            </td>
+            <td>
+              {{this.system.armor.mod.extraEffort}}
+            </td>
+            <td>
+              <input
+                type="checkbox"
+                data-item-id="{{this.id}}"
+                data-field="equipped"
+                {{checked this.system.armor.equipped}}
+              />
+            </td>
+            <td>
+              <a class="delete-armor" data-item-id="{{this.id}}">
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+
+  {{! ========================== }}
+  {{!  ROW 1 — COLUMN 2: Weapons }}
+  {{! ========================== }}
+  <section class="cypher-section attacks-section item-drop-area" data-table="weapons">
+    <h3>
+      Weapons
+      <a class="add-weapon" data-tooltip="Add new weapon">
+        <i class="fas fa-plus-circle"></i>
+      </a>
+    </h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Type
+          </th>
+          <th>
+            Pool
+          </th>
+          <th>
+            Damage
+          </th>
+          <th>
+            Equipped
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each weapon}}
+          <tr>
+            <td>
+              <a class="view-item" data-item-id="{{this.id}}">
+                {{this.name}}
+              </a>
+            </td>
+            <td>
+              {{this.system.weapon.type}}
+            </td>
+            <td>
+              {{this.system.weapon.attack.pool}}
+            </td>
+            <td>
+              {{sum this.system.weapon.damage.base this.system.weapon.damage.bonus}}
+            </td>
+            <td>
+              <input
+                type="checkbox"
+                data-item-id="{{this.id}}"
+                data-field="equipped"
+                {{checked this.system.weapon.equipped}}
+              />
+            </td>
+            <td>
+              <a class="delete-weapon" data-item-id="{{this.id}}">
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+
+  {{! ========================== }}
+  {{!  ROW 2 — COLUMN 2: CYPHERS }}
+  {{! ========================== }}
+  <section class="cypher-section cyphers-section item-drop-area" data-table="cyphers">
+    <h3>
+      Cyphers (Limit: {{actor.system.core.cyphers.limit}})
+      <a class="add-cypher" data-tooltip="Add new cypher">
+        <i class="fas fa-plus-circle"></i>
+      </a>
+    </h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Level
+          </th>
+          <th>
+            Depleted
+          </th>
+          <th>
+            Active
+          </th>
+          <th>
+            Favorite
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each cyphers}}
+          <tr>
+            <td>
+              <a class="view-item" data-item-id="{{this.id}}">
+                {{this.name}}
+              </a>
+            </td>
+            <td>
+              {{this.system.cypher.level.current}}
+            </td>
+            <td>
+              {{#if this.system.cypher.depleted}}
+                <i class="fas fa-check"></i>
+              {{else}}
+                <i class="fas fa-times"></i>
+              {{/if}}
+            </td>
+            <td>
+              <input
+                type="checkbox"
+                data-item-id="{{this.id}}"
+                data-field="active"
+                {{checked this.system.cypher.active}}
+              />
+            </td>
+            <td>
+              <input
+                type="checkbox"
+                data-item-id="{{this.id}}"
+                data-field="favorite"
+                {{checked this.system.cypher.favorite}}
+              />
+            </td>
+            <td>
+              <a class="delete-cypher" data-item-id="{{this.id}}">
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+</div>

@@ -1,0 +1,33 @@
+<div class="ability-browser">
+
+  <div class="filters">
+    <input type="text" name="filter-name" placeholder="Search by name..." value="{{filters.name}}">
+
+    <select name="filter-tier">
+      <option value="">All Tiers</option>
+      {{#each (range 1 6)}}
+        <option value="{{this}}" {{#ifEquals ../filters.tier this}}selected{{/ifEquals}}>{{this}}</option>
+      {{/each}}
+    </select>
+
+    <select name="filter-type">
+      <option value="" {{#ifEquals filters.characterType ""}}selected{{/ifEquals}}>All Types</option>
+      <option value="Glaive" {{#ifEquals filters.characterType "Glaive"}}selected{{/ifEquals}}>Glaive</option>
+      <option value="Nano" {{#ifEquals filters.characterType "Nano"}}selected{{/ifEquals}}>Nano</option>
+      <option value="Jack" {{#ifEquals filters.characterType "Jack"}}selected{{/ifEquals}}>Jack</option>
+    </select>
+
+  </div>
+
+  <div class="ability-list">
+    {{#each abilities}}
+      <div class="ability-entry">
+        <h3>{{name}} (Tier {{tier}})</h3>
+        <p><strong>Character Type:</strong> {{characterType}}</p>
+        <p><strong>Ability Type:</strong> {{type}}</p>
+        <p>{{description}}</p>
+        <button class="add-ability" data-id="{{id}}">Add Ability</button>
+      </div>
+    {{/each}}
+  </div>
+</div>

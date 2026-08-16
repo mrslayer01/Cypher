@@ -6,5 +6,6 @@
   "CYPHER.DistanceLabelCategory": "{category} ({distance} {unit})",
   "CYPHER.DistanceLabel": "{distance} {unit}",
   "CYPHER.UnitDistanceMeter": "meter",
-  "CYPHER.UnitDistanceFeet": "feet"
+  "CYPHER.UnitDistanceFeet": "feet",
+  "CYPHER.CurrencyName": "Shins"
 }

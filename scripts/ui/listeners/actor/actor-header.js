@@ -3,12 +3,13 @@ import {
   normalizeText,
   ResetAllRecoveryUses,
   ResetDamageTrack,
-  ResetPool
-} from "../../../../utils/helpers.js";
-import { OpenRecoveryDialog } from "../../../windows/recovery-dialog.js";
-import { CypherRollWindow } from "../../../windows/roll-window.js";
+  ResetPool,
+  spendMiscXP
+} from "../../../utils/helpers.js";
+import { OpenRecoveryDialog } from "../../windows/recovery-dialog.js";
+import { CypherRollWindow } from "../../windows/roll-window.js";
 
-export function HeaderListeners(sheet, html) {
+export function actorHeaderListeners(sheet, html) {
   const actor = sheet.actor;
 
   //#region Stat Listeners
@@ -186,5 +187,115 @@ export function HeaderListeners(sheet, html) {
       await ResetDamageTrack(actor);
       sheet.render(false);
     });
+
   //#endregion
+
+  html.find(".spend-xp").on("click", () => spendXPDialog(actor));
+}
+
+async function spendXPDialog(actor) {
+  const exp = actor.system.core.experience;
+  const currentXP = exp.current ?? 0;
+
+  const dlg = new Dialog({
+    title: "Spend XP",
+    content: `
+      <div class="form-group">
+        <label>Choose XP Spend Type:</label>
+        <select id="xp-type" style="width:100%;">
+          <option value="reroll">Re-roll and Take Higher (1 XP)</option>
+          <option value="intrusion">Player Intrusion (1 XP)</option>
+          <option value="custom">Custom</option>
+        </select>
+      </div>
+
+      <div id="custom-fields" style="display:none; margin-top:10px;">
+        <div class="form-group">
+          <label>Description:</label>
+          <textarea id="custom-desc" rows="3" style="width:100%;"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>XP Amount:</label>
+          <input id="custom-amount" type="number" min="0" value="0" style="width:100%;">
+        </div>
+      </div>
+    `,
+    buttons: {
+      spend: {
+        label: "Spend XP",
+        callback: async (html) => {
+          const type = html.find("#xp-type").val();
+
+          let xpCost = 1;
+          let description = "";
+
+          if (type === "custom") {
+            xpCost = Number(html.find("#custom-amount").val());
+            description = html.find("#custom-desc").val().trim();
+
+            if (xpCost < 0) {
+              ui.notifications.error("XP amount cannot be negative.");
+              return;
+            }
+          }
+
+          if (xpCost > currentXP) {
+            ui.notifications.error("Not enough XP.");
+            return;
+          }
+
+          // Call your helper
+          const success = await spendMiscXP(actor, xpCost);
+          if (!success) return;
+
+          // Build chat card
+          let title = "";
+          let body = "";
+
+          if (type === "reroll") {
+            title = "XP Spent: Re-roll and Take Higher";
+            body = `${actor.name} spends <strong>1 XP</strong> to re-roll and take the higher result.`;
+          } else if (type === "intrusion") {
+            title = "XP Spent: Player Intrusion";
+            body = `${actor.name} spends <strong>1 XP</strong> to trigger a Player Intrusion.`;
+          } else {
+            title = "XP Spent: Custom";
+            body = `
+              ${actor.name} spends <strong>${xpCost} XP</strong>.<br>
+              <strong>Description:</strong> ${description || "No description provided."}
+            `;
+          }
+
+          ChatMessage.create({
+            user: game.user.id,
+            speaker: ChatMessage.getSpeaker({ actor }),
+            content: `
+              <div class="cypher-chat-card xp-spend">
+                <p>${body}</p>
+              </div>
+            `
+          });
+
+          ui.notifications.info(`Spent ${xpCost} XP.`);
+        }
+      },
+      cancel: { label: "Cancel" }
+    },
+
+    render: (html) => {
+      const xpType = html.find("#xp-type");
+      const customFields = html.find("#custom-fields");
+
+      xpType.on("change", () => {
+        const isCustom = xpType.val() === "custom";
+        customFields.toggle(isCustom);
+
+        // Resize dialog
+        dlg.setPosition({ height: "auto" });
+      });
+    }
+  });
+
+  dlg.render(true);
 }

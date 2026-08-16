@@ -1,0 +1,55 @@
+<div class="cypher-full-grid">
+  <section class="cypher-section attacks-section">
+    <h3>
+      Skills
+      <a class="add-skill" data-tooltip="Add new skill">
+        <i class="fas fa-plus-circle"></i>
+      </a>
+    </h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Level
+          </th>
+          <th>
+            Favorite
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each skills}}
+          <tr>
+            <td>
+              <a class="view-item" data-item-id="{{this.id}}">
+                {{this.name}}
+              </a>
+            </td>
+            <td>
+              {{skillLevel this.system.skill}}
+            </td>
+            <td>
+              <input
+                type="checkbox"
+                data-item-id="{{this.id}}"
+                data-field="favorite"
+                class="skill"
+                {{checked this.system.skill.favorite}}
+              />
+            </td>
+            <td>
+              <a class="delete-skill" data-item-id="{{this.id}}">
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+</div>

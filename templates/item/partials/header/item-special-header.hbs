@@ -1,5 +1,15 @@
 <div class="ability-info-grid">
 
+  <!-- Character Type -->
+  <div class="field">
+    <label>Character Type</label>
+    <select name="system.ability.characterType">
+      <option value="Glaive"   {{#if (eq system.ability.characterType "Glaive")}}selected{{/if}}>Glaive</option>
+      <option value="Nano"  {{#if (eq system.ability.characterType "Nano")}}selected{{/if}}>Nano</option>
+      <option value="Jack"  {{#if (eq system.ability.characterType "Jack")}}selected{{/if}}>Jack</option>
+    </select>
+  </div>
+
   <!-- Type -->
   <div class="field">
     <label>Type</label>

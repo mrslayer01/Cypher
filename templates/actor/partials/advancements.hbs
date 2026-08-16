@@ -1,0 +1,63 @@
+<div class="cypher-full-grid">
+  <section class="cypher-section attacks-section">
+    <h3>
+      Advancements
+      <a class="add-advancement" data-tooltip="Add character advancement">
+        <i class="fas fa-plus-circle"></i>
+      </a>
+    </h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Tier
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each actor.system.core.experience.advancements}}
+          <tr>
+            <td>
+              <a class="advancement-row" data-index="{{@index}}" data-tooltip="View advancement details.">
+                {{#if this.increaseCapabilities.bought}}
+                  Increase Capabilities
+                {{/if}}
+                {{#if this.moveTowardPerfection.bought}}
+                  Move Toward Perfection
+                {{/if}}
+                {{#if this.extraEffort.bought}}
+                  Extra Effort
+                {{/if}}
+                {{#if this.skillTraining.bought}}
+                  Skill Training
+                {{/if}}
+                {{#if this.other.armor.bought}}
+                  Other: Armor Cost Reduction
+                {{/if}}
+                {{#if this.other.recovery.bought}}
+                  Other: Add +2 to Recovery Roll
+                {{/if}}
+                {{#if this.other.ability.bought}}
+                  Other: Extra Ability
+                {{/if}}
+              </a>
+            </td>
+            <td>
+              {{this.tier}}
+            </td>
+            <td>
+              <a class="delete-advancement" data-index="{{@index}}">
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+</div>

@@ -11,20 +11,28 @@ export const DEFAULT_SKILL_DATA = {
     inability: { choice: false, value: -1 },
     practiced: { choice: true, value: 0 },
     trained: { choice: false, value: 1 },
-    specialized: { choice: false, value: 2 }
+    specialized: { choice: false, value: 2 },
+    favorite: false
   }
 };
 
 export const DEFAULT_ABILITY_DATA = {
   ability: {
+    tier: 1,
     cost: { pool: "None", amount: 0 },
     type: "Enabler",
-    canUseEffort: false
+    characterType: "",
+    canUseEffort: false,
+    favorite: false,
+    active: false
   }
 };
 
 export const DEFAULT_ATTACK_DATA = {
-  attack: { cost: { pool: "might", amount: 0 }, damage: { base: 0, bonus: 0 } }
+  attack: {
+    cost: { pool: "might", amount: 0 },
+    damage: { base: 0, bonus: 0 }
+  }
 };
 
 export const DEFAULT_CYPHER_DATA = {
@@ -32,7 +40,9 @@ export const DEFAULT_CYPHER_DATA = {
     type: "Cypher",
     level: { current: 0, dice: "1d6", diceMod: 0 },
     depletion: { amount: 1, dice: "1d20", diceMod: 0 },
-    identified: false
+    identified: false,
+    favorite: false,
+    depleted: false
   }
 };
 

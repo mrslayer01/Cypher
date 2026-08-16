@@ -27,6 +27,8 @@ export class CypherItemSheet extends foundry.appv1.sheets.ItemSheet {
     const data = super.getData(options);
     data.system = this.item.system;
 
+    data.isGM = game.user.isGM;
+
     return data;
   }
 }

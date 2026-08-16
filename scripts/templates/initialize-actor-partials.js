@@ -1,5 +1,5 @@
-import { ActorHeaderPartials } from "./actor-partials/header-partials.js";
+import { ActorPartials } from "./actor-partials.js";
 
 export async function InitalizeAllActorPartials() {
-  await ActorHeaderPartials();
+  await ActorPartials();
 }

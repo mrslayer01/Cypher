@@ -1,0 +1,282 @@
+<div class="cypher-main-grid">
+  {{! ========================= }}
+  {{!  ROW 1 — COLUMN 1: ARMOR }}
+  {{! ========================= }}
+  <section class="cypher-section armor-section">
+    <h3>
+      Armor
+    </h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Type
+          </th>
+          <th>
+            Armor
+          </th>
+          <th>
+            Pool
+          </th>
+          <th>
+            Extra Effort
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each armor}}
+          {{#if this.system.armor.equipped}}
+            <tr>
+              <td>
+                <a class="view-item" data-item-id="{{this.id}}">
+                  {{this.name}}
+                </a>
+              </td>
+              <td>
+                {{this.system.armor.type}}
+              </td>
+              <td>
+                {{sum this.system.armor.armor.base this.system.armor.armor.bonus}}
+              </td>
+              <td>
+                {{this.system.armor.mod.pool}}
+              </td>
+              <td>
+                {{this.system.armor.mod.extraEffort}}
+              </td>
+            </tr>
+          {{/if}}
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+
+  {{! ========================== }}
+  {{!  ROW 1 — COLUMN 2: ATTACKS }}
+  {{! ========================== }}
+  <section class="cypher-section attacks-section">
+    <h3>
+      Weapons
+    </h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Type
+          </th>
+          <th>
+            Pool
+          </th>
+          <th>
+            Damage
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each weapon}}
+          {{#if this.system.weapon.equipped}}
+            <tr>
+              <td>
+                <a class="view-item" data-item-id="{{this.id}}">
+                  {{this.name}}
+                </a>
+              </td>
+              <td>
+                {{this.system.weapon.type}}
+              </td>
+              <td>
+                {{this.system.weapon.attack.pool}}
+              </td>
+              <td>
+                {{sum this.system.weapon.damage.base this.system.weapon.damage.bonus}}
+              </td>
+            </tr>
+          {{/if}}
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+
+  {{! ======================== }}
+  {{!  ROW 1 — COLUMN 3: SKILLS }}
+  {{! ======================== }}
+
+  <section class="cypher-section attacks-section">
+    <h3>
+      Skills
+    </h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Level
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each skills}}
+          {{#if this.system.skill.favorite}}
+            <tr>
+              <td>
+                <a class="view-item" data-item-id="{{this.id}}">
+                  {{this.name}}
+                </a>
+              </td>
+              <td>
+                {{skillLevel this.system.skill}}
+              </td>
+            </tr>
+          {{/if}}
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+
+  {{! =========================== }}
+  {{!  ROW 2 — COLUMN 1: ABILITIES }}
+  {{! =========================== }}
+  <section class="cypher-section abilities-section">
+    <h3>
+      Abilities
+    </h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Tier
+          </th>
+          <th>
+            Pool
+          </th>
+          <th>
+            Cost
+          </th>
+          <th>
+            Type
+          </th>
+          <th>
+            Effort
+          </th>
+          <th>
+            Active
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each specialAbilities}}
+          {{#if this.system.ability.favorite}}
+            <tr>
+              <td>
+                <a class="view-item" data-item-id="{{this.id}}">
+                  {{this.name}}
+                </a>
+              </td>
+              <td>
+                {{this.system.ability.tier}}
+              </td>
+              <td>
+                {{this.system.ability.cost.pool}}
+              </td>
+              <td>
+                {{this.system.ability.cost.amount}}
+              </td>
+              <td>
+                {{this.system.ability.type}}
+              </td>
+              <td>
+                {{#if this.system.ability.canUseEffort}}
+                  <i class="fas fa-check"></i>
+                {{else}}
+                  <i class="fas fa-times"></i>
+                {{/if}}
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  data-item-id="{{this.id}}"
+                  data-field="active"
+                  {{checked this.system.ability.active}}
+                />
+              </td>
+            </tr>
+          {{/if}}
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+
+  {{! ========================== }}
+  {{!  ROW 2 — COLUMN 2: CYPHERS }}
+  {{! ========================== }}
+  <section class="cypher-section cyphers-section">
+    <h3>
+      Cyphers (Limit: {{actor.system.core.cyphers.limit}})
+    </h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Level
+          </th>
+          <th>
+            Depleted
+          </th>
+          <th>
+            Active
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each cyphers}}
+          {{#if this.system.cypher.favorite}}
+            <tr>
+              <td>
+                <a class="view-item" data-item-id="{{this.id}}">
+                  {{this.name}}
+                </a>
+              </td>
+              <td>
+                {{this.system.cypher.level.current}}
+              </td>
+              <td>
+                {{#if this.system.cypher.depleted}}
+                  <i class="fas fa-check"></i>
+                {{else}}
+                  <i class="fas fa-times"></i>
+                {{/if}}
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  data-item-id="{{this.id}}"
+                  data-field="active"
+                  {{checked this.system.cypher.active}}
+                />
+              </td>
+            </tr>
+          {{/if}}
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+</div>
