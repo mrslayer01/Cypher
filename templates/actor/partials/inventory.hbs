@@ -128,8 +128,12 @@
     <table>
       <thead>
         <tr>
+          <th></th>
           <th>
             Name
+          </th>
+          <th>
+            Class
           </th>
           <th>
             Type
@@ -150,12 +154,28 @@
         {{#each weapon}}
           <tr>
             <td>
+              <a
+                class="weapon-attack-roll"
+                data-item-id="{{this.id}}"
+                data-pool="{{this.system.weapon.attack.pool}}"
+                data-type="{{this.system.weapon.weaponType}}"
+                data-class="{{this.system.weapon.type}}"
+                data-damage="{{sum this.system.weapon.damage.base this.system.weapon.damage.bonus}}"
+                data-tooltip="Make attack roll"
+              >
+                <i class="fa-solid fa-dice-d20"></i>
+              </a>
+            </td>
+            <td>
               <a class="view-item" data-item-id="{{this.id}}">
                 {{this.name}}
               </a>
             </td>
             <td>
               {{this.system.weapon.type}}
+            </td>
+            <td>
+              {{this.system.weapon.weaponType}}
             </td>
             <td>
               {{this.system.weapon.attack.pool}}
@@ -219,7 +239,11 @@
           <tr>
             <td>
               <a class="view-item" data-item-id="{{this.id}}">
-                {{this.name}}
+                {{#if (not system.cypher.identified)}}
+                  Unidentified Item
+                {{else}}
+                  {{this.name}}
+                {{/if}}
               </a>
             </td>
             <td>

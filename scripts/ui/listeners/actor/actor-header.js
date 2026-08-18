@@ -114,8 +114,18 @@ export function actorHeaderListeners(sheet, html) {
       ev.stopPropagation();
 
       const pool = ev.currentTarget.dataset.pool;
+      const armor = ev.currentTarget.dataset.armor;
 
-      await CypherRollWindow(actor, `${normalizeText(pool)} Defense Roll`, pool, false, true);
+      console.log(armor);
+
+      await CypherRollWindow(
+        actor,
+        `${normalizeText(pool)} Defense Roll`,
+        pool,
+        false,
+        true,
+        armor
+      );
 
       sheet.render(false);
     });

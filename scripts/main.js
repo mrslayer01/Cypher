@@ -4,6 +4,7 @@ import { InitalizeAllActorPartials } from "./templates/initialize-actor-partials
 import { InitalizeAllItemPartials } from "./templates/initialize-item-partials.js";
 import { CypherActorSheet } from "./ui/cypher-actor-sheet.js";
 import { CypherItemSheet } from "./ui/cypher-item-sheet.js";
+import { CypherNPCSheet } from "./ui/cypher-npc-sheet.js";
 import { loadAllActorHandlerbarsHelpers } from "./ui/handlebars-helpers.js";
 import { RegisterGameSettings } from "./utils/game-settings.js";
 import { spendMiscXP } from "./utils/helpers.js";
@@ -24,6 +25,13 @@ Hooks.once("init", async function () {
 
   foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
   foundry.documents.collections.Actors.registerSheet("cypher", CypherActorSheet, {
+    types: ["Character"],
+    makeDefault: true
+  });
+
+  foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
+  foundry.documents.collections.Actors.registerSheet("cypher", CypherNPCSheet, {
+    types: ["NPC"],
     makeDefault: true
   });
 
@@ -92,7 +100,6 @@ Hooks.once("ready", () => {
   });
 });
 
-// In main.js (or a hooks module)
 Hooks.on("renderChatMessageHTML", (message, html) => {
   const flags = message.flags?.gmIntrusion;
   if (!flags) return;
@@ -140,4 +147,12 @@ Hooks.on("renderChatMessageHTML", (message, html) => {
       });
     });
   }
+});
+
+Hooks.on("renderApplication", () => {
+  document.addEventListener("focusin", (ev) => {
+    if (ev.target.tagName === "INPUT" && ev.target.type === "number") {
+      ev.target.select();
+    }
+  });
 });

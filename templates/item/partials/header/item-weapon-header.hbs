@@ -2,11 +2,22 @@
 <div class="weapon-info-grid">
     <!-- Weapon Type -->
     <div class="field">
-        <label>Weapon Type</label>
+        <label>Weapon Class</label>
         <select name="system.weapon.type">
         <option value="Light"   {{#if (eq system.weapon.type "Light")}}selected{{/if}}>Light</option>
         <option value="Medium"  {{#if (eq system.weapon.type "Medium")}}selected{{/if}}>Medium</option>
         <option value="Heavy"   {{#if (eq system.weapon.type "Heavy")}}selected{{/if}}>Heavy</option>
+        </select>
+    </div>
+
+    <!-- Weapon Type Pool -->
+    <div class="field">
+        <label>Weapon Type</label>
+        <select name="system.weapon.weaponType">
+        <option value="Slashing"     {{#if (eq system.weapon.weaponType "Slashing")}}selected{{/if}}>Slashing</option>
+        <option value="Piercing"     {{#if (eq system.weapon.weaponType "Piercing")}}selected{{/if}}>Piercing</option>
+        <option value="Crushing" {{#if (eq system.weapon.weaponType "Crushing")}}selected{{/if}}>Crushing</option>
+        <option value="Reaching" {{#if (eq system.weapon.weaponType "Reaching")}}selected{{/if}}>Reaching</option>
         </select>
     </div>
 

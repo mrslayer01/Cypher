@@ -6,8 +6,24 @@
 
           <div class="item-header-fields">
             <h1 class="item-name">
-              <input type="text" name="name" value="{{item.name}}" placeholder="Item Name"/>
+              {{#if (and (eq item.type "Cypher") (not system.cypher.identified))}}
+                <input type="text" name="name" value="Unidentified Item" placeholder="Item Name" disabled="true"/>
+              {{else}}
+                <input type="text" name="name" value="{{item.name}}" placeholder="Item Name"/>
+              {{/if}}
             </h1>
+          </div>
+
+          <div class="item-header-fields-small">
+            {{#if (and (eq item.type "Cypher") isGM)}}
+              <a class="gm-identify-cypher">
+                {{#if this.system.cypher.identified}}
+                  <i class="fa fa-eye" data-tooltip="Click to de-identify"></i>
+                {{else}}
+                  <i class="fa-solid fa-eye-closed" data-tooltip="Click to identify"></i>
+                {{/if}}            
+              </a>
+            {{/if}}
           </div>
         </div>
           {{#if (in item.type "Equipment" "Weapon" "Armor")}}
@@ -44,7 +60,6 @@
 
     <div class="tab description" data-group="primary" data-tab="description">
       <div class="description-editor">
-
         {{#if (and (eq item.type "Cypher") (not system.cypher.identified))}}
           <div class="cypher-description-obscured">
             <div class="cypher-description-overlay">
@@ -71,7 +86,6 @@
             }}
           {{/if}}
         {{/if}}
-
       </div>
     </div>
   </section>

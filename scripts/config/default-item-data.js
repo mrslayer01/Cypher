@@ -51,7 +51,8 @@ export const DEFAULT_WEAPON_DATA = {
     type: "Light",
     attack: { eased: { amount: 0 }, pool: "might" },
     damage: { base: 0, bonus: 0 },
-    equipped: false
+    equipped: false,
+    weaponType: "Slashing"
   }
 };
 

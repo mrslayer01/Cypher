@@ -73,6 +73,15 @@ export const DEFAULT_ACTOR_DATA = {
 export const DEFAULT_NPC_DATA = {
   bio: { npcDescription: "", notes: "", gmNotes: "" },
   core: {
-    level: 1
+    level: 1,
+    cyphers: [],
+    specialAbilities: [],
+    combat: {
+      health: { current: 0, max: 0 },
+      armor: 0,
+      damage: 0,
+      initiativeBonus: 0,
+      defense: { speedBonus: 0 }
+    }
   }
 };

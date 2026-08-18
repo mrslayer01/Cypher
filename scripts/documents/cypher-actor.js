@@ -1,5 +1,7 @@
 import { DEFAULT_ACTOR_DATA, DEFAULT_NPC_DATA } from "../config/default-actor-data.js";
+import { DEFAULT_NPC_DESCRIPTIONS } from "../utils/lookup.js";
 import { AdvancementDerivedData } from "./derived/actor/advancements.js";
+import { EquipmentDerivedData } from "./derived/actor/equipment.js";
 
 export class CypherActor extends Actor {
   prepareBaseData() {
@@ -22,10 +24,27 @@ export class CypherActor extends Actor {
     }
   }
 
+  async _onCreate(data, options, userId) {
+    await super._onCreate(data, options, userId);
+
+    const characterType = this.type;
+    const currentDesc = this.system.bio.npcDescription;
+
+    console.log(characterType, this);
+
+    if (!currentDesc || currentDesc.trim() === "") {
+      const template = DEFAULT_NPC_DESCRIPTIONS[characterType];
+      if (template) {
+        await this.update({ "system.bio.npcDescription": template.trim() });
+      }
+    }
+  }
+
   prepareDerivedData() {
     super.prepareDerivedData();
     const system = this.system;
 
     AdvancementDerivedData(system);
+    EquipmentDerivedData(this);
   }
 }

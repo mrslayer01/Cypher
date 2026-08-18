@@ -1,3 +1,5 @@
+import { normalizeText } from "../../../utils/helpers.js";
+import { CypherRollWindow } from "../../windows/roll-window.js";
 import { actorAbilitiesListeners } from "./actor-abilities.js";
 import { actorAdvancementListeners } from "./actor-advancements.js";
 import { actorHeaderListeners } from "./actor-header.js";
@@ -56,4 +58,33 @@ export function ActorListeners(sheet, html) {
 
     item.sheet.render(true);
   });
+
+  html
+    .find(".weapon-attack-roll")
+    .off("click")
+    .on("click", async (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      const pool = ev.currentTarget.dataset.pool;
+      const damage = ev.currentTarget.dataset.damage;
+      const weaponType = ev.currentTarget.dataset.type;
+      const weaponClass = ev.currentTarget.dataset.class;
+
+      console.log(pool, damage, weaponType, weaponClass);
+
+      await CypherRollWindow(
+        sheet.actor,
+        `${normalizeText(pool)} Attack Roll`,
+        pool,
+        true,
+        false,
+        0,
+        weaponType,
+        damage,
+        weaponClass
+      );
+
+      sheet.render(false);
+    });
 }

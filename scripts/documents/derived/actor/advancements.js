@@ -1,4 +1,6 @@
 export function AdvancementDerivedData(system) {
+  if (system.actorType !== "Character" && system.type !== "Character") return;
+
   xpRemaining(system);
   characterTier(system);
   characterEffort(system);

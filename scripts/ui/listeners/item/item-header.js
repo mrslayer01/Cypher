@@ -33,6 +33,22 @@ export function ItemHeaderListeners(sheet, html) {
     ArtifactDepletionRollWindow(item);
   });
 
+  html
+    .find(".gm-identify-cypher")
+    .off("click")
+    .on("click", async (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      const identified = item.system.cypher.identified;
+
+      await item.update({
+        "system.cypher.identified": !identified
+      });
+
+      sheet.render(false);
+    });
+
   //#endregion
 }
 

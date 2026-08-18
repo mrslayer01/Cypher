@@ -7,8 +7,23 @@ import {
   DEFAULT_SKILL_DATA,
   DEFAULT_WEAPON_DATA
 } from "../config/default-item-data.js";
+import { DEFAULT_ITEM_DESCRIPTIONS } from "../utils/lookup.js";
 
 export class CypherItem extends Item {
+  async _onCreate(data, options, userId) {
+    await super._onCreate(data, options, userId);
+
+    const itemType = this.type;
+    const currentDesc = this.system.itemDescription;
+
+    if (!currentDesc || currentDesc.trim() === "") {
+      const template = DEFAULT_ITEM_DESCRIPTIONS[itemType];
+      if (template) {
+        await this.update({ "system.itemDescription": template.trim() });
+      }
+    }
+  }
+
   prepareData() {
     super.prepareData();
 

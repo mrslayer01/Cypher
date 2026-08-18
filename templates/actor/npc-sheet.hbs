@@ -1,0 +1,100 @@
+<form class="npc-sheet" autocomplete="off">
+  <header class="sheet-header">
+    <div class="npc-header">
+      <!-- Portrait (spans 2 rows) -->
+      <div class="npc-portrait">
+        <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+      </div>
+
+      <!-- Name + Level -->
+      <div class="npc-name-level">
+        <div class="field">
+          <label>
+            Name
+          </label>
+          <input type="text" name="name" value="{{actor.name}}" />
+        </div>
+
+        <div class="field">
+          <label>
+            Level
+          </label>
+          <input type="number" name="system.core.level" value="{{system.core.level}}" />
+        </div>
+      </div>
+
+      <!-- Health + Damage + Armor -->
+      <div class="npc-combat-stats">
+        <div class="field">
+          <label>
+            Health
+          </label>
+          <div class="hp-row">
+            <input
+              type="number"
+              name="system.core.combat.health.current"
+              value="{{system.core.combat.health.current}}"
+            />
+            <span>
+              /
+            </span>
+            <input type="number" name="system.core.combat.health.max" value="{{system.core.combat.health.max}}" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label>
+            Damage
+          </label>
+          <input type="number" name="system.core.combat.damage" value="{{system.core.combat.damage}}" />
+        </div>
+
+        <div class="field">
+          <label>
+            Armor
+          </label>
+          <input type="number" name="system.core.combat.armor" value="{{system.core.combat.armor}}" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="sheet-tabs" data-group="primary">
+    <a class="item" data-tab="description">
+      Description
+    </a>
+    <a class="item" data-tab="combat">
+      Combat
+    </a>
+  </nav>
+
+  <section class="sheet-body">
+    <div class="tab" data-group="primary" data-tab="description">
+      <div class="description-editor">
+        {{#if system.bio.npcDescription}}
+          {{editor
+            system.bio.npcDescription
+            target="system.bio.npcDescription"
+            button=true
+            editable=true
+            engine="prosemirror"
+          }}
+        {{else}}
+          {{editor
+            "<p class='placeholder'>Write your background here…</p>"
+            target="system.bio.npcDescription"
+            button=true
+            editable=true
+            engine="prosemirror"
+          }}
+        {{/if}}
+      </div>
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="combat">
+      <h2>
+        Combat
+      </h2>
+    </div>
+  </section>
+</form>
