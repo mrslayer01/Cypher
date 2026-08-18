@@ -142,6 +142,9 @@
             Pool
           </th>
           <th>
+            Skill
+          </th>
+          <th>
             Damage
           </th>
           <th>
@@ -158,6 +161,7 @@
                 class="weapon-attack-roll"
                 data-item-id="{{this.id}}"
                 data-pool="{{this.system.weapon.attack.pool}}"
+                data-skill="{{this.system.weapon.attack.skill}}"
                 data-type="{{this.system.weapon.weaponType}}"
                 data-class="{{this.system.weapon.type}}"
                 data-damage="{{sum this.system.weapon.damage.base this.system.weapon.damage.bonus}}"
@@ -179,6 +183,9 @@
             </td>
             <td>
               {{this.system.weapon.attack.pool}}
+            </td>
+            <td>
+              {{this.system.weapon.attack.skill}}
             </td>
             <td>
               {{sum this.system.weapon.damage.base this.system.weapon.damage.bonus}}

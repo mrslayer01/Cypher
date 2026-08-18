@@ -31,13 +31,15 @@
         </select>
     </div>
 
-    <!-- Attack Ease -->
+    <!-- Attack Skill -->
     <div class="field">
-        <label>Attack Ease</label>
-        <input type="number"
-                name="system.weapon.attack.eased.amount"
-                value="{{system.weapon.attack.eased.amount}}"
-                class="no-negative"/>
+        <label>Attack Skill</label>
+        <select name="system.weapon.attack.skill">
+            <option value="Practiced"     {{#if (eq system.weapon.attack.skill "Practiced")}}selected{{/if}}>Practiced</option>
+            <option value="Trained"     {{#if (eq system.weapon.attack.skill "Trained")}}selected{{/if}}>Trained</option>
+            <option value="Specialized" {{#if (eq system.weapon.attack.skill "Specialized")}}selected{{/if}}>Specialized</option>
+            <option value="Inability" {{#if (eq system.weapon.attack.skill "Inability")}}selected{{/if}}>Inability</option>
+        </select>
     </div>
 
     <!-- Damage Base -->

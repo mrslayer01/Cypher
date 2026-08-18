@@ -49,7 +49,7 @@ export const DEFAULT_CYPHER_DATA = {
 export const DEFAULT_WEAPON_DATA = {
   weapon: {
     type: "Light",
-    attack: { eased: { amount: 0 }, pool: "might" },
+    attack: { skill: "Practiced", pool: "Speed" },
     damage: { base: 0, bonus: 0 },
     equipped: false,
     weaponType: "Slashing"

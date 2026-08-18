@@ -1,4 +1,9 @@
-import { ModifyPool, normalizeText } from "../../utils/helpers.js";
+import {
+  GetTaskDifficulty,
+  GetWeaponSkillValue,
+  ModifyPool,
+  normalizeText
+} from "../../utils/helpers.js";
 
 export async function CypherRollWindow(
   actor,
@@ -9,12 +14,15 @@ export async function CypherRollWindow(
   armor = 0,
   weaponType = "",
   damage = 0,
-  weaponClass = ""
+  weaponClass = "",
+  weaponSkill = ""
 ) {
   // ---------------------------------------------
   // AUTO‑TARGET NPC VALUES BEFORE DIALOG RENDERS
   // ---------------------------------------------
   let autoDifficulty = null;
+  let autoDifficultyExpanded = null;
+  let autoWeaponSkill = GetWeaponSkillValue(weaponSkill) || null;
   let autoArmor = null;
   let autoDamage = null;
 
@@ -22,12 +30,16 @@ export async function CypherRollWindow(
 
   if (attack && target?.actor?.type === "NPC") {
     autoDifficulty = target.actor.system.core.level;
+    autoDifficultyExpanded = GetTaskDifficulty(autoDifficulty);
     autoArmor = target.actor.system.core.combat.armor;
+
+    console.log(autoDifficultyExpanded);
     rollLabel = rollLabel + " - " + target.actor.name;
   }
 
-  if (defend) {
+  if (defend && target?.actor?.type === "NPC") {
     autoDifficulty = target.actor.system.core.level;
+    autoDifficultyExpanded = GetTaskDifficulty(autoDifficulty);
     autoDamage = target.actor.system.core.combat.damage;
     rollLabel = rollLabel + " - Defending vs " + target.actor.name;
   }
@@ -49,13 +61,32 @@ export async function CypherRollWindow(
 
   const skillSelector = defend
     ? ""
-    : `<label><b>Attack Skill Level</b></label>
+    : `<label><b>Skill Level</b></label>
         <select id="skill" style="width: 100%;">
-          <option value="0">None</option>
+          <option value="0">Practiced</option>
           <option value="1">Trained (eases 1 step)</option>
           <option value="2">Specialized (eases 2 steps)</option>
           <option value="-1">Inability (hinders 1 step)</option>
         </select>`;
+
+  const difficultySelector = autoDifficulty
+    ? `<label><b>Task Difficulty</b></label>
+      <input type="text" id="difficulty" value="${autoDifficultyExpanded}" disabled style="width: 100%;" />`
+    : `
+        <label><b>Task Difficulty</b></label>
+        <select id="difficulty" style="width: 100%;">
+          <option value="1">Simple (Target Number: 3)</option>
+          <option value="2">Standard (Target Number: 6)</option>
+          <option value="3">Demanding (Target Number: 9)</option>
+          <option value="4">Difficult (Target Number: 12)</option>
+          <option value="5">Challenging (Target Number: 15)</option>
+          <option value="6">Intimidating (Target Number: 18)</option>
+          <option value="7">Formidable (Target Number: 21)</option>
+          <option value="8">Heroic (Target Number: 24)</option>
+          <option value="9">Immortal (Target Number: 27)</option>
+          <option value="10">Impossible (Target Number: 30)</option>
+        </select>
+  `;
 
   const attackFields = attack
     ? `
@@ -88,19 +119,7 @@ export async function CypherRollWindow(
     content: `
       <div class="cypher-roll-window">
 
-        <label><b>Task Difficulty</b></label>
-        <select id="difficulty" style="width: 100%;">
-          <option value="1">Simple (Target Number: 3)</option>
-          <option value="2">Standard (Target Number: 6)</option>
-          <option value="3">Demanding (Target Number: 9)</option>
-          <option value="4">Difficult (Target Number: 12)</option>
-          <option value="5">Challenging (Target Number: 15)</option>
-          <option value="6">Intimidating (Target Number: 18)</option>
-          <option value="7">Formidable (Target Number: 21)</option>
-          <option value="8">Heroic (Target Number: 24)</option>
-          <option value="9">Immortal (Target Number: 27)</option>
-          <option value="10">Impossible (Target Number: 30)</option>
-        </select>
+        ${difficultySelector}
 
         ${skillSelector}
 
@@ -122,7 +141,7 @@ export async function CypherRollWindow(
         callback: (html) => {
           // Read dialog values (player can override NPC auto-fill)
           const rollPool = pool.toLowerCase() || html.find("#pool").val();
-          const difficulty = Number(html.find("#difficulty").val());
+          const difficulty = autoDifficulty || Number(html.find("#difficulty").val());
           const finalArmor = attack
             ? Number(html.find("#armor").val())
             : Number(autoArmor ?? armor ?? 0);
@@ -207,7 +226,13 @@ export async function CypherRollWindow(
   // After render: set difficulty dropdown to NPC level
   if (autoDifficulty !== null) {
     Hooks.once("renderDialog", (app, html) => {
-      html.find("#difficulty").val(String(autoDifficulty));
+      html.find("#difficulty").val(String(autoDifficultyExpanded));
+    });
+  }
+  // After render: set difficulty dropdown to NPC level
+  if (autoWeaponSkill !== null) {
+    Hooks.once("renderDialog", (app, html) => {
+      html.find("#skill").val(autoWeaponSkill);
     });
   }
 }
@@ -266,11 +291,11 @@ async function cypherRoll({
 
     <b>Difficulty Breakdown</b><br>
     • Base Difficulty: ${difficulty}<br>
-    ${weaponTypeFinal === "reaching" ? "• Reaching Weapon: +1 difficulty<br>" : ""}
-    ${weaponClass?.toLowerCase() === "light" ? "• Light Weapon: -1 difficulty<br>" : ""}
-    • Skill Reduction: ${skill} step(s)<br>
-    • Asset Reduction: ${assets} step(s)<br>
-    • Effort Reduction: ${effort} step(s)<br>
+    ${weaponTypeFinal === "reaching" ? "• Reaching Weapon Hindered: 1 step<br>" : ""}
+    ${weaponClass?.toLowerCase() === "light" ? "• Light Weapon Eased: 1 step<br>" : ""}
+    ${skill >= 0 ? `• Skill Eased: ${skill} step(s)<br>` : `• Skill Hindered: 1 step<br>`}
+    • Asset Eased: ${assets} step(s)<br>
+    • Effort Eased: ${effort} step(s)<br>
     <b>→ Final Difficulty:</b> ${finalDifficulty}<br>
     <b>→ Target Number:</b> ${targetNumber}<br>
   </details>

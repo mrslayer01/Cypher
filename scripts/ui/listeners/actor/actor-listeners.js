@@ -67,6 +67,7 @@ export function ActorListeners(sheet, html) {
       ev.stopPropagation();
 
       const pool = ev.currentTarget.dataset.pool;
+      const skill = ev.currentTarget.dataset.skill;
       const damage = ev.currentTarget.dataset.damage;
       const weaponType = ev.currentTarget.dataset.type;
       const weaponClass = ev.currentTarget.dataset.class;
@@ -82,7 +83,8 @@ export function ActorListeners(sheet, html) {
         0,
         weaponType,
         damage,
-        weaponClass
+        weaponClass,
+        skill
       );
 
       sheet.render(false);

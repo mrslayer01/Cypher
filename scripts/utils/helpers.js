@@ -98,3 +98,63 @@ export async function spendMiscXP(actor, amount) {
 
   return true;
 }
+
+export function GetTaskDifficulty(difficulty) {
+  let difficultyDesc = "";
+
+  switch (difficulty) {
+    case 1:
+      difficultyDesc = "Simple (Target: 3)";
+      break;
+    case 2:
+      difficultyDesc = "Standard (Target: 6)";
+      break;
+    case 3:
+      difficultyDesc = "Demanding (Target: 9)";
+      break;
+    case 4:
+      difficultyDesc = "Difficult (Target: 12)";
+      break;
+    case 5:
+      difficultyDesc = "Challenging (Target: 15)";
+      break;
+    case 6:
+      difficultyDesc = "Intimidating (Target: 18)";
+      break;
+    case 7:
+      difficultyDesc = "Formidable (Target: 21";
+      break;
+    case 8:
+      difficultyDesc = "Heroic (Target: 24)";
+      break;
+    case 9:
+      difficultyDesc = "Immortal (Target: 27)";
+      break;
+    case 10:
+      difficultyDesc = "Impossible (Target: 30)";
+      break;
+  }
+
+  return difficultyDesc;
+}
+
+export function GetWeaponSkillValue(skill) {
+  let weaponSkillValue = 0;
+
+  switch (skill) {
+    case "Practiced":
+      weaponSkillValue = 0;
+      break;
+    case "Trained":
+      weaponSkillValue = 1;
+      break;
+    case "Specialized":
+      weaponSkillValue = 2;
+      break;
+    case "Inability":
+      weaponSkillValue = -1;
+      break;
+  }
+
+  return weaponSkillValue;
+}
