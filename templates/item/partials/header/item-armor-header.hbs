@@ -2,11 +2,22 @@
   <!-- Armor Type -->
   <div class="field">
     <label>Armor Type</label>
-    <select name="system.armor.type">
+    <select name="system.armor.type" class="armor-type">
       <option value="Light"  {{#if (eq system.armor.type "Light")}}selected{{/if}}>Light</option>
       <option value="Medium" {{#if (eq system.armor.type "Medium")}}selected{{/if}}>Medium</option>
       <option value="Heavy"  {{#if (eq system.armor.type "Heavy")}}selected{{/if}}>Heavy</option>
     </select>
+  </div>
+
+    <!-- Attack Skill -->
+  <div class="field">
+      <label>Armor Skill</label>
+      <select name="system.armor.skill">
+          <option value="Practiced"     {{#if (eq system.armor.skill "Practiced")}}selected{{/if}}>Practiced</option>
+          <option value="Trained"     {{#if (eq system.armor.skill "Trained")}}selected{{/if}}>Trained</option>
+          <option value="Specialized" {{#if (eq system.armor.skill "Specialized")}}selected{{/if}}>Specialized</option>
+          <option value="Inability" {{#if (eq system.armor.skill "Inability")}}selected{{/if}}>Inability</option>
+      </select>
   </div>
 
   <!-- Shield -->
@@ -17,31 +28,13 @@
            {{#if system.armor.shield}}checked{{/if}} />
   </div>
 
-  <!-- Pool Penalty -->
-  <div class="field">
-    <label>Pool Penalty</label>
-    <select name="system.armor.mod.pool">
-      <option value="Might"     {{#if (eq system.armor.mod.pool "Might")}}selected{{/if}}>Might</option>
-      <option value="Speed"     {{#if (eq system.armor.mod.pool "Speed")}}selected{{/if}}>Speed</option>
-      <option value="Intellect" {{#if (eq system.armor.mod.pool "Intellect")}}selected{{/if}}>Intellect</option>
-    </select>
-  </div>
-
-  <!-- Extra Effort Cost -->
-  <div class="field">
-    <label>Extra Effort Cost</label>
-    <input type="number"
-           name="system.armor.mod.extraEffort"
-           value="{{system.armor.mod.extraEffort}}"
-           class="no-negative" />
-  </div>
-
   <!-- Base Armor -->
   <div class="field">
     <label>Base Armor</label>
     <input type="number"
            name="system.armor.armor.base"
            value="{{system.armor.armor.base}}"
+           disabled="true"
            class="no-negative" />
   </div>
 
@@ -51,6 +44,15 @@
     <input type="number"
            name="system.armor.armor.bonus"
            value="{{system.armor.armor.bonus}}"
+           class="no-negative" />
+  </div>
+
+    <!-- Effort Reduction -->
+  <div class="field">
+    <label>Effort Reduc</label>
+    <input type="number"
+           name="system.armor.effortReduc"
+           value="{{system.armor.effortReduc}}"
            class="no-negative" />
   </div>
 </div>

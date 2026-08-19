@@ -158,3 +158,16 @@ export function GetWeaponSkillValue(skill) {
 
   return weaponSkillValue;
 }
+
+export function getArmorValueFromType(type) {
+  switch (type) {
+    case "Light":
+      return 1;
+    case "Medium":
+      return 2;
+    case "Heavy":
+      return 3;
+    default:
+      return 0;
+  }
+}

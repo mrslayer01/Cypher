@@ -4,7 +4,10 @@ export function EquipmentDerivedData(actor) {
 }
 
 async function ArmorEquipped(actor) {
+  // Populate current armor as well as the type of armor equipped.
   let equippedArmorValue = 0;
+  let equippedArmorType = "";
+  let hasShield = false;
   const armorItems = actor.items.filter((i) => i.type === "Armor");
 
   for (const armor of armorItems) {

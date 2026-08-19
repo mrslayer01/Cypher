@@ -8,21 +8,85 @@ import {
 export async function CypherRollWindow(
   actor,
   rollLabel = "Task Roll",
-  pool,
+  weapon = null,
   attack = false,
   defend = false,
   armor = 0,
-  weaponType = "",
-  damage = 0,
-  weaponClass = "",
-  weaponSkill = ""
+  definedPool = null
 ) {
+  // Assign weapon data
+  let wepPool = null;
+  let wepDamage = null;
+  let wepType = null;
+  let wepClass = null;
+  let wepSkill = null;
+
+  if (weapon) {
+    const wep = weapon.system.weapon;
+    wepPool = wep.attack.pool.toLowerCase();
+    wepDamage = wep.damage.base + wep.damage.bonus;
+    wepType = wep.weaponType;
+    wepClass = wep.type;
+    wepSkill = GetWeaponSkillValue(wep.attack.skill);
+  }
+
+  // Assign armor Data
+
+  let armorType = null;
+  let armorSkill = null;
+  let hasShield = false;
+  let armorEffortPenalty = 0;
+  let armorEffortReduction = 0;
+
+  const equippedArmor = actor.items.filter((i) => i.type === "Armor");
+
+  if (equippedArmor.length > 0) {
+    // For now assume only one armor piece matters
+    const a = equippedArmor[0].system.armor;
+    armorEffortReduction = a.effortReduc;
+
+    armorType = a.type; // Light / Medium / Heavy
+    armorSkill = a.skill; // Practiced / Inability
+    hasShield = a.shield; // true / false
+
+    // Armor Effort penalty per level
+    switch (armorType) {
+      case "Light":
+        armorEffortPenalty = 1;
+        break;
+      case "Medium":
+        armorEffortPenalty = 2;
+        break;
+      case "Heavy":
+        armorEffortPenalty = 3;
+        break;
+    }
+
+    switch (armorSkill) {
+      case "Practiced":
+        armorEffortPenalty += 0;
+        break;
+      case "Trained":
+        armorEffortPenalty -= 1;
+        break;
+      case "Specialized":
+        armorEffortPenalty -= 2;
+        break;
+      case "Inability":
+        armorEffortPenalty += 1;
+        break;
+    }
+
+    // Finally reduce the penalty by the effortReduc value
+    armorEffortPenalty = armorEffortPenalty - armorEffortReduction;
+  }
+
   // ---------------------------------------------
   // AUTO‑TARGET NPC VALUES BEFORE DIALOG RENDERS
   // ---------------------------------------------
   let autoDifficulty = null;
   let autoDifficultyExpanded = null;
-  let autoWeaponSkill = GetWeaponSkillValue(weaponSkill) || null;
+  let autoWeaponSkill = wepSkill || null;
   let autoArmor = null;
   let autoDamage = null;
 
@@ -32,8 +96,6 @@ export async function CypherRollWindow(
     autoDifficulty = target.actor.system.core.level;
     autoDifficultyExpanded = GetTaskDifficulty(autoDifficulty);
     autoArmor = target.actor.system.core.combat.armor;
-
-    console.log(autoDifficultyExpanded);
     rollLabel = rollLabel + " - " + target.actor.name;
   }
 
@@ -47,10 +109,9 @@ export async function CypherRollWindow(
   // ---------------------------------------------
   // DIALOG HTML
   // ---------------------------------------------
-  const poolSelector =
-    typeof pool === "string"
-      ? ""
-      : `
+  let poolSelector = wepPool
+    ? ""
+    : `
       <label><b>Effort Stat Pool</b></label>
       <select id="pool" style="width: 100%;">
         <option value="might">MIGHT</option>
@@ -58,6 +119,19 @@ export async function CypherRollWindow(
         <option value="intellect">INTELLECT</option>
       </select>
     `;
+
+  if (attack || defend || definedPool) {
+    poolSelector = "";
+  } else {
+    poolSelector = `
+      <label><b>Effort Stat Pool</b></label>
+      <select id="pool" style="width: 100%;">
+        <option value="might">MIGHT</option>
+        <option value="speed">SPEED</option>
+        <option value="intellect">INTELLECT</option>
+      </select>
+    `;
+  }
 
   const skillSelector = defend
     ? ""
@@ -96,12 +170,12 @@ export async function CypherRollWindow(
              min="0" style="width: 100%;" />
 
       <label><b>Weapon Damage</b></label>
-      <input type="number" id="weaponDamage" value="${damage || 0}" min="0" style="width: 100%;" />
+      <input type="number" id="weaponDamage" value="${wepDamage || 0}" min="0" style="width: 100%;" />
 
       ${
-        weaponType
+        wepType
           ? `<label><b>Weapon Type</b></label>
-             <input type="text" id="weaponType" value="${weaponType}" disabled style="width: 100%;" />`
+             <input type="text" id="weaponType" value="${wepType}" disabled style="width: 100%;" />`
           : `<label><b>Weapon Type</b></label>
              <select id="weaponType" style="width: 100%;">
                <option value="">None</option>
@@ -140,9 +214,15 @@ export async function CypherRollWindow(
         label: "Roll",
         callback: (html) => {
           // Read dialog values (player can override NPC auto-fill)
-          const rollPool = pool.toLowerCase() || html.find("#pool").val();
+          let rollPool = "";
+
+          if (attack) {
+            rollPool = wepPool;
+          } else {
+            rollPool = definedPool.toLowerCase() ?? html.find("#pool").val();
+          }
           const difficulty = autoDifficulty || Number(html.find("#difficulty").val());
-          const finalArmor = attack
+          let finalArmor = attack
             ? Number(html.find("#armor").val())
             : Number(autoArmor ?? armor ?? 0);
 
@@ -158,16 +238,21 @@ export async function CypherRollWindow(
           const assets = Math.min(2, Number(html.find("#assets").val()));
           const effort = Math.min(pcEffort, Number(html.find("#effort").val()));
 
-          const baseDamage = attack ? Number(html.find("#weaponDamage").val()) || damage : 0;
+          const baseDamage = attack ? Number(html.find("#weaponDamage").val()) || wepDamage : 0;
           const weaponTypeFinal = attack
-            ? (html.find("#weaponType").val() || weaponType).toLowerCase()
+            ? (html.find("#weaponType").val() || wepType).toLowerCase()
             : "";
 
           // Difficulty modifiers
           let modifiedDifficulty = difficulty;
 
+          // Shield reduces difficulty by 1 ONLY for Speed defense rolls
+          if (defend && rollPool === "speed" && hasShield) {
+            modifiedDifficulty -= 1;
+          }
+
           if (attack && weaponTypeFinal === "reaching") modifiedDifficulty += 1;
-          if (attack && weaponClass?.toLowerCase() === "light") modifiedDifficulty -= 1;
+          if (attack && wepClass?.toLowerCase() === "light") modifiedDifficulty -= 1;
 
           const skillReduction = Math.max(-1, Math.min(defenceSkill, 2));
           const assetReduction = Math.min(assets, 2);
@@ -178,7 +263,22 @@ export async function CypherRollWindow(
 
           let effortCost = 0;
           if (effort > 0) {
-            effortCost = 3 + (effort - 1) * 2 - pcEdge + (pcEffortDamage ? 1 : 0);
+            // Base Cypher cost
+            effortCost = 3 + (effort - 1) * 2;
+
+            // Armor penalty ONLY for Speed Effort
+            if (rollPool.toLowerCase() === "speed") {
+              effortCost += armorEffortPenalty * effort;
+            }
+
+            // Damage track penalty
+            if (pcEffortDamage) {
+              effortCost += 1;
+            }
+
+            // Edge reduces total cost
+            effortCost -= pcEdge;
+            effortCost = Math.max(0, effortCost); // Be sure it does not go negative
           }
 
           if (!validatePoolRemaining(actor, effortCost, rollPool)) {
@@ -210,9 +310,13 @@ export async function CypherRollWindow(
             finalArmor,
             baseDamage,
             weaponTypeFinal,
-            weaponClass,
+            wepClass,
             autoDamage,
-            autoArmor
+            autoArmor,
+            armorEffortPenalty,
+            hasShield,
+            armorType,
+            armorSkill
           });
         }
       },
@@ -257,15 +361,30 @@ async function cypherRoll({
   finalArmor,
   baseDamage,
   weaponTypeFinal,
-  weaponClass,
+  wepClass,
   autoDamage,
-  autoArmor
+  autoArmor,
+  armorEffortPenalty,
+  hasShield,
+  armorType,
+  armorSkill
 }) {
   if (autoSuccess) {
+    // Does not require a roll
+    const weaponRules = applyWeaponTypeRules(baseDamage, weaponTypeFinal, finalArmor);
+
+    const effectiveArmor = Math.max(finalArmor - weaponRules.armorIgnore, 0);
+    const finalDamage = Math.max(baseDamage + weaponRules.bonus - effectiveArmor, 0);
     await ModifyPool(actor, rollPool, effortCost);
+
     ChatMessage.create({
       speaker: ChatMessage.getSpeaker(),
-      content: `<b>${label}</b><br>Difficulty reduced to <b>0</b> — automatic success!`
+      content: `
+      <b>${label}</b><br>Difficulty reduced to Routine — automatic success!<br>
+      • Base Damage: ${baseDamage}<br>
+      • Target Armor: ${effectiveArmor}<br>
+      • Final Damage: ${finalDamage}
+      `
     });
     return;
   }
@@ -276,6 +395,8 @@ async function cypherRoll({
 
   const success = total >= targetNumber;
   const effect = getCypherRollEffect(total, attack, pcEffortDamage);
+  const baseDif = GetTaskDifficulty(difficulty);
+  const finalDif = GetTaskDifficulty(finalDifficulty);
 
   if (effect.refundEffort) effortCost = 0;
 
@@ -290,14 +411,19 @@ async function cypherRoll({
     <summary><b>Difficulty Details</b></summary>
 
     <b>Difficulty Breakdown</b><br>
-    • Base Difficulty: ${difficulty}<br>
+    • Base Difficulty: ${baseDif}<br>
     ${weaponTypeFinal === "reaching" ? "• Reaching Weapon Hindered: 1 step<br>" : ""}
-    ${weaponClass?.toLowerCase() === "light" ? "• Light Weapon Eased: 1 step<br>" : ""}
+    ${wepClass?.toLowerCase() === "light" ? "• Light Weapon Eased: 1 step<br>" : ""}
     ${skill >= 0 ? `• Skill Eased: ${skill} step(s)<br>` : `• Skill Hindered: 1 step<br>`}
-    • Asset Eased: ${assets} step(s)<br>
-    • Effort Eased: ${effort} step(s)<br>
-    <b>→ Final Difficulty:</b> ${finalDifficulty}<br>
-    <b>→ Target Number:</b> ${targetNumber}<br>
+    ${defend && rollPool.toLowerCase() === "speed" && hasShield ? "• Shield Eased: 1 step<br>" : ""}
+    ${assets > 0 ? `• Asset Eased: ${assets} step(s)<br>` : ""}
+    ${effort > 0 ? `• Effort Eased: ${effort} step(s)<br>` : ""}
+    ${
+      rollPool.toLowerCase() === "speed" && armorEffortPenalty > 0 && effort > 0
+        ? `• Armor Effort Penalty: +${armorEffortPenalty} per level<br>`
+        : ""
+    }
+    <b>→ Final Difficulty:</b> ${finalDif}<br>
   </details>
 `;
 
@@ -322,7 +448,7 @@ async function cypherRoll({
       • Special Roll Bonus: ${effect.damageBonus}<br>
       • Weapon Type Bonus: ${weaponRules.bonus}<br>
       • Target Armor: ${finalArmor}<br>
-      • Armor Ignored: ${weaponRules.armorIgnore} (Crushing Weapon)<br>
+      ${weaponRules.armorIgnore > 0 ? `• Armor Ignored: ${weaponRules.armorIgnore} (Crushing Weapon)<br>` : ""}
       • Effective Armor: ${effectiveArmor}<br>
       <b>→ Final Damage:</b> ${finalDamage}<br>
     </details>
@@ -352,6 +478,9 @@ async function cypherRoll({
       • NPC Base Damage: ${npcDamage}<br>
       • PC Armor: ${finalArmor}<br>
       • Effective Armor: ${effectiveArmor}<br>
+      • Armor Type: ${armorType}<br>
+      • Armor Skill: ${armorSkill}<br>
+      ${hasShield && defend ? `• Shield: ${hasShield}<br>` : ""}
       <b>→ Final Damage Taken:</b> ${finalDamage}<br>
     </details>
   `;
@@ -360,10 +489,8 @@ async function cypherRoll({
   const content = `
   <b>${label}</b><br>
   <hr>
-  <b>Original Difficulty:</b> ${difficulty}<br>
-  <b>Modified Difficulty:</b> ${modifiedDifficulty}<br>
-  <b>Final Difficulty:</b> ${finalDifficulty}<br>
-  <b>Target Number:</b> ${targetNumber}<br>
+  <b>Original Difficulty:</b> ${baseDif}<br>
+  <b>Final Difficulty:</b> ${finalDif}<br>
   ${difficultyDetails}
   <hr>
   <b>Roll:</b> ${total}<br>

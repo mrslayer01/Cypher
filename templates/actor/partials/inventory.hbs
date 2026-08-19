@@ -64,12 +64,6 @@
             Armor
           </th>
           <th>
-            Pool
-          </th>
-          <th>
-            Extra Effort
-          </th>
-          <th>
             Equipped
           </th>
           <th></th>
@@ -88,12 +82,6 @@
             </td>
             <td>
               {{sum this.system.armor.armor.base this.system.armor.armor.bonus}}
-            </td>
-            <td>
-              {{this.system.armor.mod.pool}}
-            </td>
-            <td>
-              {{this.system.armor.mod.extraEffort}}
             </td>
             <td>
               <input
@@ -157,16 +145,7 @@
         {{#each weapon}}
           <tr>
             <td>
-              <a
-                class="weapon-attack-roll"
-                data-item-id="{{this.id}}"
-                data-pool="{{this.system.weapon.attack.pool}}"
-                data-skill="{{this.system.weapon.attack.skill}}"
-                data-type="{{this.system.weapon.weaponType}}"
-                data-class="{{this.system.weapon.type}}"
-                data-damage="{{sum this.system.weapon.damage.base this.system.weapon.damage.bonus}}"
-                data-tooltip="Make attack roll"
-              >
+              <a class="weapon-attack-roll" data-item="{{this.id}}" data-tooltip="Make attack roll">
                 <i class="fa-solid fa-dice-d20"></i>
               </a>
             </td>

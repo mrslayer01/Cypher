@@ -59,9 +59,10 @@ export const DEFAULT_WEAPON_DATA = {
 export const DEFAULT_ARMOR_DATA = {
   armor: {
     type: "Light",
+    skill: "Practiced",
     shield: false,
-    mod: { pool: "Speed", extraEffort: 0 },
-    armor: { base: 0, bonus: 0 },
+    effortReduc: 0,
+    armor: { base: 1, bonus: 0 },
     equipped: false
   }
 };

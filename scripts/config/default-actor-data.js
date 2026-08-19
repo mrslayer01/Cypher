@@ -51,7 +51,7 @@ export const DEFAULT_ACTOR_DATA = {
       }
     },
     combat: {
-      armor: { current: 0, temp: 0 },
+      armor: { current: 0 },
       damage: { current: 0, temp: 0 }
     },
     skills: [],

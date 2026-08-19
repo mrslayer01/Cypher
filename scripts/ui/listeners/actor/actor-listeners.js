@@ -66,25 +66,17 @@ export function ActorListeners(sheet, html) {
       ev.preventDefault();
       ev.stopPropagation();
 
-      const pool = ev.currentTarget.dataset.pool;
-      const skill = ev.currentTarget.dataset.skill;
-      const damage = ev.currentTarget.dataset.damage;
-      const weaponType = ev.currentTarget.dataset.type;
-      const weaponClass = ev.currentTarget.dataset.class;
-
-      console.log(pool, damage, weaponType, weaponClass);
+      const item = ev.currentTarget.dataset.item;
+      const weapon = sheet.actor.items.get(item);
 
       await CypherRollWindow(
         sheet.actor,
-        `${normalizeText(pool)} Attack Roll`,
-        pool,
+        `${normalizeText(weapon.system.weapon.attack.pool)} Attack Roll`,
+        weapon,
         true,
         false,
         0,
-        weaponType,
-        damage,
-        weaponClass,
-        skill
+        null
       );
 
       sheet.render(false);

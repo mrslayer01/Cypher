@@ -1,3 +1,5 @@
+import { getArmorValueFromType } from "../../../utils/helpers.js";
+
 export function ItemHeaderListeners(sheet, html) {
   const item = sheet.item;
 
@@ -49,6 +51,25 @@ export function ItemHeaderListeners(sheet, html) {
       sheet.render(false);
     });
 
+  //#endregion
+
+  //#region Armor
+  html
+    .find(".armor-type")
+    .off("change")
+    .on("change", async (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      const armorType = getArmorValueFromType(ev.currentTarget.value);
+
+      await item.update({
+        "system.armor.type": ev.currentTarget.value,
+        "system.armor.armor.base": armorType
+      });
+
+      sheet.render(false);
+    });
   //#endregion
 }
 

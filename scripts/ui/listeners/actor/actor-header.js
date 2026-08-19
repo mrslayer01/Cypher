@@ -101,7 +101,15 @@ export function actorHeaderListeners(sheet, html) {
 
       const pool = ev.currentTarget.dataset.pool;
 
-      await CypherRollWindow(actor, `${normalizeText(pool)} Roll`, pool);
+      await CypherRollWindow(
+        actor,
+        `${normalizeText(pool)} Roll`,
+        null,
+        false,
+        false,
+        0,
+        `${normalizeText(pool)}`
+      );
 
       sheet.render(false);
     });
@@ -116,15 +124,14 @@ export function actorHeaderListeners(sheet, html) {
       const pool = ev.currentTarget.dataset.pool;
       const armor = ev.currentTarget.dataset.armor;
 
-      console.log(armor);
-
       await CypherRollWindow(
         actor,
-        `${normalizeText(pool)} Defense Roll`,
-        pool,
+        `${normalizeText(pool)} Defense `,
+        null,
         false,
         true,
-        armor
+        armor,
+        `${normalizeText(pool)}`
       );
 
       sheet.render(false);

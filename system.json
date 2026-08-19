@@ -2,7 +2,7 @@
   "id": "cypher",
   "title": "Cypher System",
   "description": "A system for Cypher.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "compatibility": {
     "minimum": "14",
     "verified": "14",
@@ -22,8 +22,8 @@
       "path": "lang/en.json"
     }
   ],
-  "download": "https://github.com/mrslayer01/Cypher/archive/refs/tags/0.1.1.zip",
-  "manifest": "https://github.com/mrslayer01/Cypher/releases/download/0.1.1/system.json",
+  "download": "https://github.com/mrslayer01/Cypher/archive/refs/tags/0.1.2.zip",
+  "manifest": "https://github.com/mrslayer01/Cypher/releases/download/0.1.2/system.json",
   "grid": {
     "distance": 1.5,
     "units": "m"
