@@ -81,7 +81,8 @@ export const DEFAULT_NPC_DATA = {
       armor: 0,
       damage: 0,
       initiativeBonus: 0,
-      defense: { speedBonus: 0 }
+      defense: { bonus: 0, pool: "" },
+      attack: { bonus: 0 }
     }
   }
 };

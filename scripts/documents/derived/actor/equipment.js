@@ -22,7 +22,5 @@ async function ArmorEquipped(actor) {
     }
   }
 
-  await actor.update({
-    "system.core.combat.armor.current": equippedArmorValue
-  });
+  actor.system.core.combat.armor.current = equippedArmorValue;
 }

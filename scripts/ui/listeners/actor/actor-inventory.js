@@ -211,8 +211,8 @@ export function actorInventoryListeners(sheet, html) {
     const itemId = ev.currentTarget.dataset.itemId;
 
     const confirmed = await Dialog.confirm({
-      title: "Confirm Delete Armor",
-      content: `<p>Are you sure you want to remove ${actor.items.get(itemId).name}?</p>`
+      title: "Confirm Delete Cypher",
+      content: `<p>Are you sure you want to remove this item?</p>`
     });
 
     if (!confirmed) return;
@@ -229,5 +229,6 @@ export function actorInventoryListeners(sheet, html) {
 
     ui.notifications.info("Cypher removed.");
   });
+
   //#endregion
 }

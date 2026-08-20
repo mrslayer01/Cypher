@@ -11,14 +11,24 @@
   <!-- Level Current -->
   <div class="field">
     <label>
+      {{#if (not system.cypher.identified)}}
+        Level
+      {{else}}
         <a class="cypher-level-roll clickable" data-tooltip="Click to roll Cypher/Artifact level">
             Level
         </a>
+      {{/if}}
     </label>
-    <input type="number"
-           name="system.cypher.level.current"
-           value="{{system.cypher.level.current}}"
-           class="no-negative" />
+    {{#if (not system.cypher.identified)}}
+      <input type="text"
+            value="??"
+            disabled="true" />
+    {{else}}
+      <input type="number"
+            name="system.cypher.level.current"
+            value="{{system.cypher.level.current}}"
+            class="no-negative" />
+    {{/if}}
   </div>
 
 

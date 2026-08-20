@@ -6,9 +6,6 @@ import { EquipmentDerivedData } from "./derived/actor/equipment.js";
 export class CypherActor extends Actor {
   prepareBaseData() {
     super.prepareBaseData();
-    const isNew = !this._id;
-    if (isNew) this._needsInit = true;
-
     if (this.type === "Character") {
       foundry.utils.mergeObject(this.system, DEFAULT_ACTOR_DATA, {
         insertKeys: true,
@@ -27,15 +24,28 @@ export class CypherActor extends Actor {
   async _onCreate(data, options, userId) {
     await super._onCreate(data, options, userId);
 
+    if (this.type === "Character") {
+      await this.update({
+        "prototypeToken.actorLink": true,
+        "prototypeToken.vision": true,
+        "prototypeToken.sight.enabled": true,
+        "prototypeToken.sight.range": 60,
+        "prototypeToken.sight.visionMode": "basic",
+        "prototypeToken.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY,
+        "prototypeToken.displayName": CONST.TOKEN_DISPLAY_MODES.ALWAYS
+      });
+    }
+
     const characterType = this.type;
     const currentDesc = this.system.bio.npcDescription;
-
-    console.log(characterType, this);
 
     if (!currentDesc || currentDesc.trim() === "") {
       const template = DEFAULT_NPC_DESCRIPTIONS[characterType];
       if (template) {
-        await this.update({ "system.bio.npcDescription": template.trim() });
+        await this.update({
+          "system.bio.npcDescription": template.trim(),
+          "prototypeToken.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER
+        });
       }
     }
   }

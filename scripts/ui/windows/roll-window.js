@@ -93,14 +93,19 @@ export async function CypherRollWindow(
   const target = game.user.targets.values().next().value;
 
   if (attack && target?.actor?.type === "NPC") {
-    autoDifficulty = target.actor.system.core.level;
+    if (wepPool === target.actor.system.core.combat.defense.pool.toLowerCase()) {
+      autoDifficulty =
+        target.actor.system.core.level + target.actor.system.core.combat.defense.bonus;
+    } else {
+      autoDifficulty = target.actor.system.core.level;
+    }
     autoDifficultyExpanded = GetTaskDifficulty(autoDifficulty);
     autoArmor = target.actor.system.core.combat.armor;
     rollLabel = rollLabel + " - " + target.actor.name;
   }
 
   if (defend && target?.actor?.type === "NPC") {
-    autoDifficulty = target.actor.system.core.level;
+    autoDifficulty = target.actor.system.core.level + target.actor.system.core.combat.attack.bonus;
     autoDifficultyExpanded = GetTaskDifficulty(autoDifficulty);
     autoDamage = target.actor.system.core.combat.damage;
     rollLabel = rollLabel + " - Defending vs " + target.actor.name;

@@ -218,6 +218,7 @@
             Favorite
           </th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -233,34 +234,52 @@
               </a>
             </td>
             <td>
-              {{this.system.cypher.level.current}}
-            </td>
-            <td>
-              {{#if this.system.cypher.depleted}}
-                <i class="fas fa-check"></i>
+              {{#if (not system.cypher.identified)}}
+                ??
               {{else}}
-                <i class="fas fa-times"></i>
+                {{this.system.cypher.level.current}}
               {{/if}}
             </td>
             <td>
-              <input
-                type="checkbox"
-                data-item-id="{{this.id}}"
-                data-field="active"
-                {{checked this.system.cypher.active}}
-              />
+              {{#if (not system.cypher.identified)}}
+              {{else}}
+                {{#if this.system.cypher.depleted}}
+                  <i class="fas fa-check"></i>
+                {{else}}
+                  <i class="fas fa-times"></i>
+                {{/if}}
+              {{/if}}
             </td>
             <td>
-              <input
-                type="checkbox"
-                data-item-id="{{this.id}}"
-                data-field="favorite"
-                {{checked this.system.cypher.favorite}}
-              />
+              {{#if (not system.cypher.identified)}}
+              {{else}}
+                <input
+                  type="checkbox"
+                  data-item-id="{{this.id}}"
+                  data-field="active"
+                  {{checked this.system.cypher.active}}
+                />
+              {{/if}}
+            </td>
+            <td>
+              {{#if (not system.cypher.identified)}}
+              {{else}}
+                <input
+                  type="checkbox"
+                  data-item-id="{{this.id}}"
+                  data-field="favorite"
+                  {{checked this.system.cypher.favorite}}
+                />
+              {{/if}}
             </td>
             <td>
               <a class="delete-cypher" data-item-id="{{this.id}}">
                 <i class="fas fa-trash"></i>
+              </a>
+            </td>
+            <td>
+              <a class="trade-cypher" data-item-id="{{this.id}}" data-tooltip="Give cypher to another character">
+                <i class="fas fa-exchange-alt"></i>
               </a>
             </td>
           </tr>

@@ -40,9 +40,10 @@ export const DEFAULT_CYPHER_DATA = {
     type: "Cypher",
     level: { current: 0, dice: "1d6", diceMod: 0 },
     depletion: { amount: 1, dice: "1d20", diceMod: 0 },
-    identified: false,
+    identified: true,
     favorite: false,
-    depleted: false
+    depleted: false,
+    active: false
   }
 };
 

@@ -55,6 +55,43 @@
           </label>
           <input type="number" name="system.core.combat.armor" value="{{system.core.combat.armor}}" />
         </div>
+
+        <div class="field">
+          <label>
+            Init Bonus
+          </label>
+          <input
+            type="number"
+            name="system.core.combat.initiativeBonus"
+            value="{{system.core.combat.initiativeBonus}}"
+          />
+        </div>
+
+        <div class="field">
+          <label>
+            Defense Bonus
+          </label>
+          <div class="hp-row">
+            <input type="number" name="system.core.combat.defense.bonus" value="{{system.core.combat.defense.bonus}}" />
+            <span></span>
+            <select name="system.core.combat.defense.pool">
+              <option value="Might"     {{#if (eq system.core.combat.defense.pool "Might")}}selected{{/if}}>Might</option>
+              <option value="Speed"     {{#if (eq system.core.combat.defense.pool "Speed")}}selected{{/if}}>Speed</option>
+              <option value="Intellect" {{#if (eq system.core.combat.defense.pool "Intellect")}}selected{{/if}}>Intellect</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>
+            Attack Bonus
+          </label>
+          <input
+            type="number"
+            name="system.core.combat.attack.bonus"
+            value="{{system.core.combat.attack.bonus}}"
+          />
+        </div>
       </div>
     </div>
   </header>
@@ -92,9 +129,89 @@
     </div>
 
     <div class="tab" data-group="primary" data-tab="combat">
-      <h2>
-        Combat
-      </h2>
+      <section class="cypher-section cyphers-section item-drop-area" data-table="cyphers">
+        <h3>
+          Cyphers
+          <a class="add-cypher-npc" data-tooltip="Add new cypher">
+            <i class="fas fa-plus-circle"></i>
+          </a>
+        </h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Name
+              </th>
+              <th>
+                Level
+              </th>
+              <th>
+                Depleted
+              </th>
+              <th>
+                Active
+              </th>
+              <th>
+                Favorite
+              </th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each cyphers}}
+              <tr>
+                <td>
+                  <a class="view-item" data-item-id="{{this.id}}">
+                    {{#if (not system.cypher.identified)}}
+                      Unidentified Item
+                    {{else}}
+                      {{this.name}}
+                    {{/if}}
+                  </a>
+                </td>
+                <td>
+                  {{this.system.cypher.level.current}}
+                </td>
+                <td>
+                  {{#if this.system.cypher.depleted}}
+                    <i class="fas fa-check"></i>
+                  {{else}}
+                    <i class="fas fa-times"></i>
+                  {{/if}}
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    data-item-id="{{this.id}}"
+                    data-field="active"
+                    {{checked this.system.cypher.active}}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    data-item-id="{{this.id}}"
+                    data-field="favorite"
+                    {{checked this.system.cypher.favorite}}
+                  />
+                </td>
+                <td>
+                  <a class="delete-cypher-npc" data-item-id="{{this.id}}">
+                    <i class="fas fa-trash"></i>
+                  </a>
+                </td>
+                <td>
+                  <a class="transfer-cypher-npc" data-item-id="{{this.id}}">
+                    <i class="fas fa-share-square"></i>
+                  </a>
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </section>
     </div>
   </section>
 </form>

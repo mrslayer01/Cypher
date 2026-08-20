@@ -6,6 +6,7 @@ import { CypherActorSheet } from "./ui/cypher-actor-sheet.js";
 import { CypherItemSheet } from "./ui/cypher-item-sheet.js";
 import { CypherNPCSheet } from "./ui/cypher-npc-sheet.js";
 import { loadAllActorHandlerbarsHelpers } from "./ui/handlebars-helpers.js";
+import { CypherCombat } from "./utils/cypher-combat.js";
 import { RegisterGameSettings } from "./utils/game-settings.js";
 import { spendMiscXP } from "./utils/helpers.js";
 import { CypherSystemToken, CypherSystemTokenRuler } from "./utils/token-ruler.js";
@@ -50,6 +51,9 @@ Hooks.once("init", async function () {
   let tokenSpeed = CONFIG.Token.movement.defaultSpeed;
   let factor = game.settings.get("cypher", "tokenSpeed");
   CONFIG.Token.movement.defaultSpeed = tokenSpeed * factor;
+
+  // Override combat system
+  CONFIG.Combat.documentClass = CypherCombat;
 });
 
 Hooks.once("ready", () => {

@@ -51,7 +51,81 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
       }
     });
 
+    html.find(".trade-cypher").on("click", (ev) => {
+      const itemId = ev.currentTarget.dataset.itemId;
+      this._tradeCypherToAnotherPC(itemId);
+    });
+
     RegisterSheetListeners(this, html);
+  }
+
+  async _tradeCypherToAnotherPC(itemId) {
+    const cypherItem = this.actor.items.get(itemId);
+    if (!cypherItem) return ui.notifications.error("Cypher not found.");
+
+    // Get all other player characters
+    const pcs = game.actors.filter(
+      (a) => a.type === "Character" && a.id !== this.actor.id && a.isOwner
+    );
+
+    if (!pcs.length) {
+      return ui.notifications.warn("No other player characters available.");
+    }
+
+    const options = pcs.map((pc) => `<option value="${pc.id}">${pc.name}</option>`).join("");
+
+    new Dialog({
+      title: "Trade Cypher",
+      content: `
+      <p>Select a character to trade this cypher to:</p>
+      <select id="pc-select" style="width:100%;">${options}</select>
+    `,
+      buttons: {
+        trade: {
+          label: "Trade",
+          callback: async (html) => {
+            const pcId = html.find("#pc-select").val();
+            const pcActor = game.actors.get(pcId);
+
+            if (!pcActor) return ui.notifications.error("Invalid PC selected.");
+
+            await this._moveCypherBetweenPCs(cypherItem, pcActor);
+          }
+        },
+        cancel: { label: "Cancel" }
+      }
+    }).render(true);
+  }
+
+  async _moveCypherBetweenPCs(cypherItem, pcActor) {
+    const sourceActor = this.actor;
+
+    // 1. Remove from source PC tracking list
+    const sourceList = foundry.utils.duplicate(sourceActor.system.core.cyphers.list ?? []);
+    const index = sourceList.indexOf(cypherItem.id);
+    if (index !== -1) sourceList.splice(index, 1);
+
+    await sourceActor.update({ "system.core.cyphers.list": sourceList });
+
+    // 2. Clone item data (do NOT change identified status)
+    const itemData = cypherItem.toObject();
+    itemData.system.cypher.favorite = false;
+    itemData.system.cypher.active = false;
+
+    // 3. Create item on target PC
+    const created = await pcActor.createEmbeddedDocuments("Item", [itemData]);
+    const newItem = created[0];
+
+    // 4. Add to target PC tracking list
+    const targetList = foundry.utils.duplicate(pcActor.system.core.cyphers.list ?? []);
+    targetList.push(newItem.id);
+
+    await pcActor.update({ "system.core.cyphers.list": targetList });
+
+    // 5. Delete from source PC
+    await cypherItem.delete();
+
+    ui.notifications.info(`Cypher traded to ${pcActor.name}.`);
   }
 
   async _onDropItem(event, data) {
