@@ -3,11 +3,11 @@ export function actorAdvancementListeners(sheet, html) {
 
   html.find(".add-advancement").on("click", async (event) => {
     const currentTier = actor.system.core.tier;
-    const xpTotal = actor.system.core.experience.total;
+    const xpCurrent = actor.system.core.experience.current;
     const advancements = actor.system.core.experience.advancements || [];
 
     // XP requirement
-    if (xpTotal < 4) {
+    if (xpCurrent < 4) {
       ui.notifications.warn("You need at least 4 XP to purchase an advancement.");
       return;
     }
@@ -228,15 +228,18 @@ export function actorAdvancementListeners(sheet, html) {
   html.find(".delete-advancement").on("click", async (event) => {
     event.preventDefault();
 
-    const index = Number(event.currentTarget.dataset.index);
-
     const advancements = actor.system.core.experience.advancements || [];
-    const xpCurrent = actor.system.core.experience.current;
+    const lastIndex = advancements.length - 1;
 
-    const adv = advancements[index];
-    if (!adv) return ui.notifications.error("Advancement not found.");
+    if (lastIndex < 0) {
+      ui.notifications.warn("No advancements to delete.");
+      return;
+    }
 
-    // Build advancement type label for confirmation dialog
+    // Only allow deletion of the most recent advancement
+    const adv = advancements[lastIndex];
+
+    // Build advancement type label
     let type = "";
     if (adv.increaseCapabilities.bought) type = "Increase Capabilities";
     if (adv.moveTowardPerfection.bought) type = "Move Toward Perfection";
@@ -246,11 +249,10 @@ export function actorAdvancementListeners(sheet, html) {
     if (adv.other?.recovery?.bought) type = "Other: +2 Recovery Rolls";
     if (adv.other?.ability?.bought) type = "Other: Extra Ability";
 
-    // Confirm deletion
     new Dialog({
-      title: "Delete Advancement",
+      title: "Delete Most Recent Advancement",
       content: `
-      <p>Are you sure you want to delete this advancement?</p>
+      <p>You may only delete the <strong>most recent</strong> advancement.</p>
       <p><strong>${type}</strong> (Tier ${adv.tier})</p>
       <p>This will remove it permanently.</p>
     `,
@@ -260,19 +262,17 @@ export function actorAdvancementListeners(sheet, html) {
           callback: async () => {
             const updated = foundry.utils.duplicate(advancements);
 
-            // Remove advancement
-            updated.splice(index, 1);
+            // Remove the last advancement only
+            updated.splice(lastIndex, 1);
 
             await actor.update({
               "system.core.experience.advancements": updated
             });
 
-            ui.notifications.info("Advancement deleted.");
+            ui.notifications.info("Most recent advancement deleted.");
           }
         },
-        no: {
-          label: "Cancel"
-        }
+        no: { label: "Cancel" }
       }
     }).render(true);
   });

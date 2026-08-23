@@ -1,6 +1,6 @@
 import { DEFAULT_ACTOR_DATA, DEFAULT_NPC_DATA } from "../config/default-actor-data.js";
 import { DEFAULT_NPC_DESCRIPTIONS } from "../utils/lookup.js";
-import { AdvancementDerivedData } from "./derived/actor/advancements.js";
+import { XpDerivedData } from "./derived/actor/xp.js";
 import { EquipmentDerivedData } from "./derived/actor/equipment.js";
 
 export class CypherActor extends Actor {
@@ -52,9 +52,8 @@ export class CypherActor extends Actor {
 
   prepareDerivedData() {
     super.prepareDerivedData();
-    const system = this.system;
 
-    AdvancementDerivedData(system);
+    XpDerivedData(this);
     EquipmentDerivedData(this);
   }
 }

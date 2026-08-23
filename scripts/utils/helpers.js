@@ -76,24 +76,20 @@ export async function ResetDamageTrack(actor) {
 export async function spendMiscXP(actor, amount) {
   const exp = actor.system.core.experience;
 
-  const spentMisc = exp.spentMisc ?? 0;
-  const total = exp.total ?? 0;
+  const newSpent = (exp.miscSpent ?? 0) + amount;
 
-  const newSpentMisc = spentMisc + amount;
-
-  // Prevent negative or overspending
-  if (newSpentMisc < 0) {
+  if (newSpent < 0) {
     ui.notifications.error("XP amount cannot be negative.");
     return false;
   }
 
-  if (newSpentMisc > total) {
+  if (newSpent > exp.total) {
     ui.notifications.error("Not enough XP.");
     return false;
   }
 
   await actor.update({
-    "system.core.experience.spentMisc": newSpentMisc
+    "system.core.experience.miscSpent": newSpent
   });
 
   return true;

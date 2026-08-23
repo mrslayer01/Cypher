@@ -1,5 +1,13 @@
-export function AdvancementDerivedData(system) {
-  if (system.actorType !== "Character" && system.type !== "Character") return;
+export function XpDerivedData(actor) {
+  if (actor.actorType !== "Character" && actor.type !== "Character") return;
+  const system = actor.system;
+  const exp = system.core.experience;
+
+  //init xp values
+  if (exp.total === undefined) exp.total = 0;
+  if (exp.spentAdvancements === undefined) exp.spentAdvancements = 0;
+  if (exp.remaining === undefined) exp.remaining = 0;
+  if (exp.tooltip === undefined) exp.tooltip = "";
 
   xpRemaining(system);
   characterTier(system);
@@ -52,10 +60,8 @@ function xpRemaining(system) {
   const advancements = exp.advancements || [];
 
   // Ensure fields exist
-  exp.spentAdvancements ??= 0;
-  exp.spentMisc ??= 0;
-  exp.remaining ??= 0;
-  exp.current ??= 0;
+  exp.miscSpent ??= 0;
+  exp.total ??= 0;
 
   // Count purchased advancements
   let purchasedCount = 0;
@@ -72,11 +78,16 @@ function xpRemaining(system) {
   }
 
   // RAW: Each advancement costs 4 XP
-  exp.spentAdvancements = purchasedCount * 4;
+  const spentAdvancements = purchasedCount * 4;
 
-  // XP remaining for advancements only
-  exp.remaining = Math.max(exp.total - exp.spentAdvancements, 0);
+  // Derived values
+  exp.spentAdvancements = spentAdvancements;
+  exp.remaining = Math.max(exp.total - spentAdvancements, 0);
+  exp.current = Math.max(exp.total - (spentAdvancements + exp.miscSpent), 0);
 
-  // XP available for ANY purpose
-  exp.current = Math.max(exp.total - (exp.spentAdvancements + exp.spentMisc), 0);
+  exp.tooltip = `
+    Total XP: ${exp.total}<br>
+    Spent on Advancements: ${exp.spentAdvancements}<br>
+    Spent on Misc (Player Intrusion, etc): ${exp.miscSpent}
+  `.trim();
 }

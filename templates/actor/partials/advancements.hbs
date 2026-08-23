@@ -16,7 +16,11 @@
           <th>
             Tier
           </th>
-          <th></th>
+          <th>
+            <a class="delete-advancement" data-tooltip="Delete most recent advancement">
+              <i class="fas fa-trash"></i>
+            </a>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -50,11 +54,7 @@
             <td>
               {{this.tier}}
             </td>
-            <td>
-              <a class="delete-advancement" data-index="{{@index}}">
-                <i class="fas fa-trash"></i>
-              </a>
-            </td>
+            <td></td>
           </tr>
         {{/each}}
       </tbody>
