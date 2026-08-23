@@ -262,7 +262,6 @@ async function spendXPDialog(actor) {
             return;
           }
 
-          // Call your helper
           const success = await spendMiscXP(actor, xpCost);
           if (!success) return;
 

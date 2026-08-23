@@ -17,7 +17,7 @@ export async function OpenRecoveryDialog(actor) {
         <select id="recovery-pool">${poolOptions}</select>
 
         <p>Recovery Bonus (modifier):</p>
-        <input id="recovery-mod" type="number" value="0" />
+        <input id="recovery-mod" type="number" value="${actor.system.core.recovery.modifier}" />
 
       </div>
     `,

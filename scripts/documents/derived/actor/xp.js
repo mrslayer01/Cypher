@@ -12,6 +12,20 @@ export function XpDerivedData(actor) {
   xpRemaining(system);
   characterTier(system);
   characterEffort(system);
+  characterRecoveryBonus(system);
+}
+
+function characterRecoveryBonus(system) {
+  const exp = system.core.experience;
+  const advancements = exp.advancements || [];
+
+  let recoveryBonus = 0;
+
+  for (const adv of advancements) {
+    if (adv.other?.recovery?.bought) recoveryBonus++;
+  }
+
+  system.core.recovery.modifier = recoveryBonus * 2;
 }
 
 function characterEffort(system) {
