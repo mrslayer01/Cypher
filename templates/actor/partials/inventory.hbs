@@ -1,10 +1,21 @@
 <div class="cypher-main-grid">
   <section class="cypher-section cyphers-section item-drop-area" data-table="equipment">
-    <h3>
+    <h3 class="equipment-grid">
       Equipment
       <a class="add-equipment" data-tooltip="Add new piece of Equipment">
         <i class="fas fa-plus-circle"></i>
       </a>
+      <div class="floating pool">
+        <input
+          type="number"
+          name="system.core.equipment.money"
+          class="no-negative"
+          value="{{system.core.equipment.money}}"
+        />
+        <label>
+          Shins
+        </label>
+      </div>
     </h3>
     <table>
       <thead>

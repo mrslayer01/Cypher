@@ -1069,6 +1069,16 @@ textarea {
   background: var(--cypher-accent-soft);
 }
 
+.equipment-grid {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.equipment-grid > :last-child {
+  margin-left: auto;
+  text-align: center;
+}
+
 /* ============================================================
    NPC css
    ============================================================ */
