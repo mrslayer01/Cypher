@@ -115,13 +115,12 @@ export async function CypherRollWindow(
       rollLabel += " - Defending vs " + target.actor.name;
     }
 
-    // ------------------------------------------------------------
-    // INITIATIVE MODE
-    // ------------------------------------------------------------
-    if (initiative) {
-      rollLabel = "Initiative Roll";
-      definedPool = "speed";
-      autoDifficulty = initiativeTN / 3;
+    const defaultDifficulty = game.settings.get("cypher", "defaultDifficulty");
+
+    // If GM set a default difficulty, override autoDifficulty
+    if (defaultDifficulty > 0 && autoDifficulty === null) {
+      autoDifficulty = defaultDifficulty;
+      console.log(GetTaskDifficulty(autoDifficulty));
       autoDifficultyExpanded = GetTaskDifficulty(autoDifficulty);
     }
 
@@ -196,10 +195,16 @@ export async function CypherRollWindow(
     `
       : "";
 
+    const gmiRange =
+      game.settings.get("cypher", "gmIntrusion") > 1
+        ? `<label><b>GM Intrusion Range</b> = 1 - ${game.settings.get("cypher", "gmIntrusion")}</label><br>`
+        : `<label><b>GM Intrusion Range</b> = ${game.settings.get("cypher", "gmIntrusion")}</label><br>`;
+
     const dlg = new Dialog({
       title: rollLabel,
       content: `
         <div class="cypher-roll-window">
+          ${gmiRange}
           ${difficultySelector}
           ${skillSelector}
           <label><b>Assets</b> (max 2)</label>
@@ -408,7 +413,7 @@ async function cypherRoll({
       ${assets > 0 ? `• Asset Eased: ${assets} step(s)<br>` : ""}
       ${effort > 0 ? `• Effort Eased: ${effort} step(s)<br>` : ""}
       ${rollPool === "speed" && armorEffortPenalty > 0 && effort > 0 ? `• Armor Effort Penalty: +${armorEffortPenalty} per level<br>` : ""}
-      <b>→ Final Difficulty:</b> ${finalDif}<br>
+      <b>• Final Difficulty:</b> ${finalDif}<br>
     </details>
   `;
 
@@ -432,7 +437,7 @@ async function cypherRoll({
         • Target Armor: ${finalArmor}<br>
         ${weaponRules.armorIgnore > 0 ? `• Armor Ignored: ${weaponRules.armorIgnore}<br>` : ""}
         • Effective Armor: ${effectiveArmor}<br>
-        <b>→ Final Damage:</b> ${finalDamage}<br>
+        <b>• Final Damage:</b> ${finalDamage}<br>
       </details>
     `;
   }
@@ -454,7 +459,7 @@ async function cypherRoll({
         • Armor Type: ${armorType}<br>
         • Armor Skill: ${armorSkill}<br>
         ${hasShield ? `• Shield: ${hasShield}<br>` : ""}
-        <b>→ Final Damage Taken:</b> ${finalDamage}<br>
+        <b>• Final Damage Taken:</b> ${finalDamage}<br>
       </details>
     `;
   }
@@ -488,7 +493,8 @@ async function cypherRoll({
 } // END cypherRoll
 
 function getCypherRollEffect(total, attack, damaged) {
-  if (total === 1) {
+  const gmRange = game.settings.get("cypher", "gmIntrusion");
+  if (total <= gmRange) {
     return {
       type: "intrusion",
       text: `<span style="color:red"><b>GM Intrusion!</b></span>`,

@@ -8,6 +8,7 @@ import { CypherNPCSheet } from "./ui/cypher-npc-sheet.js";
 import { loadAllActorHandlerbarsHelpers } from "./ui/handlebars-helpers.js";
 import { CypherCombat } from "./utils/cypher-combat.js";
 import { RegisterGameSettings } from "./utils/game-settings.js";
+import { OpenAwardXPDialog, OpenGMIntrusionDialog } from "./utils/gm-macros.js";
 import { spendMiscXP } from "./utils/helpers.js";
 import { CypherSystemToken, CypherSystemTokenRuler } from "./utils/token-ruler.js";
 
@@ -54,6 +55,116 @@ Hooks.once("init", async function () {
 
   // Override combat system
   CONFIG.Combat.documentClass = CypherCombat;
+
+  game.settings.register("cypher", "defaultDifficulty", {
+    name: "Default Roll Difficulty",
+    scope: "world",
+    config: false,
+    type: Number,
+    default: 0
+  });
+
+  game.settings.register("cypher", "gmIntrusion", {
+    name: "Default GM Intrusion Range",
+    scope: "world",
+    config: false,
+    type: Number,
+    default: 1
+  });
+});
+
+Hooks.on("getSceneControlButtons", (controls) => {
+  if (game.user.isGM) {
+    controls.tokens.tools.rollDifficulty = {
+      name: "rollDifficulty",
+      title: "Difficulty Control Panel",
+      icon: "fa-solid fa-crosshairs-simple",
+      onChange: (event, active) => {
+        new Dialog({
+          title: "Set Default Difficulty",
+          content: `
+    <label><b>Default Difficulty</b></label>
+    <input type="number" id="defaultDifficulty" 
+           value="${game.settings.get("cypher", "defaultDifficulty")}" 
+           min="0" max="10" style="width:100%;" />`,
+          buttons: {
+            save: {
+              label: "Save",
+              callback: (html) => {
+                let value = Number(html.find("#defaultDifficulty").val());
+                if (value > 10) value = 10;
+                game.settings.set("cypher", "defaultDifficulty", value);
+                ui.notifications.info(`Default difficulty set to ${value}`);
+              }
+            },
+            cancel: {
+              label: "Cancel"
+            }
+          },
+          default: "save"
+        }).render(true);
+      },
+      button: true
+    };
+  }
+  if (game.user.isGM) {
+    controls.tokens.tools.proposeGMI = {
+      name: "proposeGMI",
+      title: "Propose Intrusion",
+      icon: "fas fa-bolt",
+      onChange: (event, active) => {
+        OpenGMIntrusionDialog();
+      },
+      button: true
+    };
+  }
+
+  if (game.user.isGM) {
+    controls.tokens.tools.xp = {
+      name: "xp",
+      title: "Character XP",
+      icon: "fas fa-award",
+      onChange: (event, active) => {
+        OpenAwardXPDialog();
+      },
+      button: true
+    };
+  }
+
+  if (game.user.isGM) {
+    controls.tokens.tools.gmiRange = {
+      name: "gmiRange",
+      title: "GM Intrusion Range",
+      icon: "fas fa-exclamation-triangle",
+      onChange: (event, active) => {
+        new Dialog({
+          title: "Set GM Intrusion Rane",
+          content: `
+    <label><b>GM Intrusion Range</b></label>
+    <input type="number" id="defaultDifficulty" 
+           value="${game.settings.get("cypher", "gmIntrusion")}" 
+           min="0" max="10" style="width:100%;" />`,
+          buttons: {
+            save: {
+              label: "Save",
+              callback: (html) => {
+                let value = Number(html.find("#defaultDifficulty").val());
+                if (value > 20) value = 20;
+                if (value < 1) value = 1;
+                game.settings.set("cypher", "gmIntrusion", value);
+                ui.notifications.info(`GM Intrusion Range set to ${value}`);
+              }
+            },
+            cancel: {
+              label: "Cancel"
+            }
+          },
+          default: "save"
+        }).render(true);
+      },
+      button: true
+    };
+  }
 });
 
 Hooks.once("ready", () => {
