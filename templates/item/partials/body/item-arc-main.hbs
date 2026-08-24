@@ -1,0 +1,57 @@
+<div class="arc-body flexcol">
+
+  <!-- Opening -->
+  <div class="arc-section">
+    <h3>Opening</h3>
+
+    <div class="form-group">
+      <textarea name="system.arc.opening.text">{{system.arc.opening.text}}</textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Status</label>
+      <select name="system.arc.opening.status">
+        <option value="Not Started" {{#if (eq system.arc.opening.status "Not Started")}}selected{{/if}}>Not Started</option>
+        <option value="In Progress" {{#if (eq system.arc.opening.status "In Progress")}}selected{{/if}}>In Progress</option>
+        <option value="Completed" {{#if (eq system.arc.opening.status "Completed")}}selected{{/if}}>Completed</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Climax -->
+  <div class="arc-section">
+    <h3>Climax</h3>
+
+    <div class="form-group">
+      <textarea name="system.arc.climax.text">{{system.arc.climax.text}}</textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Status</label>
+      <select name="system.arc.climax.status">
+        <option value="Not Started" {{#if (eq system.arc.climax.status "Not Started")}}selected{{/if}}>Not Started</option>
+        <option value="In Progress" {{#if (eq system.arc.climax.status "In Progress")}}selected{{/if}}>In Progress</option>
+        <option value="Completed" {{#if (eq system.arc.climax.status "Completed")}}selected{{/if}}>Completed</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Resolution -->
+  <div class="arc-section">
+    <h3>Resolution</h3>
+
+    <div class="form-group">
+      <textarea name="system.arc.resolution.text">{{system.arc.resolution.text}}</textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Status</label>
+      <select name="system.arc.resolution.status">
+        <option value="Not Started" {{#if (eq system.arc.resolution.status "Not Started")}}selected{{/if}}>Not Started</option>
+        <option value="In Progress" {{#if (eq system.arc.resolution.status "In Progress")}}selected{{/if}}>In Progress</option>
+        <option value="Completed" {{#if (eq system.arc.resolution.status "Completed")}}selected{{/if}}>Completed</option>
+      </select>
+    </div>
+  </div>
+
+</div>

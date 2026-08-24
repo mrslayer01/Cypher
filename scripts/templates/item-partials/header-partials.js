@@ -6,7 +6,8 @@ export async function ItemHeaderPartials() {
     "item-special-header",
     "item-attack-header",
     "item-armor-header",
-    "item-weapon-header"
+    "item-weapon-header",
+    "item-arc-header"
   ];
 
   for (const p of partials) {

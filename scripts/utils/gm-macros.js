@@ -72,6 +72,10 @@ export function OpenAwardXPDialog() {
     render: (html) => {
       setupXPTabs(html);
       autoExpandDialog(ui.activeWindow, html);
+      html.find("#xp-manage-target").change(() => {
+        loadManageXPFields(html);
+        autoExpandDialog(ui.activeWindow, html);
+      });
     }
   }).render(true);
 }

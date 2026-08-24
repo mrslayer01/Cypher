@@ -47,16 +47,35 @@
           {{#if (in item.type "Special Ability")}}
             {{> item-special-header}}
           {{/if}}
+          {{#if (in item.type "Character Arc")}}
+            {{> item-arc-header}}
+          {{/if}}
     </div>
   </header>
 
   <nav class="sheet-tabs" data-group="primary">
+    {{#if (in item.type "Character Arc")}}
+      <a class="item" data-tab="main">
+        Main
+      </a>
+      <a class="item" data-tab="steps">
+        Steps
+      </a>
+    {{/if}}
     <a class="item" data-tab="description">
       Description
     </a>
   </nav>
 
   <section class="sheet-body">
+    {{#if (in item.type "Character Arc")}}
+      <div class="tab main" data-group="primary" data-tab="main">
+        {{> item-arc-main}}
+      </div>
+      <div class="tab steps" data-group="primary" data-tab="steps">
+        {{> item-arc-steps}}
+      </div>
+    {{/if}}
 
     <div class="tab description" data-group="primary" data-tab="description">
       <div class="description-editor">

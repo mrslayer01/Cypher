@@ -1,0 +1,34 @@
+
+<div class="arc-section">
+    <h3>Steps       
+        <a class="add-step" data-tooltip="Add new arc step">
+            <i class="fas fa-plus-circle"></i>
+        </a>
+    </h3>
+
+    {{#each system.arc.steps as |step idx|}}
+        <div class="arc-step" data-step="{{idx}}">
+
+            <div class="arc-step-header">
+                <span>Step {{inc idx}}</span>
+                </div>
+
+                <div class="arc-step-content">
+                <div class="form-group">
+                    <textarea name="system.arc.steps.{{idx}}.text">{{step.text}}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Status</label>
+                    <select name="system.arc.steps.{{idx}}.status">
+                    <option value="Not Started" {{#if (eq step.status "Not Started")}}selected{{/if}}>Not Started</option>
+                    <option value="In Progress" {{#if (eq step.status "In Progress")}}selected{{/if}}>In Progress</option>
+                    <option value="Completed" {{#if (eq step.status "Completed")}}selected{{/if}}>Completed</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+    {{/each}}
+
+</div>

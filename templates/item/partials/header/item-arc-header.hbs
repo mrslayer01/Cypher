@@ -1,0 +1,15 @@
+<div class="arc-header flexcol">
+  <div class="form-group">
+    <label>Arc Status</label>
+    <select name="system.arc.status">
+      <option value="Not Started" {{#if (eq system.arc.status "Not Started")}}selected{{/if}}>Not Started</option>
+      <option value="In Progress" {{#if (eq system.arc.status "In Progress")}}selected{{/if}}>In Progress</option>
+      <option value="Completed" {{#if (eq system.arc.status "Completed")}}selected{{/if}}>Completed</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Total XP Earned</label>
+    <input type="number" name="system.arc.xp" value="{{system.arc.xp}}" min="0" />
+  </div>
+</div>

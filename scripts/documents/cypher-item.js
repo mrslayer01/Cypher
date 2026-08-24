@@ -2,6 +2,7 @@ import {
   DEFAULT_ABILITY_DATA,
   DEFAULT_ARMOR_DATA,
   DEFAULT_ATTACK_DATA,
+  DEFAULT_CHARACTER_ARC,
   DEFAULT_CYPHER_DATA,
   DEFAULT_ITEM_DATA,
   DEFAULT_SKILL_DATA,
@@ -69,6 +70,13 @@ export class CypherItem extends Item {
 
     if (this.type === "Armor") {
       foundry.utils.mergeObject(this.system, DEFAULT_ARMOR_DATA, {
+        insertKeys: true,
+        overwrite: false
+      });
+    }
+
+    if (this.type === "Character Arc") {
+      foundry.utils.mergeObject(this.system, DEFAULT_CHARACTER_ARC, {
         insertKeys: true,
         overwrite: false
       });

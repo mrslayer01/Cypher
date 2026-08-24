@@ -1080,6 +1080,194 @@ textarea {
 }
 
 /* ============================================================
+   CHARACTER ARC — HEADER (ROW LAYOUT)
+   ============================================================ */
+
+.arc-header {
+  display: flex;
+  flex-direction: row; /* horizontal layout */
+  gap: 1.5rem; /* spacing between the two fields */
+  padding: 0.75rem;
+  background: #1f222d;
+  border: 1px solid var(--cypher-border);
+  border-radius: 6px;
+  position: relative;
+  align-items: flex-start; /* keeps labels aligned */
+}
+
+/* Accent corner */
+.arc-header::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid var(--cypher-accent);
+  border-left: 2px solid var(--cypher-accent);
+}
+
+/* Each form-group inside header */
+.arc-header .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1; /* both fields share space evenly */
+}
+
+/* Labels */
+.arc-header .form-group label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--cypher-text-dim);
+}
+
+/* Inputs + selects */
+.arc-header input[type="number"],
+.arc-header select {
+  width: 100%;
+  font-size: 0.85rem;
+  padding: 6px 8px;
+}
+
+/* Focus highlight */
+.arc-header input:focus,
+.arc-header select:focus {
+  border-color: var(--cypher-accent);
+  box-shadow: 0 0 4px rgba(0, 170, 255, 0.4);
+}
+
+/* XP field slightly narrower */
+.arc-header input[type="number"] {
+  max-width: 6rem;
+}
+
+/* ============================================================
+   CHARACTER ARC — BODY (COMPACT VERSION)
+   ============================================================ */
+
+.arc-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem; /* reduced from 1rem */
+  padding: 0.35rem; /* reduced padding */
+}
+
+/* ============================================================
+   ARC SECTIONS — COMPACT
+   ============================================================ */
+
+.arc-section {
+  background: #1f222d;
+  border: 1px solid var(--cypher-border);
+  border-radius: 6px;
+  padding: 0.55rem; /* reduced from 0.75rem */
+  position: relative;
+}
+
+/* Accent corner */
+.arc-section::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 8px; /* smaller accent */
+  height: 8px;
+  border-top: 2px solid var(--cypher-accent);
+  border-left: 2px solid var(--cypher-accent);
+}
+
+/* Section header */
+.arc-section h3 {
+  font-family: var(--cypher-font-header);
+  font-size: 0.9rem; /* slightly smaller */
+  margin: 0 0 0.35rem 0; /* tighter spacing */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Add Step button */
+.arc-section h3 .add-step {
+  color: var(--cypher-accent-soft);
+  cursor: pointer;
+  font-size: 1rem; /* slightly smaller */
+  margin-left: 0.35rem;
+  transition: color 0.15s ease;
+}
+
+.arc-section h3 .add-step:hover {
+  color: var(--cypher-accent);
+}
+
+/* ============================================================
+   ARC STEP BLOCKS — COMPACT
+   ============================================================ */
+
+.arc-step {
+  background: #1a1d27;
+  border: 1px solid var(--cypher-border-light);
+  border-radius: 6px;
+  padding: 0.45rem; /* reduced padding */
+  margin-bottom: 0.5rem; /* reduced spacing */
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem; /* tighter spacing */
+}
+
+/* Step label */
+.arc-step label {
+  font-size: 0.7rem; /* slightly smaller */
+  letter-spacing: 0.04em;
+  color: var(--cypher-text-mid);
+}
+
+/* ============================================================
+   FORM GROUPS — COMPACT
+   ============================================================ */
+
+/* Inputs + selects */
+.arc-section textarea,
+.arc-section select {
+  width: 100%;
+  font-size: 0.8rem; /* slightly smaller */
+  padding: 4px 6px; /* reduced padding */
+}
+
+/* Textareas — compact height */
+.arc-section textarea {
+  min-height: 50px; /* reduced from 70px */
+  resize: vertical;
+}
+
+/* ============================================================
+   SPACING & FLOW — COMPACT
+   ============================================================ */
+
+.arc-section .form-group:last-child {
+  margin-bottom: 0.2rem;
+}
+
+.arc-step:last-child {
+  margin-bottom: 0.35rem;
+}
+
+/* Step header */
+.arc-step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.35rem 0.25rem;
+  background: #1f222d;
+  border-radius: 4px;
+  font-family: var(--cypher-font-header);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  color: var(--cypher-text-light);
+}
+
+/* ============================================================
    NPC css
    ============================================================ */
 

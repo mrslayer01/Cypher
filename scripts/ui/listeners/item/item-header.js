@@ -71,6 +71,26 @@ export function ItemHeaderListeners(sheet, html) {
       sheet.render(false);
     });
   //#endregion
+
+  //#region Character Arc
+
+  // Add Step button
+  html.find(".add-step").click((ev) => {
+    ev.preventDefault();
+
+    // Clone current steps
+    const steps = [...item.system.arc.steps];
+
+    // Push a new blank step
+    steps.push({
+      text: "",
+      status: "Not Started"
+    });
+
+    // Update the item
+    item.update({ "system.arc.steps": steps });
+  });
+  //#endregion
 }
 
 async function CypherLevelRollWindow(item) {

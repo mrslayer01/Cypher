@@ -53,4 +53,8 @@ export function loadAllActorHandlerbarsHelpers() {
   });
 
   Handlebars.registerHelper("isGM", () => game.user.isGM);
+
+  Handlebars.registerHelper("inc", function (value) {
+    return parseInt(value) + 1;
+  });
 }

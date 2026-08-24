@@ -68,27 +68,14 @@ export const DEFAULT_ARMOR_DATA = {
   }
 };
 
-export const DEFAULT_ADVANCEMENT_DATA = {
-  tier: 0,
-  notes: "",
-  increaseCapabilities: {
-    description:
-      "You gain 4 new points to add to your stat Pools. You can allocate the points among your Pools however you wish.",
-    allocation: [{ pool: "", amount: 0 }],
-    bought: false
-  },
-  moveTowardPerfection: {
-    description:
-      "You add 1 to your Might Edge, your Speed Edge, or your Intellect Edge (your choice).",
-    pool: "",
-    bought: false
-  },
-  extraEffort: { description: "Your Effort score increases by 1.", bought: false },
-  skillTraining: {
-    description:
-      "Choose one skill other than attacks or defense, such as climbing, jumping, persuading, sneaking, or history. You become trained in that skill. Training an already trained skill makes it specialized.",
-    skill: "",
-    bought: false
-  },
-  other: { type: [{ name: "" }], bought: false }
+export const DEFAULT_CHARACTER_ARC = {
+  arc: {
+    opening: { text: "", status: "Not Started" },
+    steps: [] /* step object { text: "", status: "" } */,
+    climax: { text: "", status: "Not Started" },
+    resolution: { text: "", status: "Not Started" },
+    xp: 0,
+    status: "Not Started",
+    arcDescription: ""
+  }
 };
