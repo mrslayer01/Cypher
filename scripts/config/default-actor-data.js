@@ -3,7 +3,7 @@ export const DEFAULT_ACTOR_DATA = {
   core: {
     tier: 1,
     effort: { current: 1, temp: 0 },
-    experience: { current: 0, miscSpent: 0, advancements: [] },
+    experience: { current: 0, miscSpent: 0, advancements: [], arcs: [] },
     damageTrack: "hale",
     recovery: {
       modifier: 0,

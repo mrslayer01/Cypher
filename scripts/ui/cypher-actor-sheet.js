@@ -142,7 +142,8 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
       armor: ["Armor"],
       skills: ["Skill"],
       cyphers: ["Cypher"],
-      equipment: ["Equipment"]
+      equipment: ["Equipment"],
+      arcs: ["Character Arc"]
     };
 
     const allowedTypes = allowed[tableName];
@@ -190,6 +191,13 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
         await this.actor.update({ "system.core.skills": list });
         break;
       }
+
+      case "arcs": {
+        const list = foundry.utils.duplicate(this.actor.system.core.experience.arcs ?? []);
+        list.push(newItem.id);
+        await this.actor.update({ "system.core.experience.arcs": list });
+        break;
+      }
     }
 
     return newItem;
@@ -219,6 +227,10 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
       return this.actor.items.get(id);
     });
     data.skills = this.actor.system.core.skills.map((id) => {
+      return this.actor.items.get(id);
+    });
+
+    data.arcs = this.actor.system.core.experience.arcs.map((id) => {
       return this.actor.items.get(id);
     });
 

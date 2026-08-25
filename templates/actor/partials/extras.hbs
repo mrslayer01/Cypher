@@ -1,0 +1,43 @@
+<div class="cypher-full-grid">
+  <section class="cypher-section attacks-section">
+    <h3>
+      Character Arcs
+      <a class="add-arc" data-tooltip="Add character character arc">
+        <i class="fas fa-plus-circle"></i>
+      </a>
+    </h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Status
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each arcs}}
+          <tr>
+            <td>
+              <a class="view-item" data-item-id="{{this.id}}">
+                {{this.name}}
+              </a>
+            </td>
+            <td>
+              {{this.system.arc.status}}
+            </td>
+            <td>
+              <a class="delete-arc" data-tooltip="Delete arc" data-item-id="{{this.id}}">
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+</div>

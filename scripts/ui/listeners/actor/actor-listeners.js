@@ -2,6 +2,7 @@ import { normalizeText } from "../../../utils/helpers.js";
 import { CypherRollWindow } from "../../windows/roll-window.js";
 import { actorAbilitiesListeners } from "./actor-abilities.js";
 import { actorAdvancementListeners } from "./actor-advancements.js";
+import { actorExtrasListeners } from "./actor-extras.js";
 import { actorHeaderListeners } from "./actor-header.js";
 import { actorInventoryListeners } from "./actor-inventory.js";
 import { actorSkillsListeners } from "./actor-skills.js";
@@ -12,6 +13,7 @@ export function ActorListeners(sheet, html) {
   actorAbilitiesListeners(sheet, html);
   actorInventoryListeners(sheet, html);
   actorSkillsListeners(sheet, html);
+  actorExtrasListeners(sheet, html);
 
   // Global Listeners
 

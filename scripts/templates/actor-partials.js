@@ -46,7 +46,7 @@ async function ActorHeaderPartials() {
 }
 
 async function ActorLoosePartials() {
-  const partials = ["main", "inventory", "skills", "abilities", "advancements"];
+  const partials = ["main", "inventory", "skills", "abilities", "advancements", "extras"];
 
   for (const p of partials) {
     const path = `systems/cypher/templates/actor/partials/${p}.hbs`;
