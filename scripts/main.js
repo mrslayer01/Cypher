@@ -9,7 +9,7 @@ import { loadAllActorHandlerbarsHelpers } from "./ui/handlebars-helpers.js";
 import { CypherCombat } from "./utils/cypher-combat.js";
 import { RegisterGameSettings } from "./utils/game-settings.js";
 import { OpenAwardXPDialog, OpenGMIntrusionDialog } from "./utils/gm-macros.js";
-import { spendMiscXP } from "./utils/helpers.js";
+import { FullRest, spendMiscXP } from "./utils/helpers.js";
 import { CypherSystemToken, CypherSystemTokenRuler } from "./utils/token-ruler.js";
 
 Hooks.once("init", async function () {
@@ -71,9 +71,60 @@ Hooks.once("init", async function () {
     type: Number,
     default: 1
   });
+
+  game.cypher = game.cypher || {};
+  game.cypher.FullRest = FullRest;
 });
 
 Hooks.on("getSceneControlButtons", (controls) => {
+  if (game.user.isGM) {
+    controls.tokens.tools.fullRest = {
+      name: "fullRest",
+      title: "Full Rest All Characters",
+      icon: "fas fa-bed",
+      onChange: (event, active) => {
+        new Dialog({
+          title: "Confirm Full Rest",
+          content: `<p>Apply a <strong>Full Rest</strong> to all characters?</p>`,
+          buttons: {
+            yes: {
+              label: "Yes, Full Rest All",
+              callback: async () => {
+                // Perform the full rest
+                for (const actor of game.actors.contents) {
+                  if (actor.type === "Character") {
+                    await game.cypher.FullRest(actor);
+                  }
+                }
+
+                ui.notifications.info("All characters have taken a full rest.");
+
+                // Chat card (no type field!)
+                const content = `
+                <div class="cypher-chat-card">
+                  <h4>Full Rest Completed</h4>
+                  <p>All characters have taken a full rest.</p>
+                </div>
+              `;
+
+                await ChatMessage.create({
+                  user: game.user.id,
+                  speaker: { alias: "System" },
+                  content
+                });
+              }
+            },
+            no: {
+              label: "Cancel"
+            }
+          },
+          default: "no"
+        }).render(true);
+      },
+      button: true
+    };
+  }
+
   if (game.user.isGM) {
     controls.tokens.tools.rollDifficulty = {
       name: "rollDifficulty",
@@ -107,6 +158,7 @@ Hooks.on("getSceneControlButtons", (controls) => {
       button: true
     };
   }
+
   if (game.user.isGM) {
     controls.tokens.tools.proposeGMI = {
       name: "proposeGMI",

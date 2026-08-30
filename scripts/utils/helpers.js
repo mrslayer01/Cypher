@@ -28,6 +28,9 @@ export async function FullRest(actor) {
 
   // Reset Recovery uses to false.
   await ResetAllRecoveryUses(actor);
+
+  // Reset Damage Track
+  await ResetDamageTrack(actor);
 }
 
 export async function ResetPool(actor, pool) {
