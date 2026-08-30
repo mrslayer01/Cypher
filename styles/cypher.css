@@ -1077,6 +1077,7 @@ textarea {
 .equipment-grid > :last-child {
   margin-left: auto;
   text-align: center;
+  width: 100px;
 }
 
 /* ============================================================
@@ -1141,6 +1142,7 @@ textarea {
 /* XP field slightly narrower */
 .arc-header input[type="number"] {
   max-width: 6rem;
+  text-align: center;
 }
 
 /* ============================================================

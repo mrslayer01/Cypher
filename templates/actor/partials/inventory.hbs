@@ -203,11 +203,22 @@
   {{!  ROW 2 — COLUMN 2: CYPHERS }}
   {{! ========================== }}
   <section class="cypher-section cyphers-section item-drop-area" data-table="cyphers">
-    <h3>
-      Cyphers (Limit: {{actor.system.core.cyphers.limit}})
+    <h3 class="equipment-grid">
+      Cyphers
       <a class="add-cypher" data-tooltip="Add new cypher">
         <i class="fas fa-plus-circle"></i>
       </a>
+      <div class="floating pool">
+        <input
+          type="number"
+          name="system.core.cyphers.limit"
+          class="no-negative"
+          value="{{system.core.cyphers.limit}}"
+        />
+        <label>
+          Limit
+        </label>
+      </div>
     </h3>
 
     <table>
