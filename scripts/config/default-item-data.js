@@ -51,7 +51,7 @@ export const DEFAULT_WEAPON_DATA = {
   weapon: {
     type: "Light",
     attack: { skill: "Practiced", pool: "Speed" },
-    damage: { base: 0, bonus: 0 },
+    damage: { base: 2, bonus: 0 },
     equipped: false,
     weaponType: "Slashing"
   }

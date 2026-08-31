@@ -1,4 +1,4 @@
-import { getArmorValueFromType } from "../../../utils/helpers.js";
+import { getArmorValueFromType, getWeaponDamageFromType } from "../../../utils/helpers.js";
 
 export function ItemHeaderListeners(sheet, html) {
   const item = sheet.item;
@@ -66,6 +66,25 @@ export function ItemHeaderListeners(sheet, html) {
       await item.update({
         "system.armor.type": ev.currentTarget.value,
         "system.armor.armor.base": armorType
+      });
+
+      sheet.render(false);
+    });
+  //#endregion
+
+  //#region Weapon
+  html
+    .find(".weapon-type")
+    .off("change")
+    .on("change", async (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      const wepDamage = getWeaponDamageFromType(ev.currentTarget.value);
+
+      await item.update({
+        "system.weapon.type": ev.currentTarget.value,
+        "system.weapon.damage.base": wepDamage
       });
 
       sheet.render(false);
