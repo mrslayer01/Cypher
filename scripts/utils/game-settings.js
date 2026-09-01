@@ -38,4 +38,20 @@ export async function RegisterGameSettings() {
     requiresReload: true,
     config: true
   });
+
+  game.settings.register("cypher", "defaultDifficulty", {
+    name: "Default Roll Difficulty",
+    scope: "world",
+    config: false,
+    type: Number,
+    default: 0
+  });
+
+  game.settings.register("cypher", "gmIntrusion", {
+    name: "Default GM Intrusion Range",
+    scope: "world",
+    config: false,
+    type: Number,
+    default: 1
+  });
 }

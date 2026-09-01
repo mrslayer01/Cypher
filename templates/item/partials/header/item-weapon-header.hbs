@@ -3,7 +3,7 @@
     <!-- Weapon Type -->
     <div class="field">
         <label>Weapon Class</label>
-        <select name="system.weapon.type">
+        <select name="system.weapon.type" class="weapon-type">
         <option value="Light"   {{#if (eq system.weapon.type "Light")}}selected{{/if}}>Light</option>
         <option value="Medium"  {{#if (eq system.weapon.type "Medium")}}selected{{/if}}>Medium</option>
         <option value="Heavy"   {{#if (eq system.weapon.type "Heavy")}}selected{{/if}}>Heavy</option>
@@ -48,7 +48,8 @@
         <input type="number"
                 name="system.weapon.damage.base"
                 value="{{system.weapon.damage.base}}"
-                class="no-negative"/>
+                class="no-negative"
+                disabled="true"/>
     </div>
 
     <!-- Damage Bonus -->

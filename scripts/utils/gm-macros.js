@@ -1,5 +1,149 @@
+//#region Controls
+export function fullRestControl(controls) {
+  controls.tokens.tools.fullRest = {
+    name: "fullRest",
+    title: "Full Rest All Characters",
+    icon: "fas fa-bed",
+    onChange: (event, active) => {
+      new Dialog({
+        title: "Confirm Full Rest",
+        content: `<p>Apply a <strong>Full Rest</strong> to all characters?</p>`,
+        buttons: {
+          yes: {
+            label: "Yes, Full Rest All",
+            callback: async () => {
+              // Perform the full rest
+              for (const actor of game.actors.contents) {
+                if (actor.type === "Character") {
+                  await game.cypher.FullRest(actor);
+                }
+              }
+
+              ui.notifications.info("All characters have taken a full rest.");
+
+              // Chat card (no type field!)
+              const content = `
+                <div class="cypher-chat-card">
+                  <h4>Full Rest Completed</h4>
+                  <p>All characters have taken a full rest.</p>
+                </div>
+              `;
+
+              await ChatMessage.create({
+                user: game.user.id,
+                speaker: { alias: "System" },
+                content
+              });
+            }
+          },
+          no: {
+            label: "Cancel"
+          }
+        },
+        default: "no"
+      }).render(true);
+    },
+    button: true
+  };
+}
+
+export function rollDifficultyControl(controls) {
+  controls.tokens.tools.rollDifficulty = {
+    name: "rollDifficulty",
+    title: "Difficulty Control Panel",
+    icon: "fa-solid fa-crosshairs-simple",
+    onChange: (event, active) => {
+      new Dialog({
+        title: "Set Default Difficulty",
+        content: `
+    <label><b>Default Difficulty</b></label>
+    <input type="number" id="defaultDifficulty" 
+           value="${game.settings.get("cypher", "defaultDifficulty")}" 
+           min="0" max="10" style="width:100%;" />`,
+        buttons: {
+          save: {
+            label: "Save",
+            callback: (html) => {
+              let value = Number(html.find("#defaultDifficulty").val());
+              if (value > 10) value = 10;
+              game.settings.set("cypher", "defaultDifficulty", value);
+              ui.notifications.info(`Default difficulty set to ${value}`);
+            }
+          },
+          cancel: {
+            label: "Cancel"
+          }
+        },
+        default: "save"
+      }).render(true);
+    },
+    button: true
+  };
+}
+
+export function proposeGMIControl(controls) {
+  controls.tokens.tools.proposeGMI = {
+    name: "proposeGMI",
+    title: "Propose Intrusion",
+    icon: "fas fa-bolt",
+    onChange: (event, active) => {
+      openGMIntrusionDialog();
+    },
+    button: true
+  };
+}
+
+export function characterXPControl(controls) {
+  controls.tokens.tools.xp = {
+    name: "xp",
+    title: "Character XP",
+    icon: "fas fa-award",
+    onChange: (event, active) => {
+      openAwardXPDialog();
+    },
+    button: true
+  };
+}
+
+export function setGMIRangeControl(controls) {
+  controls.tokens.tools.gmiRange = {
+    name: "gmiRange",
+    title: "GM Intrusion Range",
+    icon: "fas fa-exclamation-triangle",
+    onChange: (event, active) => {
+      new Dialog({
+        title: "Set GM Intrusion Rane",
+        content: `
+    <label><b>GM Intrusion Range</b></label>
+    <input type="number" id="defaultDifficulty" 
+           value="${game.settings.get("cypher", "gmIntrusion")}" 
+           min="0" max="10" style="width:100%;" />`,
+        buttons: {
+          save: {
+            label: "Save",
+            callback: (html) => {
+              let value = Number(html.find("#defaultDifficulty").val());
+              if (value > 20) value = 20;
+              if (value < 1) value = 1;
+              game.settings.set("cypher", "gmIntrusion", value);
+              ui.notifications.info(`GM Intrusion Range set to ${value}`);
+            }
+          },
+          cancel: {
+            label: "Cancel"
+          }
+        },
+        default: "save"
+      }).render(true);
+    },
+    button: true
+  };
+}
+
+//#endregion
+
 //#region XP
-export function OpenAwardXPDialog() {
+function openAwardXPDialog() {
   const actors = game.actors.filter((a) => a.type === "Character" && a.isOwner);
 
   if (!actors.length) {
@@ -177,7 +321,7 @@ async function handleManageXP(html) {
 }
 //#endregion
 
-export function OpenGMIntrusionDialog() {
+function openGMIntrusionDialog() {
   const actors = game.actors.filter((a) => a.type === "Character" && a.isOwner);
   if (!actors.length) {
     ui.notifications.warn("No player characters found.");

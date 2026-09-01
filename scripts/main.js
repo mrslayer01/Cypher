@@ -8,7 +8,13 @@ import { CypherNPCSheet } from "./ui/cypher-npc-sheet.js";
 import { loadAllActorHandlerbarsHelpers } from "./ui/handlebars-helpers.js";
 import { CypherCombat } from "./utils/cypher-combat.js";
 import { RegisterGameSettings } from "./utils/game-settings.js";
-import { OpenAwardXPDialog, OpenGMIntrusionDialog } from "./utils/gm-macros.js";
+import {
+  characterXPControl,
+  fullRestControl,
+  proposeGMIControl,
+  rollDifficultyControl,
+  setGMIRangeControl
+} from "./utils/gm-macros.js";
 import { FullRest, spendMiscXP } from "./utils/helpers.js";
 import { CypherSystemToken, CypherSystemTokenRuler } from "./utils/token-ruler.js";
 
@@ -56,166 +62,17 @@ Hooks.once("init", async function () {
   // Override combat system
   CONFIG.Combat.documentClass = CypherCombat;
 
-  game.settings.register("cypher", "defaultDifficulty", {
-    name: "Default Roll Difficulty",
-    scope: "world",
-    config: false,
-    type: Number,
-    default: 0
-  });
-
-  game.settings.register("cypher", "gmIntrusion", {
-    name: "Default GM Intrusion Range",
-    scope: "world",
-    config: false,
-    type: Number,
-    default: 1
-  });
-
   game.cypher = game.cypher || {};
   game.cypher.FullRest = FullRest;
 });
 
 Hooks.on("getSceneControlButtons", (controls) => {
   if (game.user.isGM) {
-    controls.tokens.tools.fullRest = {
-      name: "fullRest",
-      title: "Full Rest All Characters",
-      icon: "fas fa-bed",
-      onChange: (event, active) => {
-        new Dialog({
-          title: "Confirm Full Rest",
-          content: `<p>Apply a <strong>Full Rest</strong> to all characters?</p>`,
-          buttons: {
-            yes: {
-              label: "Yes, Full Rest All",
-              callback: async () => {
-                // Perform the full rest
-                for (const actor of game.actors.contents) {
-                  if (actor.type === "Character") {
-                    await game.cypher.FullRest(actor);
-                  }
-                }
-
-                ui.notifications.info("All characters have taken a full rest.");
-
-                // Chat card (no type field!)
-                const content = `
-                <div class="cypher-chat-card">
-                  <h4>Full Rest Completed</h4>
-                  <p>All characters have taken a full rest.</p>
-                </div>
-              `;
-
-                await ChatMessage.create({
-                  user: game.user.id,
-                  speaker: { alias: "System" },
-                  content
-                });
-              }
-            },
-            no: {
-              label: "Cancel"
-            }
-          },
-          default: "no"
-        }).render(true);
-      },
-      button: true
-    };
-  }
-
-  if (game.user.isGM) {
-    controls.tokens.tools.rollDifficulty = {
-      name: "rollDifficulty",
-      title: "Difficulty Control Panel",
-      icon: "fa-solid fa-crosshairs-simple",
-      onChange: (event, active) => {
-        new Dialog({
-          title: "Set Default Difficulty",
-          content: `
-    <label><b>Default Difficulty</b></label>
-    <input type="number" id="defaultDifficulty" 
-           value="${game.settings.get("cypher", "defaultDifficulty")}" 
-           min="0" max="10" style="width:100%;" />`,
-          buttons: {
-            save: {
-              label: "Save",
-              callback: (html) => {
-                let value = Number(html.find("#defaultDifficulty").val());
-                if (value > 10) value = 10;
-                game.settings.set("cypher", "defaultDifficulty", value);
-                ui.notifications.info(`Default difficulty set to ${value}`);
-              }
-            },
-            cancel: {
-              label: "Cancel"
-            }
-          },
-          default: "save"
-        }).render(true);
-      },
-      button: true
-    };
-  }
-
-  if (game.user.isGM) {
-    controls.tokens.tools.proposeGMI = {
-      name: "proposeGMI",
-      title: "Propose Intrusion",
-      icon: "fas fa-bolt",
-      onChange: (event, active) => {
-        OpenGMIntrusionDialog();
-      },
-      button: true
-    };
-  }
-
-  if (game.user.isGM) {
-    controls.tokens.tools.xp = {
-      name: "xp",
-      title: "Character XP",
-      icon: "fas fa-award",
-      onChange: (event, active) => {
-        OpenAwardXPDialog();
-      },
-      button: true
-    };
-  }
-
-  if (game.user.isGM) {
-    controls.tokens.tools.gmiRange = {
-      name: "gmiRange",
-      title: "GM Intrusion Range",
-      icon: "fas fa-exclamation-triangle",
-      onChange: (event, active) => {
-        new Dialog({
-          title: "Set GM Intrusion Rane",
-          content: `
-    <label><b>GM Intrusion Range</b></label>
-    <input type="number" id="defaultDifficulty" 
-           value="${game.settings.get("cypher", "gmIntrusion")}" 
-           min="0" max="10" style="width:100%;" />`,
-          buttons: {
-            save: {
-              label: "Save",
-              callback: (html) => {
-                let value = Number(html.find("#defaultDifficulty").val());
-                if (value > 20) value = 20;
-                if (value < 1) value = 1;
-                game.settings.set("cypher", "gmIntrusion", value);
-                ui.notifications.info(`GM Intrusion Range set to ${value}`);
-              }
-            },
-            cancel: {
-              label: "Cancel"
-            }
-          },
-          default: "save"
-        }).render(true);
-      },
-      button: true
-    };
+    fullRestControl(controls);
+    rollDifficultyControl(controls);
+    proposeGMIControl(controls);
+    characterXPControl(controls);
+    setGMIRangeControl(controls);
   }
 });
 

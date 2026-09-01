@@ -166,7 +166,16 @@ export function getArmorValueFromType(type) {
       return 2;
     case "Heavy":
       return 3;
-    default:
-      return 0;
+  }
+}
+
+export function getWeaponDamageFromType(type) {
+  switch (type) {
+    case "Light":
+      return 2;
+    case "Medium":
+      return 4;
+    case "Heavy":
+      return 6;
   }
 }
