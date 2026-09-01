@@ -92,6 +92,8 @@ export async function CypherRollWindow(
     let autoWeaponSkill = wepSkill || null;
     let autoArmor = null;
     let autoDamage = null;
+    let autoDamagePool = null;
+    let autoDamageIgnoreArmor = null;
 
     const target = game.user.targets.values().next().value;
 
@@ -111,7 +113,9 @@ export async function CypherRollWindow(
       autoDifficulty =
         target.actor.system.core.level + target.actor.system.core.combat.attack.bonus;
       autoDifficultyExpanded = GetTaskDifficulty(autoDifficulty);
-      autoDamage = target.actor.system.core.combat.damage;
+      autoDamage = target.actor.system.core.combat.damage.value;
+      autoDamagePool = target.actor.system.core.combat.damage.pool;
+      autoDamageIgnoreArmor = target.actor.system.core.combat.damage.ignoreArmor;
       rollLabel += " - Defending vs " + target.actor.name;
     }
 
@@ -303,6 +307,8 @@ export async function CypherRollWindow(
               weaponTypeFinal,
               wepClass,
               autoDamage,
+              autoDamagePool,
+              autoDamageIgnoreArmor,
               autoArmor,
               armorEffortPenalty,
               hasShield,
@@ -354,6 +360,8 @@ async function cypherRoll({
   weaponTypeFinal,
   wepClass,
   autoDamage,
+  autoDamagePool,
+  autoDamageIgnoreArmor,
   autoArmor,
   armorEffortPenalty,
   hasShield,
@@ -445,7 +453,9 @@ async function cypherRoll({
   let defenseDamageText = "";
   if (defend && !success) {
     const npcDamage = autoDamage ?? 0;
-    const effectiveArmor = Math.max(finalArmor, 0);
+    const poolDamaged = autoDamagePool ?? "Speed";
+    const ignoreArmor = autoDamageIgnoreArmor ?? false;
+    const effectiveArmor = getEffectiveArmor(finalArmor, ignoreArmor);
     const finalDamage = Math.max(npcDamage - effectiveArmor, 0);
 
     defenseDamageText = `
@@ -453,9 +463,9 @@ async function cypherRoll({
       <b>Incoming Damage:</b> ${finalDamage}<br>
       <details>
         <summary><b>Damage Details</b></summary>
-        • NPC Base Damage: ${npcDamage}<br>
+        • NPC Base Damage: ${npcDamage} to pool: ${poolDamaged}<br>
         • PC Armor: ${finalArmor}<br>
-        • Effective Armor: ${effectiveArmor}<br>
+        • Effective Armor: ${effectiveArmor} ${ignoreArmor ? `- Armor bypassed` : ""} <br>
         • Armor Type: ${armorType}<br>
         • Armor Skill: ${armorSkill}<br>
         ${hasShield ? `• Shield: ${hasShield}<br>` : ""}
@@ -491,6 +501,15 @@ async function cypherRoll({
     success
   };
 } // END cypherRoll
+
+function getEffectiveArmor(armor, ignoreArmor) {
+  let finalArmor = 0;
+  if (!ignoreArmor) {
+    finalArmor = Math.max(armor, 0);
+  }
+
+  return finalArmor;
+}
 
 function getCypherRollEffect(total, attack, damaged) {
   const gmRange = game.settings.get("cypher", "gmIntrusion");

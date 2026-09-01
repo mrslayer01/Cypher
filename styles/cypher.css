@@ -1328,6 +1328,16 @@ textarea {
   color: var(--cypher-text-mid);
 }
 
+.dmg-row {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.dmg-row span {
+  color: var(--cypher-text-mid);
+}
+
 /* NPC sheet override — must beat .cypher-character-sheet selector */
 .app.window-app.cypher.sheet.actor .npc-sheet .editor .editor-content,
 .app.window-app.cypher.sheet.actor .npc-sheet .editor .ProseMirror {

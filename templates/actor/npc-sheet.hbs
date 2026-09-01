@@ -43,10 +43,21 @@
         </div>
 
         <div class="field">
-          <label>
-            Damage
-          </label>
-          <input type="number" name="system.core.combat.damage" value="{{system.core.combat.damage}}" />
+          <div class="dmg-row">
+            <label>
+              Damage
+            </label>
+            <input type="checkbox" name="system.core.combat.damage.ignoreArmor" data-tooltip="Ignore Armor" {{#if system.core.combat.damage.ignoreArmor}}checked{{/if}} />
+          </div>
+          <div class="dmg-row">
+            <input type="number" name="system.core.combat.damage.value" value="{{system.core.combat.damage.value}}" />
+            <span></span>
+            <select name="system.core.combat.damage.pool">
+              <option value="Might"     {{#if (eq system.core.combat.damage.pool "Might")}}selected{{/if}}>Might</option>
+              <option value="Speed"     {{#if (eq system.core.combat.damage.pool "Speed")}}selected{{/if}}>Speed</option>
+              <option value="Intellect" {{#if (eq system.core.combat.damage.pool "Intellect")}}selected{{/if}}>Intellect</option>
+            </select>
+          </div>
         </div>
 
         <div class="field">
