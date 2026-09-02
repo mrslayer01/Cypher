@@ -53,8 +53,8 @@
             <input type="number" name="system.core.combat.damage.value" value="{{system.core.combat.damage.value}}" />
             <span></span>
             <select name="system.core.combat.damage.pool">
+              <option value="None"     {{#if (eq system.core.combat.damage.pool "None")}}selected{{/if}}>None</option>
               <option value="Might"     {{#if (eq system.core.combat.damage.pool "Might")}}selected{{/if}}>Might</option>
-              <option value="Speed"     {{#if (eq system.core.combat.damage.pool "Speed")}}selected{{/if}}>Speed</option>
               <option value="Intellect" {{#if (eq system.core.combat.damage.pool "Intellect")}}selected{{/if}}>Intellect</option>
             </select>
           </div>

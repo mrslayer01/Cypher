@@ -101,6 +101,7 @@
 .dialog option,
 .cypher-item-sheet select,
 .ability-browser select,
+.roll-window-container select,
 .npc-sheet select {
   background: #2a2e3a !important; /* same as your sheet inputs */
   color: #f5f5f5 !important; /* readable text */
@@ -112,7 +113,9 @@
 /* Hover / focus */
 .dialog select:focus,
 .cypher-item-sheet select:focus,
-.ability-browser select:focus .npc-sheet select:focus {
+.ability-browser select:focus,
+.roll-window-container select:focus,
+.npc-sheet select:focus {
   border-color: var(--cypher-accent) !important;
   box-shadow: 0 0 4px rgba(0, 170, 255, 0.4);
   outline: none;
@@ -196,6 +199,7 @@ textarea {
 
 .cypher-item-sheet option,
 .ability-browser option,
+.roll-window-container option,
 .npc-sheet option {
   background: #1f222d !important; /* darker dropdown list */
   color: #e6e6e6 !important;
@@ -1597,4 +1601,200 @@ prose-mirror .editor-content {
 .cypher-description-overlay p {
   font-size: 0.85rem;
   color: var(--cypher-text-mid);
+}
+
+/* ============================================================
+   ROLL WINDOW — ROOT
+   ============================================================ */
+
+.cypher-roll-window {
+  background: #1f222d;
+  color: var(--cypher-text-light);
+  padding: 1rem;
+  border: 1px solid var(--cypher-border);
+  border-radius: 6px;
+  font-family: var(--cypher-font-body);
+}
+
+/* Title bar */
+.app.window-app#roll-window .window-header {
+  background: #1a1d27 !important;
+  border-bottom: 1px solid var(--cypher-border) !important;
+  color: var(--cypher-text-light) !important;
+}
+
+.app.window-app#roll-window .window-title {
+  font-family: var(--cypher-font-header);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 1rem;
+}
+
+.app.window-app#roll-window .header-button.close {
+  color: var(--cypher-text-light) !important;
+}
+.app.window-app#roll-window .header-button.close:hover {
+  color: var(--cypher-accent-soft) !important;
+}
+
+/* ============================================================
+   INPUTS
+   ============================================================ */
+
+.cypher-roll-window input[type="text"],
+.cypher-roll-window input[type="number"],
+.cypher-roll-window select {
+  background: #2a2e3a;
+  color: #f5f5f5;
+  border: 1px solid #3a3f4f;
+  border-radius: 4px;
+  padding: 6px 8px;
+  font-size: 0.85rem;
+  width: 100%;
+}
+
+.cypher-roll-window input:focus,
+.cypher-roll-window select:focus {
+  border-color: var(--cypher-accent);
+  box-shadow: 0 0 4px rgba(0, 170, 255, 0.4);
+  outline: none;
+}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+
+.roll-section {
+  background: linear-gradient(135deg, var(--cypher-bg-dark), var(--cypher-bg-mid));
+  border: 1px solid var(--cypher-border);
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.roll-section::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid var(--cypher-accent);
+  border-left: 2px solid var(--cypher-accent);
+}
+
+.roll-section h3 {
+  font-family: var(--cypher-font-header);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* ============================================================
+   GRID LAYOUTS
+   ============================================================ */
+
+.roll-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.roll-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+/* ============================================================
+   LIVE DIFFICULTY
+   ============================================================ */
+
+#liveDifficulty {
+  background: #1a1d27;
+  border: 1px solid var(--cypher-border);
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+#liveBreakdown {
+  background: #1a1d27;
+  border: 1px solid var(--cypher-border);
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+}
+
+#liveBreakdown summary {
+  cursor: pointer;
+  font-family: var(--cypher-font-header);
+  font-size: 0.85rem;
+  color: var(--cypher-text-mid);
+}
+
+#liveBreakdownContent {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--cypher-text-light);
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.roll-btn,
+.cypher-roll-window button {
+  background: var(--cypher-accent);
+  color: #000;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  border: none;
+  margin-top: 1rem;
+}
+
+.roll-btn:hover {
+  background: var(--cypher-accent-soft);
+}
+
+/* ============================================================
+   DIVIDERS
+   ============================================================ */
+
+.roll-divider {
+  height: 1px;
+  background: var(--cypher-border);
+  margin: 1rem 0;
+}
+
+/* ============================================================
+   LABELS
+   ============================================================ */
+
+.roll-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--cypher-text-dim);
+  margin-bottom: 4px;
+}
+
+/* ============================================================
+   WINDOW CONTENT
+   ============================================================ */
+
+.app.window-app#roll-window .window-content {
+  background: #1f222d !important;
+  color: var(--cypher-text-light) !important;
+  padding: 1rem !important;
+  border-radius: 6px !important;
 }

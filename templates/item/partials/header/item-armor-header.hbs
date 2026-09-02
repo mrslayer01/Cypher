@@ -6,6 +6,8 @@
       <option value="Light"  {{#if (eq system.armor.type "Light")}}selected{{/if}}>Light</option>
       <option value="Medium" {{#if (eq system.armor.type "Medium")}}selected{{/if}}>Medium</option>
       <option value="Heavy"  {{#if (eq system.armor.type "Heavy")}}selected{{/if}}>Heavy</option>
+      <option value="Shield"  {{#if (eq system.armor.type "Shield")}}selected{{/if}}>Shield</option>
+      <option value="Extra"  {{#if (eq system.armor.type "Extra")}}selected{{/if}}>Extra</option>
     </select>
   </div>
 
@@ -18,14 +20,6 @@
           <option value="Specialized" {{#if (eq system.armor.skill "Specialized")}}selected{{/if}}>Specialized</option>
           <option value="Inability" {{#if (eq system.armor.skill "Inability")}}selected{{/if}}>Inability</option>
       </select>
-  </div>
-
-  <!-- Shield -->
-  <div class="field">
-    <label>Shield</label>
-    <input type="checkbox"
-           name="system.armor.shield"
-           {{#if system.armor.shield}}checked{{/if}} />
   </div>
 
   <!-- Base Armor -->

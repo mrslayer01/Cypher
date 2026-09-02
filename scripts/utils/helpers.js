@@ -102,6 +102,9 @@ export function GetTaskDifficulty(difficulty) {
   let difficultyDesc = "";
 
   switch (difficulty) {
+    case 0:
+      difficultyDesc = "Routine";
+      break;
     case 1:
       difficultyDesc = "Simple (Target: 3)";
       break;
@@ -121,7 +124,7 @@ export function GetTaskDifficulty(difficulty) {
       difficultyDesc = "Intimidating (Target: 18)";
       break;
     case 7:
-      difficultyDesc = "Formidable (Target: 21";
+      difficultyDesc = "Formidable (Target: 21)";
       break;
     case 8:
       difficultyDesc = "Heroic (Target: 24)";
@@ -166,6 +169,8 @@ export function getArmorValueFromType(type) {
       return 2;
     case "Heavy":
       return 3;
+    default:
+      return 0;
   }
 }
 
