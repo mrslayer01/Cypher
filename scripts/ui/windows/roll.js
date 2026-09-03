@@ -47,7 +47,8 @@ export class RollWindow extends Application {
       definedPool: this.definedPool,
       initiative: this.initiative,
       initiativeTN: this.initiativeTN,
-      showSkill: this.shouldShowSkillField()
+      showSkill: this.shouldShowSkillField(),
+      gmIntrusionRange: this.getGMIntrusionRange()
     };
   }
 
@@ -318,6 +319,15 @@ export class RollWindow extends Application {
   }
 
   //#region Logic Functions
+
+  getGMIntrusionRange() {
+    const range = Number(game.settings.get("cypher", "gmIntrusion"));
+    let text = "GM Intrusion Range = 1";
+
+    if (range > 1) text = `GM Intrusion Range = 1 - ${range}`;
+
+    return text;
+  }
 
   effortInputValidator(value) {
     // caps field at current effort value
