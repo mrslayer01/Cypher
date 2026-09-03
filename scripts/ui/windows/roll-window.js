@@ -58,7 +58,6 @@ export async function cypherRoll({
       <summary><b>Difficulty Details</b></summary>
       <b>Difficulty Breakdown</b><br>
       • Base Difficulty: ${baseDif}<br>
-      ${weaponTypeFinal === "reaching" ? "• Reaching Weapon Hindered: 1 step<br>" : ""}
       ${wepClass?.toLowerCase() === "light" ? "• Light Weapon Eased: 1 step<br>" : ""}
       ${skill >= 0 ? `• Skill Eased: ${skill} step(s)<br>` : `• Skill Hindered: 1 step<br>`}
       ${defend && rollPool === "speed" && hasShield ? "• Shield Eased: 1 step<br>" : ""}
@@ -123,7 +122,6 @@ export async function cypherRoll({
       <summary><b>Difficulty Details</b></summary>
       <b>Difficulty Breakdown</b><br>
       • Base Difficulty: ${baseDif}<br>
-      ${weaponTypeFinal === "reaching" ? "• Reaching Weapon Hindered: 1 step<br>" : ""}
       ${wepClass?.toLowerCase() === "light" ? "• Light Weapon Eased: 1 step<br>" : ""}
       ${skill >= 0 ? `• Skill Eased: ${skill} step(s)<br>` : `• Skill Hindered: 1 step<br>`}
       ${defend && rollPool === "speed" && hasShield ? "• Shield Eased: 1 step<br>" : ""}

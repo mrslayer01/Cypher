@@ -11,6 +11,7 @@ export const DEFAULT_ITEM_DESCRIPTIONS = {
 
 export const DEFAULT_NPC_DESCRIPTIONS = {
   NPC: `
+    <p><strong>Description:</strong> </p>
     <p><strong>Motive:</strong> </p>
     <p><strong>Environment:</strong> </p>
     <p><strong>Health:</strong> </p>

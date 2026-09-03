@@ -162,7 +162,6 @@ export class RollWindow extends Application {
     let modifiedDifficulty = difficulty;
 
     if (this.defend && rollPool === "speed" && hasShield) modifiedDifficulty -= 1;
-    if (this.attack && weaponTypeFinal === "reaching") modifiedDifficulty += 1;
     if (this.attack && wepClass?.toLowerCase() === "light") modifiedDifficulty -= 1;
 
     const skillReduction = Math.max(-1, Math.min(defenceSkill, 2));
@@ -272,8 +271,6 @@ export class RollWindow extends Application {
 
     // Apply modifiers
     if (this.defend && rollPool === "speed" && hasShield) modifiedDifficulty -= 1;
-    if (this.attack && (html.find("#weaponType").val() || wepType)?.toLowerCase() === "reaching")
-      modifiedDifficulty += 1;
     if (this.attack && wepClass?.toLowerCase() === "light") modifiedDifficulty -= 1;
 
     const skillReduction = Math.max(-1, Math.min(skill, 2));
@@ -291,11 +288,6 @@ export class RollWindow extends Application {
 
     html.find("#liveBreakdownContent").html(`
     • Base Difficulty: ${baseDifficultyText}<br>
-    ${
-      this.attack && (html.find("#weaponType").val() || wepType)?.toLowerCase() === "reaching"
-        ? "• Reaching Weapon Hindered: 1 step<br>"
-        : ""
-    }
     ${this.attack && wepClass?.toLowerCase() === "light" ? "• Light Weapon Eased: 1 step<br>" : ""}
     ${skill >= 0 ? `• Skill Eased: ${skill} step(s)<br>` : `• Skill Hindered: 1 step<br>`}
     ${this.defend && rollPool === "speed" && hasShield ? "• Shield Eased: 1 step<br>" : ""}
@@ -339,7 +331,6 @@ export class RollWindow extends Application {
 
   assetInputValidator(value) {
     // caps field at 2
-
     return value <= 2;
   }
 
