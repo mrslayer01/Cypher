@@ -1744,6 +1744,33 @@ prose-mirror .editor-content {
 }
 
 /* ============================================================
+   ALWAYS-VISIBLE BREAKDOWN
+   ============================================================ */
+
+.breakdown-open {
+  background: #1a1d27;
+  border: 1px solid var(--cypher-border);
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.breakdown-open h3 {
+  font-family: var(--cypher-font-header);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  color: var(--cypher-text-mid);
+}
+
+.breakdown-open #liveBreakdownContent {
+  font-size: 0.85rem;
+  color: var(--cypher-text-light);
+  line-height: 1.3;
+}
+
+/* ============================================================
    BUTTONS
    ============================================================ */
 

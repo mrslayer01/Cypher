@@ -182,5 +182,7 @@ export function getWeaponDamageFromType(type) {
       return 4;
     case "Heavy":
       return 6;
+    default:
+      return 0;
   }
 }

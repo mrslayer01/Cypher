@@ -54,16 +54,46 @@ export class RollWindow extends Application {
   /** Attach listeners after render */
   activateListeners(html) {
     super.activateListeners(html);
+
+    html.find("#effort").on("focus", (ev) => {
+      ev.target.dataset.previous = ev.target.value;
+    });
+
+    html.find("#assets").on("focus", (ev) => {
+      ev.target.dataset.previous = ev.target.value;
+    });
+
+    html.find("#assets").on("change", (ev) => {
+      const input = ev.target;
+      const value = Number(input.value);
+
+      if (!this.assetInputValidator(value)) {
+        ui.notifications.warn("Assets cannot exceed 2.");
+        input.value = input.dataset.previous; // revert
+        return;
+      }
+
+      this.updateDifficulty(html);
+    });
+
+    html.find("#effort").on("change", (ev) => {
+      const input = ev.target;
+      const value = Number(input.value);
+
+      if (!this.effortInputValidator(value)) {
+        ui.notifications.warn("Effort cannot exceed your current Effort pool.");
+        input.value = input.dataset.previous; // revert
+        return;
+      }
+
+      this.updateDifficulty(html);
+    });
+
     html.find("#skill").on("change", () => this.updateDifficulty(html));
-    html.find("#assets").on("change", () => this.updateDifficulty(html));
-    html.find("#effort").on("change", () => this.updateDifficulty(html));
+
     html.find("#difficulty").on("change", () => this.updateDifficulty(html));
 
     html.find("#roll-button").on("click", (ev) => this._onRoll(ev, html));
-
-    html.find("details").on("toggle", () => {
-      this.autoExpand(html);
-    });
 
     this.updateDifficulty(html);
   }
@@ -206,16 +236,24 @@ export class RollWindow extends Application {
     // Lock + update difficulty if autoDifficulty is present
     const difficultyField = html.find("#difficulty");
 
-    const rollPool = this.attack
-      ? wepPool
-      : (this.definedPool?.toLowerCase() ?? html.find("#pool").val());
-
+    // NPC targeted → auto difficulty
     if (autoDifficulty !== null) {
       difficultyField.val(autoDifficulty);
       difficultyField.prop("disabled", true);
-    } else {
-      difficultyField.prop("disabled", false);
     }
+
+    // No NPC targeted → use GM default difficulty
+    else {
+      const gmDefault = game.settings.get("cypher", "defaultDifficulty") ?? 0;
+      if (gmDefault > 0) {
+        difficultyField.val(gmDefault);
+        difficultyField.prop("disabled", true);
+      }
+    }
+
+    const rollPool = this.attack
+      ? wepPool
+      : (this.definedPool?.toLowerCase() ?? html.find("#pool").val());
 
     const skill = this.defend
       ? getCurrentDefenceValue(this.actor, rollPool)
@@ -248,7 +286,6 @@ export class RollWindow extends Application {
     // Update UI
     html.find("#liveDifficulty").html(`
     <b>Live Difficulty:</b> ${finalDifficultyText}<br>
-    <b>Target Number:</b> ${targetNumber}
   `);
 
     html.find("#liveBreakdownContent").html(`
@@ -265,6 +302,7 @@ export class RollWindow extends Application {
     ${effort > 0 ? `• Effort Eased: ${effort} step(s)<br>` : ""}
     <b>• Final Difficulty:</b> ${finalDifficultyText}<br>
   `);
+    this.autoExpand(html);
   }
 
   autoExpand(html) {
@@ -280,6 +318,21 @@ export class RollWindow extends Application {
   }
 
   //#region Logic Functions
+
+  effortInputValidator(value) {
+    // caps field at current effort value
+    const actor = this.actor;
+    const effort = Number(actor.system.core.effort.current);
+
+    return value <= effort;
+  }
+
+  assetInputValidator(value) {
+    // caps field at 2
+
+    return value <= 2;
+  }
+
   /* ============================================================
    PREPARATION METHODS
    ============================================================ */

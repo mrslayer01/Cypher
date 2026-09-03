@@ -43,21 +43,12 @@
     </select>
   </div>
 
-  <div id="liveDifficulty" class="section">
-    <b>
-      Live Difficulty:
-    </b>
-    (waiting...)
-  </div>
-
-  <details class="section">
-    <summary>
-      <b>
-        Difficulty Breakdown (Live)
-      </b>
-    </summary>
+  <div id="liveBreakdown" class="section breakdown-open">
+    <h4>
+      Difficulty Breakdown
+    </h4>
     <div id="liveBreakdownContent"></div>
-  </details>
+  </div>
 
   {{#if showSkill}}
     <div class="section">
@@ -89,7 +80,17 @@
         Assets
       </b>
     </label>
-    <input type="number" id="assets" value="0" min="0" max="2" />
+    <select id="assets">
+      <option value="0">
+        None
+      </option>
+      <option value="1">
+        1 Asset
+      </option>
+      <option value="2">
+        2 Assets
+      </option>
+    </select>
   </div>
 
   <div class="section">

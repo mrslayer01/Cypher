@@ -1,9 +1,4 @@
-import {
-  GetTaskDifficulty,
-  GetWeaponSkillValue,
-  ModifyPool,
-  normalizeText
-} from "../../utils/helpers.js";
+import { GetTaskDifficulty, ModifyPool } from "../../utils/helpers.js";
 import { RollWindow } from "./roll.js";
 
 export function CypherRollWindow(actor, rollLabel, weapon, attack, defend, armor, definedPool) {
@@ -80,6 +75,13 @@ export async function cypherRoll({
 
     await ModifyPool(actor, rollPool, effortCost);
 
+    const attackDamage = `
+      <hr>
+      • Base Damage: ${baseDamage}<br>
+      • Target Armor: ${effectiveArmor}<br>
+      • Final Damage: ${finalDamage}
+    `;
+
     ChatMessage.create({
       speaker: ChatMessage.getSpeaker(),
       content: `
@@ -87,10 +89,7 @@ export async function cypherRoll({
       <hr>
       <b>Difficulty reduced to Routine — automatic success!</b><br>
       ${difficultyDetails}
-      <hr>
-      • Base Damage: ${baseDamage}<br>
-      • Target Armor: ${effectiveArmor}<br>
-      • Final Damage: ${finalDamage}
+      ${attack ? `${attackDamage}` : ""}
     `
     });
 
@@ -175,7 +174,7 @@ export async function cypherRoll({
         <summary><b>Damage Details</b></summary>
         • NPC Base Damage: ${npcDamage} ${poolDamaged != "None" ? `to pool: ${poolDamaged}` : ""}<br>
         • PC Armor: ${finalArmor}<br>
-        • Effective Armor: ${effectiveArmor} ${ignoreArmor ? `- Armor bypassed` : ""} <br>
+        • Effective Armor: ${effectiveArmor} ${ignoreArmor ? `- Armor ignored` : ""} <br>
         ${armorType && finalArmor > 0 ? `• Armor Type: ${armorType}<br>` : ""}
         ${armorSkill && finalArmor > 0 ? `• Armor Skill: ${armorSkill}<br>` : ""}
         <b>• Final Damage Taken:</b> ${finalDamage}<br>
@@ -294,17 +293,4 @@ function applyWeaponTypeRules(baseDamage, weaponType, rollTotal, armor) {
   }
 
   return { bonus, armorIgnore };
-}
-
-function autoExpandDialog(app, html) {
-  setTimeout(() => {
-    const appWindow = html.closest(".app")[0]?.parentElement;
-    if (!appWindow) return;
-
-    // Measure full dialog content height
-    const contentHeight = html.outerHeight();
-    const height = contentHeight + 50; // padding for header/buttons
-
-    app.setPosition({ height });
-  }, 10);
 }
