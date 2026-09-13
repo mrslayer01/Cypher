@@ -4,10 +4,10 @@
     <div class="field">
         <label>Weapon Class</label>
         <select name="system.weapon.type" class="weapon-type">
-        <option value="Light"   {{#if (eq system.weapon.type "Light")}}selected{{/if}}>Light</option>
-        <option value="Medium"  {{#if (eq system.weapon.type "Medium")}}selected{{/if}}>Medium</option>
-        <option value="Heavy"   {{#if (eq system.weapon.type "Heavy")}}selected{{/if}}>Heavy</option>
-        <option value="Special"   {{#if (eq system.weapon.type "Special")}}selected{{/if}}>Special</option>
+        <option value="Light" {{#if (eq system.weapon.type "Light")}}selected{{/if}}>Light</option>
+        <option value="Medium" {{#if (eq system.weapon.type "Medium")}}selected{{/if}}>Medium</option>
+        <option value="Heavy" {{#if (eq system.weapon.type "Heavy")}}selected{{/if}}>Heavy</option>
+        <option value="Special" {{#if (eq system.weapon.type "Special")}}selected{{/if}}>Special</option>
         </select>
     </div>
 
@@ -15,10 +15,11 @@
     <div class="field">
         <label>Weapon Type</label>
         <select name="system.weapon.weaponType">
-        <option value="Slashing"     {{#if (eq system.weapon.weaponType "Slashing")}}selected{{/if}}>Slashing</option>
-        <option value="Piercing"     {{#if (eq system.weapon.weaponType "Piercing")}}selected{{/if}}>Piercing</option>
+        <option value="Slashing" {{#if (eq system.weapon.weaponType "Slashing")}}selected{{/if}}>Slashing</option>
+        <option value="Piercing" {{#if (eq system.weapon.weaponType "Piercing")}}selected{{/if}}>Piercing</option>
         <option value="Crushing" {{#if (eq system.weapon.weaponType "Crushing")}}selected{{/if}}>Crushing</option>
         <option value="Reaching" {{#if (eq system.weapon.weaponType "Reaching")}}selected{{/if}}>Reaching</option>
+        <option value="Ranged" {{#if (eq system.weapon.weaponType "Ranged")}}selected{{/if}}>Ranged</option>
         <option value="Special" {{#if (eq system.weapon.weaponType "Special")}}selected{{/if}}>Special</option>
         </select>
     </div>
@@ -27,8 +28,8 @@
     <div class="field">
         <label>Attack Pool</label>
         <select name="system.weapon.attack.pool">
-        <option value="Might"     {{#if (eq system.weapon.attack.pool "Might")}}selected{{/if}}>Might</option>
-        <option value="Speed"     {{#if (eq system.weapon.attack.pool "Speed")}}selected{{/if}}>Speed</option>
+        <option value="Might" {{#if (eq system.weapon.attack.pool "Might")}}selected{{/if}}>Might</option>
+        <option value="Speed" {{#if (eq system.weapon.attack.pool "Speed")}}selected{{/if}}>Speed</option>
         <option value="Intellect" {{#if (eq system.weapon.attack.pool "Intellect")}}selected{{/if}}>Intellect</option>
         </select>
     </div>
@@ -37,8 +38,8 @@
     <div class="field">
         <label>Attack Skill</label>
         <select name="system.weapon.attack.skill">
-            <option value="Practiced"     {{#if (eq system.weapon.attack.skill "Practiced")}}selected{{/if}}>Practiced</option>
-            <option value="Trained"     {{#if (eq system.weapon.attack.skill "Trained")}}selected{{/if}}>Trained</option>
+            <option value="Practiced" {{#if (eq system.weapon.attack.skill "Practiced")}}selected{{/if}}>Practiced</option>
+            <option value="Trained" {{#if (eq system.weapon.attack.skill "Trained")}}selected{{/if}}>Trained</option>
             <option value="Specialized" {{#if (eq system.weapon.attack.skill "Specialized")}}selected{{/if}}>Specialized</option>
             <option value="Inability" {{#if (eq system.weapon.attack.skill "Inability")}}selected{{/if}}>Inability</option>
         </select>
@@ -62,4 +63,24 @@
                 value="{{system.weapon.damage.bonus}}"
                 class="no-negative"/>
     </div>
+
+    {{#if (eq system.weapon.weaponType "Ranged")}}
+        <div class="field">
+            <label>Weapon Range</label>
+            <select name="system.weapon.weaponRange">
+            <option value="Immediate" {{#if (eq system.weapon.weaponRange "Immediate")}}selected{{/if}}>Immediate</option>
+            <option value="Short" {{#if (eq system.weapon.weaponRange "Short")}}selected{{/if}}>Short</option>
+            <option value="Long" {{#if (eq system.weapon.weaponRange "Long")}}selected{{/if}}>Long</option>
+            <option value="Very Long" {{#if (eq system.weapon.weaponRange "Very Long")}}selected{{/if}}>Very Long</option>
+            </select>
+        </div>
+        
+        <div class="field">
+            <label>Ammo</label>
+            <input type="number"
+                    name="system.weapon.weaponAmmo"
+                    value="{{system.weapon.weaponAmmo}}"
+                    class="no-negative"/>
+        </div>
+    {{/if}}
 </div>

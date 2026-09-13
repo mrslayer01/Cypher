@@ -53,7 +53,9 @@ export const DEFAULT_WEAPON_DATA = {
     attack: { skill: "Practiced", pool: "Speed" },
     damage: { base: 2, bonus: 0 },
     equipped: false,
-    weaponType: "Slashing"
+    weaponType: "Slashing",
+    weaponRange: "Short",
+    weaponAmmo: 0
   }
 };
 
