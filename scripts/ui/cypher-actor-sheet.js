@@ -203,7 +203,7 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
     return newItem;
   }
 
-  getData(options) {
+  async getData(options) {
     const data = super.getData(options);
     data.system = this.actor.system;
 
@@ -233,6 +233,15 @@ export class CypherActorSheet extends foundry.appv1.sheets.ActorSheet {
     data.arcs = this.actor.system.core.experience.arcs.map((id) => {
       return this.actor.items.get(id);
     });
+
+    const TE = foundry.applications.ux.TextEditor.implementation;
+
+    data.enrichedDescription = await TE.enrichHTML(
+      this.actor.system.bio.charatcerDescription ?? "",
+      {
+        async: true
+      }
+    );
 
     return data;
   }

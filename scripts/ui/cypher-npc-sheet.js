@@ -53,7 +53,7 @@ export class CypherNPCSheet extends foundry.appv1.sheets.ActorSheet {
     NpcListeners(this, html);
   }
 
-  getData(options) {
+  async getData(options) {
     const data = super.getData(options);
     data.system = this.actor.system;
 
@@ -62,6 +62,12 @@ export class CypherNPCSheet extends foundry.appv1.sheets.ActorSheet {
 
     data.cyphers = this.actor.system.core.cyphers.map((id) => {
       return this.actor.items.get(id);
+    });
+
+    const TE = foundry.applications.ux.TextEditor.implementation;
+
+    data.enrichedNpcDescription = await TE.enrichHTML(this.actor.system.bio.npcDescription ?? "", {
+      async: true
     });
 
     return data;

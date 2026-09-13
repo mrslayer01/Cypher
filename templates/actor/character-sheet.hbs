@@ -66,23 +66,9 @@
 
     <div class="tab description" data-group="primary" data-tab="description">
         <div class="description-editor">
-          {{#if system.bio.charatcerDescription}}
-            {{editor
-              system.bio.charatcerDescription
-              target="system.bio.charatcerDescription"
-              button=true
-              editable=true
-              engine="prosemirror"
-            }}
-          {{else}}
-            {{editor
-              "<p class='placeholder'>Write your background here…</p>"
-              target="system.bio.charatcerDescription"
-              button=true
-              editable=true
-              engine="prosemirror"
-            }}
-          {{/if}}
+          <prose-mirror toggled name='system.bio.charatcerDescription' value='{{system.bio.charatcerDescription}}'>
+            {{{enrichedDescription}}}
+          </prose-mirror>
         </div>
     </div>
   </section>

@@ -117,27 +117,14 @@
   </nav>
 
   <section class="sheet-body">
-    <div class="tab" data-group="primary" data-tab="description">
-      <div class="description-editor">
-        {{#if system.bio.npcDescription}}
-          {{editor
-            system.bio.npcDescription
-            target="system.bio.npcDescription"
-            button=true
-            editable=true
-            engine="prosemirror"
-          }}
-        {{else}}
-          {{editor
-            "<p class='placeholder'>Write your background here…</p>"
-            target="system.bio.npcDescription"
-            button=true
-            editable=true
-            engine="prosemirror"
-          }}
-        {{/if}}
-      </div>
+  <div class="tab" data-group="primary" data-tab="description">
+    <div class="description-display">
+      <prose-mirror toggled name='system.bio.npcDescription' value='{{system.bio.npcDescription}}'>
+        {{{enrichedNpcDescription}}}
+      </prose-mirror>
     </div>
+  </div>
+
 
     <div class="tab" data-group="primary" data-tab="combat">
       <section class="cypher-section cyphers-section item-drop-area" data-table="cyphers">
