@@ -18,36 +18,30 @@ export class CypherActor extends Actor {
         insertKeys: true,
         overwrite: false
       });
+      // Apply default description if missing
+      const currentDesc = this.system.bio?.npcDescription;
+      if (!currentDesc || currentDesc.trim() === "") {
+        const template = DEFAULT_NPC_DESCRIPTIONS[this.type];
+        if (template) {
+          this.system.bio.npcDescription = template.trim();
+        }
+      }
     }
   }
 
   async _onCreate(data, options, userId) {
     await super._onCreate(data, options, userId);
-    if (game.user.isGM) {
-      if (this.type === "Character" && game.user.isGM) {
-        await this.update({
-          "prototypeToken.actorLink": true,
-          "prototypeToken.vision": true,
-          "prototypeToken.sight.enabled": true,
-          "prototypeToken.sight.range": 60,
-          "prototypeToken.sight.visionMode": "basic",
-          "prototypeToken.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY,
-          "prototypeToken.displayName": CONST.TOKEN_DISPLAY_MODES.ALWAYS
-        });
-      }
 
-      const characterType = this.type;
-      const currentDesc = this.system.bio.npcDescription;
-
-      if (!currentDesc || currentDesc.trim() === "") {
-        const template = DEFAULT_NPC_DESCRIPTIONS[characterType];
-        if (template) {
-          await this.update({
-            "system.bio.npcDescription": template.trim(),
-            "prototypeToken.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER
-          });
-        }
-      }
+    if (game.user.isGM && this.type === "Character") {
+      await this.update({
+        "prototypeToken.actorLink": true,
+        "prototypeToken.vision": true,
+        "prototypeToken.sight.enabled": true,
+        "prototypeToken.sight.range": 60,
+        "prototypeToken.sight.visionMode": "basic",
+        "prototypeToken.disposition": CONST.TOKEN_DISPOSITIONS.FRIENDLY,
+        "prototypeToken.displayName": CONST.TOKEN_DISPLAY_MODES.ALWAYS
+      });
     }
   }
 
