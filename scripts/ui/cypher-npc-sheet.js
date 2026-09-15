@@ -53,6 +53,22 @@ export class CypherNPCSheet extends foundry.appv1.sheets.ActorSheet {
     NpcListeners(this, html);
   }
 
+  async _updateObject(event, formData) {
+    // Force numeric type for HP fields
+    if (formData["system.core.combat.health.current"] !== undefined) {
+      formData["system.core.combat.health.current"] =
+        Number(formData["system.core.combat.health.current"]) || 0;
+    }
+
+    if (formData["system.core.combat.health.max"] !== undefined) {
+      formData["system.core.combat.health.max"] =
+        Number(formData["system.core.combat.health.max"]) || 0;
+    }
+
+    // Continue with normal update
+    return super._updateObject(event, formData);
+  }
+
   async getData(options) {
     const data = super.getData(options);
     data.system = this.actor.system;

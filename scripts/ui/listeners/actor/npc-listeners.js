@@ -58,4 +58,60 @@ export function NpcListeners(sheet, html) {
 
     ui.notifications.info("Cypher removed.");
   });
+
+  html.find(".hp-relative-input").on("change", async (ev) => {
+    const input = ev.currentTarget;
+    const raw = String(input.value).trim();
+
+    // Always pull fresh numeric values from actor
+    const current = Number(actor.system.core.combat.health.current) || 0;
+    const max = Number(actor.system.core.combat.health.max) || 0;
+
+    // If empty → revert
+    if (!raw) {
+      input.value = current;
+      return;
+    }
+
+    // Detect relative input (+5 / -3)
+    const isRelative = raw.startsWith("+") || raw.startsWith("-");
+
+    // Convert raw to number safely
+    let numeric = Number(raw);
+
+    // If conversion failed → revert
+    if (Number.isNaN(numeric)) {
+      input.value = current;
+      return;
+    }
+
+    // Compute new value
+    let newValue = isRelative ? current + numeric : numeric;
+
+    // Guard rails: force number type
+    newValue = Number(newValue);
+
+    // If still NaN → revert
+    if (Number.isNaN(newValue)) {
+      input.value = current;
+      return;
+    }
+
+    // Clamp
+    if (newValue < 0) newValue = 0;
+    if (newValue > max) newValue = max;
+
+    // Update actor with guaranteed number
+    await actor.update({
+      "system.core.combat.health.current": Number(newValue)
+    });
+
+    // Update field visually
+    input.value = newValue;
+  });
+
+  html.find(".hp-relative-input").on("focus", (ev) => {
+    // Select the entire value when the field is focused
+    ev.currentTarget.select();
+  });
 }
