@@ -98,7 +98,7 @@ export function ItemHeaderListeners(sheet, html) {
     ev.preventDefault();
 
     // Clone current steps
-    const steps = [...item.system.arc.steps];
+    const steps = Array.isArray(item.system.arc.steps) ? [...item.system.arc.steps] : [];
 
     // Push a new blank step
     steps.push({
