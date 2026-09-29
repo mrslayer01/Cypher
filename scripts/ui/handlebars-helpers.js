@@ -1,3 +1,5 @@
+import { GetTaskDifficulty } from "../utils/helpers.js";
+
 export function loadAllActorHandlerbarsHelpers() {
   Handlebars.registerHelper("normalize", function (text) {
     if (!text || typeof text !== "string") return "";
@@ -28,6 +30,10 @@ export function loadAllActorHandlerbarsHelpers() {
     const arr = [];
     for (let i = start; i <= end; i++) arr.push(i);
     return arr;
+  });
+
+  Handlebars.registerHelper("GetTaskDifficulty", function (level) {
+    return GetTaskDifficulty(Number(level));
   });
 
   Handlebars.registerHelper("ifEquals", function (a, b, options) {
